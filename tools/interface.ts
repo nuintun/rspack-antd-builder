@@ -24,9 +24,24 @@ interface EnvFunction {
 type Prop<T, K extends keyof T> = NonNullable<T[K]>;
 
 /**
+ * @description Swc 和 Lightningcss 配置
+ */
+export {
+  // Swc 配置
+  SwcLoaderOptions as SwcConfig,
+  // Lightningcss 配置
+  LightningcssLoaderOptions as LightningcssConfig
+} from '@rspack/core';
+
+/**
  * @description Rspack 文件系统
  */
 export type FileSystem = NonNullable<Options['fs']>;
+
+/**
+ * @description Svgo 配置
+ */
+export { SvgoOptions as SvgoConfig } from 'svgc-loader';
 
 /**
  * @description App 配置

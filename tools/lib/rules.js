@@ -5,7 +5,7 @@
 
 import rspack from '@rspack/core';
 import swcrc from '../../.swcrc.js';
-import { resolve } from 'node:path';
+import svgorc from '../../.svgorc.js';
 import lightningcssrc from '../../.lightningcssrc.js';
 
 /**
@@ -14,10 +14,10 @@ import lightningcssrc from '../../.lightningcssrc.js';
  * @return {Promise<NonNullable<import('@rspack/core').Configuration['module']>['rules']>}
  */
 export default async mode => {
-  const swcOptions = await swcrc();
+  const swcOptions = await swcrc(mode);
   const isDevelopment = mode !== 'production';
   const lightningcssOptions = await lightningcssrc(mode);
-  const svgoOptions = { configFile: resolve('.svgorc.js') };
+  const svgoOptions = { ...(await svgorc(mode)), configFile: false };
   const localIdentName = isDevelopment ? '[local]-[hash:8]' : '[hash:8]';
   const cssModulesOptions = { auto: true, localIdentName, exportLocalsConvention: 'camel-case-only' };
 

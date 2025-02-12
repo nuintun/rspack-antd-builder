@@ -1,6 +1,6 @@
 /**
  * @module .lightningcssrc
- * @description LightningCSS 配置
+ * @description Lightningcss 配置
  */
 
 import targets from './tools/lib/targets.js';

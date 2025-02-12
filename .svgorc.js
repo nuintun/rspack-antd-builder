@@ -6,21 +6,28 @@
 import { createHash } from 'node:crypto';
 
 /**
- * @type {import('svgc-loader').SvgoOptions}
+ * @type {import('./tools/interface').SvgoConfig}
  */
-export default {
-  plugins: [
-    'preset-default',
-    {
-      name: 'prefixIds',
-      params: {
-        delim: '-',
-        prefix(_xast, { path }) {
-          const hash = createHash('sha1');
+/**
+ * @function svgorc
+ * @param {string} mode
+ * @return {Promise<import('./tools/interface').SvgoConfig>}
+ */
+export default async () => {
+  return {
+    plugins: [
+      'preset-default',
+      {
+        name: 'prefixIds',
+        params: {
+          delim: '-',
+          prefix(_xast, { path }) {
+            const hash = createHash('sha1');
 
-          return hash.update(path).digest('hex').slice(0, 8);
+            return hash.update(path).digest('hex').slice(0, 8);
+          }
         }
       }
-    }
-  ]
+    ]
+  };
 };
