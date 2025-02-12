@@ -6,9 +6,6 @@
 import { createHash } from 'node:crypto';
 
 /**
- * @type {import('./tools/interface').SvgoConfig}
- */
-/**
  * @function svgorc
  * @param {string} mode
  * @return {Promise<import('./tools/interface').SvgoConfig>}
