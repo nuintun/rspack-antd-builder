@@ -110,8 +110,8 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
       rspack-dev-middleware:
-        specifier: ^0.1.4
-        version: 0.1.4(@rspack/core@1.2.3(@swc/helpers@0.5.15))(bufferutil@4.0.9)(koa@2.15.4)(utf-8-validate@6.0.5)
+        specifier: ^0.1.5
+        version: 0.1.5(@rspack/core@1.2.3(@swc/helpers@0.5.15))(bufferutil@4.0.9)(koa@2.15.4)(utf-8-validate@6.0.5)
       sass-embedded:
         specifier: ^1.83.4
         version: 1.83.4
@@ -2047,8 +2047,8 @@ packages:
     resolution: {integrity: sha512-a2S4Bh3bgrdO4BhKr2E4nZkjTvrJ2m2bWjMTzVYtoqSCn0HnuxosXnaJUHrMEziOWr3CzL9GjilQQKcyCQpJoA==}
     hasBin: true
 
-  rspack-dev-middleware@0.1.4:
-    resolution: {integrity: sha512-uCZ7WN+ZxnZyDxdnCRruuFkT6iLBd8HhfHOHlo3i/3vL0ABWZLQPHFJcb1aaLax1wGl3hq8fiu9+RouBVOBtzQ==}
+  rspack-dev-middleware@0.1.5:
+    resolution: {integrity: sha512-HMwEGV5aWzhKry/GkwRT/f4uWGEN1+MXIDUrCxZ8jpMVrUaEKTm93VywhRtTVFeN+0Ihc7Cmd7VSVg5XwueG0Q==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@rspack/core': '>=1.0.7'
@@ -4853,7 +4853,7 @@ snapshots:
       minimist: 1.2.8
       source-map-support: 0.3.3
 
-  rspack-dev-middleware@0.1.4(@rspack/core@1.2.3(@swc/helpers@0.5.15))(bufferutil@4.0.9)(koa@2.15.4)(utf-8-validate@6.0.5):
+  rspack-dev-middleware@0.1.5(@rspack/core@1.2.3(@swc/helpers@0.5.15))(bufferutil@4.0.9)(koa@2.15.4)(utf-8-validate@6.0.5):
     dependencies:
       '@nuintun/ansi': 0.3.0
       '@rspack/core': 1.2.3(@swc/helpers@0.5.15)

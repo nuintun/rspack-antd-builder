@@ -55,7 +55,7 @@
     "memfs": "^4.17.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.0",
-    "rspack-dev-middleware": "^0.1.4",
+    "rspack-dev-middleware": "^0.1.5",
     "sass-embedded": "^1.83.4",
     "sass-loader": "^16.0.4",
     "svgc-loader": "^0.4.0",
