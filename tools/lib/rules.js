@@ -5,6 +5,7 @@
 
 import rspack from '@rspack/core';
 import swcrc from '../../.swcrc.js';
+import { resolve } from 'node:path';
 import lightningcssrc from '../../.lightningcssrc.js';
 
 /**
@@ -16,6 +17,7 @@ export default async mode => {
   const swcOptions = await swcrc();
   const isDevelopment = mode !== 'production';
   const lightningcssOptions = await lightningcssrc(mode);
+  const svgoOptions = { configFile: resolve('.svgorc.js') };
   const localIdentName = isDevelopment ? '[local]-[hash:8]' : '[hash:8]';
   const cssModulesOptions = { auto: true, localIdentName, exportLocalsConvention: 'camel-case-only' };
 
@@ -98,7 +100,8 @@ export default async mode => {
               resourceQuery: /^\?url$/,
               use: [
                 {
-                  loader: '@nuintun/svgo-loader'
+                  loader: '@nuintun/svgo-loader',
+                  options: svgoOptions
                 }
               ]
             },
@@ -110,7 +113,8 @@ export default async mode => {
                   options: swcOptions
                 },
                 {
-                  loader: 'svgc-loader'
+                  loader: 'svgc-loader',
+                  options: svgoOptions
                 }
               ]
             },
@@ -118,7 +122,8 @@ export default async mode => {
               type: 'asset/resource',
               use: [
                 {
-                  loader: '@nuintun/svgo-loader'
+                  loader: '@nuintun/svgo-loader',
+                  options: svgoOptions
                 }
               ]
             }

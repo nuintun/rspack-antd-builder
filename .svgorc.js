@@ -1,5 +1,5 @@
 /**
- * @module svgo.config
+ * @module .svgorc
  * @description Svgo 配置
  */
 

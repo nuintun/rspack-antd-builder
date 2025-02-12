@@ -172,9 +172,9 @@ export default async mode => {
         type: 'persistent',
         buildDependencies: [
           resolve('.swcrc.js'),
+          resolve('.svgorc.js'),
           resolve('package.json'),
           resolve('app.config.js'),
-          resolve('svgo.config.js'),
           resolve('.browserslistrc'),
           resolve('.lightningcssrc.js'),
           ...(await getFilesInDirectory('tools'))
