@@ -92,11 +92,6 @@ async function resolveEnvironment(mode, env) {
 export default async mode => {
   const isDevelopment = mode !== 'production';
 
-  const process = {
-    progressChars: '█▒',
-    prefix: `[${appConfig.name}]`
-  };
-
   const html = {
     meta: appConfig.meta,
     title: appConfig.name,
@@ -113,6 +108,12 @@ export default async mode => {
     ignoreOrder: true,
     filename: `css/[${isDevelopment ? 'name' : 'contenthash'}].css`,
     chunkFilename: `css/[${isDevelopment ? 'name' : 'contenthash'}].css`
+  };
+
+  const process = {
+    progressChars: '█▒',
+    prefix: `[${appConfig.name}]`,
+    template: '{prefix:.bold} {bar:25.green/white.dim} ({percent}%) {wide_msg:.dim}'
   };
 
   return {
