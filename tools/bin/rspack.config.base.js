@@ -124,6 +124,7 @@ export default async mode => {
     context: appConfig.context,
     output: {
       clean: true,
+      hashFunction: 'xxhash64',
       cssFilename: css.filename,
       path: appConfig.outputPath,
       publicPath: appConfig.publicPath,
@@ -140,11 +141,11 @@ export default async mode => {
       extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
     plugins: [
-      new rspack.DefinePlugin(env),
-      new rspack.HtmlRspackPlugin(html),
       new rspack.ProgressPlugin(process),
-      new rspack.CssExtractRspackPlugin(css),
       new rspack.WarnCaseSensitiveModulesPlugin(),
+      new rspack.DefinePlugin(env),
+      new rspack.CssExtractRspackPlugin(css),
+      new rspack.HtmlRspackPlugin(html),
       ...(appConfig.plugins || [])
     ],
     optimization: {
