@@ -6,7 +6,7 @@
 import { createHash } from 'node:crypto';
 
 /**
- * @type {import('./tools/interface').SvgoConfig}
+ * @type {import('svgc-loader').SvgoOptions}
  */
 export default {
   plugins: [

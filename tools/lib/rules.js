@@ -1,22 +1,22 @@
 /**
  * @module rules
- * @description 配置 Webpack 规则
+ * @description 配置 Rspack 规则
  */
 
+import rspack from '@rspack/core';
 import swcrc from '../../.swcrc.js';
-import postcssrc from '../../.postcssrc.js';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import lightningcssrc from '../../.lightningcssrc.js';
 
 /**
  * @function resolveRules
  * @param {string} mode
- * @return {Promise<NonNullable<import('webpack').Configuration['module']>['rules']>}
+ * @return {Promise<NonNullable<import('@rspack/core').Configuration['module']>['rules']>}
  */
 export default async mode => {
+  const swcOptions = await swcrc();
   const isDevelopment = mode !== 'production';
-  const swcOptions = { ...(await swcrc()), swcrc: false };
+  const lightningcssOptions = await lightningcssrc(mode);
   const localIdentName = isDevelopment ? '[local]-[hash:8]' : '[hash:8]';
-  const postcssOptions = { postcssOptions: { ...(await postcssrc(mode)), config: false } };
   const cssModulesOptions = { auto: true, localIdentName, exportLocalsConvention: 'camel-case-only' };
 
   return [
@@ -28,7 +28,7 @@ export default async mode => {
           exclude: /[\\/]node_modules[\\/]/,
           use: [
             {
-              loader: 'swc-loader',
+              loader: 'builtin:swc-loader',
               options: swcOptions
             }
           ]
@@ -38,7 +38,7 @@ export default async mode => {
           test: /\.css$/i,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader
+              loader: rspack.CssExtractRspackPlugin.loader
             },
             {
               loader: 'css-modules-types-loader'
@@ -52,8 +52,8 @@ export default async mode => {
               }
             },
             {
-              loader: 'postcss-loader',
-              options: postcssOptions
+              loader: 'builtin:lightningcss-loader',
+              options: lightningcssOptions
             }
           ]
         },
@@ -62,7 +62,7 @@ export default async mode => {
           test: /\.s[ac]ss$/i,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader
+              loader: rspack.CssExtractRspackPlugin.loader
             },
             {
               loader: 'css-modules-types-loader'
@@ -76,8 +76,8 @@ export default async mode => {
               }
             },
             {
-              loader: 'postcss-loader',
-              options: postcssOptions
+              loader: 'builtin:lightningcss-loader',
+              options: lightningcssOptions
             },
             {
               loader: 'sass-loader'
@@ -106,7 +106,7 @@ export default async mode => {
               issuer: /\.[jt]sx?$/i,
               use: [
                 {
-                  loader: 'swc-loader',
+                  loader: 'builtin:swc-loader',
                   options: swcOptions
                 },
                 {

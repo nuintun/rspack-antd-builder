@@ -3,7 +3,7 @@
  */
 
 /// <reference types="react" />
-/// <reference types="webpack/module" />
+/// <reference types="@rspack/core/module" />
 
 declare module '*.png' {
   const content: string;

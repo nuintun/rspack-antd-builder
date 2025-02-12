@@ -1,3 +1,3 @@
-# webpack-antd-builder
+# rspack-antd-builder
 
-> A webpack antd build configure tools.
+> A rspack antd build configure tools.
