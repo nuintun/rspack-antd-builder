@@ -18,8 +18,24 @@ export default async mode => {
   const isDevelopment = mode !== 'production';
   const lightningcssOptions = await lightningcssrc(mode);
   const svgoOptions = { ...(await svgorc(mode)), configFile: false };
-  const localIdentName = isDevelopment ? '[local]-[hash:8]' : '[hash:8]';
-  const cssModulesOptions = { auto: true, localIdentName, exportLocalsConvention: 'camel-case-only' };
+
+  /**
+   * @function getCssLoaderOptions
+   * @param {number} importLoaders
+   * @return {object}
+   */
+  const getCssLoaderOptions = importLoaders => {
+    return {
+      importLoaders,
+      esModule: true,
+      sourceMap: isDevelopment,
+      modules: {
+        auto: true,
+        exportLocalsConvention: 'camel-case-only',
+        localIdentName: isDevelopment ? '[local]-[hash:8]' : '[hash:8]'
+      }
+    };
+  };
 
   return [
     {
@@ -47,11 +63,7 @@ export default async mode => {
             },
             {
               loader: 'css-loader',
-              options: {
-                esModule: true,
-                importLoaders: 1,
-                modules: cssModulesOptions
-              }
+              options: getCssLoaderOptions(1)
             },
             {
               loader: 'builtin:lightningcss-loader',
@@ -71,18 +83,17 @@ export default async mode => {
             },
             {
               loader: 'css-loader',
-              options: {
-                esModule: true,
-                importLoaders: 2,
-                modules: cssModulesOptions
-              }
+              options: getCssLoaderOptions(2)
             },
             {
               loader: 'builtin:lightningcss-loader',
               options: lightningcssOptions
             },
             {
-              loader: 'sass-loader'
+              loader: 'sass-loader',
+              options: {
+                sourceMap: isDevelopment
+              }
             }
           ]
         },
