@@ -60,6 +60,12 @@
     "typescript": "^5.7.3",
     "utf-8-validate": "^6.0.5"
   },
+  "overrides": {
+    "glob": "^11.0.0"
+  },
+  "resolutions": {
+    "glob": "^11.0.0"
+  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "bufferutil",
