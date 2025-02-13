@@ -1,5 +1,5 @@
 {
-  "name": "rspack-antd-build",
+  "name": "rspack-antd-builder",
   "description": "A rspack-based antd build tool.",
   "private": true,
   "type": "module",
