@@ -52,18 +52,11 @@
     "memfs": "^4.17.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
-    "rspack-dev-middleware": "^0.1.14",
+    "rspack-dev-middleware": "^0.1.15",
     "sass-embedded": "^1.86.3",
     "sass-loader": "^16.0.5",
     "svgc-loader": "^0.4.4",
     "typescript": "^5.8.3",
     "utf-8-validate": "^6.0.5"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "bufferutil",
-      "core-js-pure",
-      "utf-8-validate"
-    ]
   }
 }
