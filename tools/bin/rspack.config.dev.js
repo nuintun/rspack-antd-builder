@@ -20,8 +20,6 @@ import { server as dev } from 'rspack-dev-middleware';
 import resolveConfigure from './rspack.config.base.js';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 
-const { ports } = appConfig;
-
 /**
  * @function createMemfs
  * @return {import('../interface').FileSystem}
@@ -61,6 +59,7 @@ function httpError(error) {
 (async () => {
   const ip = resolveIp();
   const fs = createMemfs();
+  const { ports } = appConfig;
   const port = await resolvePort(ports);
   const devServerHost = `http://${ip}:${port}`;
   const configure = await resolveConfigure(mode);
