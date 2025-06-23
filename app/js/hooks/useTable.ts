@@ -106,7 +106,7 @@ export default function useTable<I, E = unknown, T = I>(
     initialLoadingState
   );
 
-  const fetch: Fetch = useCallback((options = {}): void => {
+  const fetch = useCallback<Fetch>((options = {}) => {
     const { filter, sorter } = options;
     const { current: initOptions } = opitonsRef;
     const query = { ...initOptions.query, ...options.query, ...serialize([filter, sorter]) };

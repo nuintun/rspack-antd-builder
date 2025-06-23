@@ -2,9 +2,9 @@
  * @module useResponse
  */
 
-import useLatestRef from './useLatestRef';
+import React, { useEffect, useState } from 'react';
 import { Request, RequestOptions } from './useRequest';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useLatestCallback } from './useLatestCallback';
 
 export interface Transform<R, T> {
   (response: R): T;
@@ -57,17 +57,15 @@ export default function useResponse<R, T>(
   request: Request,
   options: Options<R, T> = {}
 ): [response: R | T | undefined, fetch: Fetch<R>, dispatch: Dispatch<R | T | undefined>] {
-  const urlRef = useLatestRef(url);
-  const opitonsRef = useLatestRef(options);
   const [response, setResponse] = useState<R | T>();
 
-  const fetch = useCallback<Fetch<R>>(options => {
+  const fetch = useLatestCallback<Fetch<R>>(fetchInit => {
     const requestInit: Options<R, T> = {
-      ...opitonsRef.current,
-      ...options
+      ...options,
+      ...fetchInit
     };
 
-    request<R>(urlRef.current, {
+    request<R>(url, {
       ...requestInit,
       onSuccess(response) {
         const { transform } = requestInit;
@@ -77,7 +75,7 @@ export default function useResponse<R, T>(
         setResponse(transform ? transform(response) : response);
       }
     });
-  }, []);
+  });
 
   useEffect(() => {
     if (options.prefetch) {
