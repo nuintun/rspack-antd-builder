@@ -3,8 +3,8 @@
  */
 
 import { Fields } from '/js/utils/form';
-import useLatestRef from './useLatestRef';
 import { isObject } from '/js/utils/utils';
+import { useLatestCallback } from './useLatestCallback';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { GetProp, Popconfirm, PopconfirmProps } from 'antd';
 import React, { useCallback, useRef, useState } from 'react';
@@ -43,10 +43,7 @@ export default function useAction<F extends Fields | null, R>(
 ): [loading: boolean, onAction: (fields: F) => void, render: (children: React.ReactElement) => React.ReactElement] {
   const valuesRef = useRef<F>();
   const [open, setOpen] = useState(false);
-  const optionsRef = useLatestRef(options);
   const [loading, onSubmit] = useSubmit<F, R>(action, options);
-
-  const openRef = useLatestRef(open);
 
   const onCancel = useCallback(() => {
     setOpen(false);
@@ -58,9 +55,7 @@ export default function useAction<F extends Fields | null, R>(
     onSubmit(valuesRef.current!);
   }, []);
 
-  const onAction = useCallback((fields: F) => {
-    const { current: options } = optionsRef;
-
+  const onAction = useLatestCallback((fields: F) => {
     if (!options.disabled) {
       if (options.confirm) {
         valuesRef.current = fields;
@@ -72,14 +67,13 @@ export default function useAction<F extends Fields | null, R>(
         onSubmit(fields);
       }
     }
-  }, []);
+  });
 
   const onOpenChange = useCallback((open: boolean) => {
     setOpen(open);
   }, []);
 
-  const render = useCallback((children: React.ReactElement): React.ReactElement => {
-    const { current: options } = optionsRef;
+  const render = useLatestCallback((children: React.ReactElement): React.ReactElement => {
     const { confirm } = options;
 
     if (confirm) {
@@ -91,6 +85,7 @@ export default function useAction<F extends Fields | null, R>(
         <Popconfirm
           {...props}
           icon={icon}
+          open={open}
           trigger={[]}
           // @ts-expect-error
           showAction={[]}
@@ -99,7 +94,6 @@ export default function useAction<F extends Fields | null, R>(
           onCancel={onCancel}
           onConfirm={onConfirm}
           placement={placement}
-          open={openRef.current}
           onOpenChange={onOpenChange}
           okButtonProps={{ ...okButtonProps, loading }}
         >
@@ -109,7 +103,7 @@ export default function useAction<F extends Fields | null, R>(
     }
 
     return children;
-  }, []);
+  });
 
   return [loading, onAction, render];
 }

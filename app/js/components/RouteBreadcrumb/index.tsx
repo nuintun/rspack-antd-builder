@@ -9,11 +9,9 @@ import React, { memo, useMemo } from 'react';
 import FlexIcon from '/js/components/FlexIcon';
 import useStyles, { prefixCls } from './style';
 import { useMatches } from 'react-nest-router';
-import { Breadcrumb, BreadcrumbProps } from 'antd';
+import { Breadcrumb, BreadcrumbProps, GetProp } from 'antd';
 
-interface BreadcrumbItem {
-  title: React.ReactNode;
-}
+type BreadcrumbItems = GetProp<BreadcrumbProps, 'items'>;
 
 type BreadcrumbPicked = 'style' | 'className' | 'separator';
 
@@ -21,9 +19,9 @@ export interface RouteBreadcrumbProps extends Pick<BreadcrumbProps, BreadcrumbPi
   icon?: boolean;
 }
 
-function getBreadcrumbItems(matches: IRoute[], showIcon: boolean): BreadcrumbItem[] {
+function getBreadcrumbItems(matches: IRoute[], showIcon: boolean): BreadcrumbItems {
   const { length } = matches;
-  const items: BreadcrumbItem[] = [];
+  const items: BreadcrumbItems = [];
 
   for (let i = 0; i < length; i++) {
     const match = matches[i];
