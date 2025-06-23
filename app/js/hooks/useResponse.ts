@@ -23,7 +23,7 @@ export type Dispatch<S> = React.Dispatch<React.SetStateAction<S>>;
 
 /**
  * @function useResponse
- * @description [hook]
+ * @description [hook] 响应数据
  * @param url 请求地址
  * @param request 发送请求工厂函数
  * @param options 发送请求请求配置
@@ -35,7 +35,7 @@ export default function useResponse<R>(
 ): [response: R | undefined, fetch: Fetch<R>, dispatch: Dispatch<R | undefined>];
 /**
  * @function useResponse
- * @description [hook]
+ * @description [hook] 响应数据
  * @param url 请求地址
  * @param request 发送请求工厂函数
  * @param options 发送请求请求配置
@@ -47,7 +47,7 @@ export default function useResponse<R, T>(
 ): [response: T | undefined, fetch: Fetch<R>, dispatch: Dispatch<T | undefined>];
 /**
  * @function useResponse
- * @description [hook]
+ * @description [hook] 响应数据
  * @param url 请求地址
  * @param request 发送请求工厂函数
  * @param options 发送请求请求配置

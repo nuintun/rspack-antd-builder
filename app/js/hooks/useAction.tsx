@@ -31,6 +31,12 @@ export interface Options<F extends Fields | null, R> extends UseSubmitOptions<F,
   confirm?: string | ConfirmInit;
 }
 
+/**
+ * @function useAction
+ * @description [hook] 请求动作
+ * @param action 请求地址
+ * @param options 配置参数
+ */
 export default function useAction<F extends Fields | null, R>(
   action: string,
   options: Options<F, R> = {}
@@ -39,6 +45,8 @@ export default function useAction<F extends Fields | null, R>(
   const [open, setOpen] = useState(false);
   const optionsRef = useLatestRef(options);
   const [loading, onSubmit] = useSubmit<F, R>(action, options);
+
+  const openRef = useLatestRef(open);
 
   const onCancel = useCallback(() => {
     setOpen(false);
@@ -70,7 +78,8 @@ export default function useAction<F extends Fields | null, R>(
     setOpen(open);
   }, []);
 
-  const render = (children: React.ReactElement): React.ReactElement => {
+  const render = useCallback((children: React.ReactElement): React.ReactElement => {
+    const { current: options } = optionsRef;
     const { confirm } = options;
 
     if (confirm) {
@@ -82,7 +91,6 @@ export default function useAction<F extends Fields | null, R>(
         <Popconfirm
           {...props}
           icon={icon}
-          open={open}
           trigger={[]}
           // @ts-expect-error
           showAction={[]}
@@ -91,6 +99,7 @@ export default function useAction<F extends Fields | null, R>(
           onCancel={onCancel}
           onConfirm={onConfirm}
           placement={placement}
+          open={openRef.current}
           onOpenChange={onOpenChange}
           okButtonProps={{ ...okButtonProps, loading }}
         >
@@ -100,7 +109,7 @@ export default function useAction<F extends Fields | null, R>(
     }
 
     return children;
-  };
+  }, []);
 
   return [loading, onAction, render];
 }
