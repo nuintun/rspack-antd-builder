@@ -3,8 +3,8 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import useLatestCallback from './useLatestCallback';
 import { Request, RequestOptions } from './useRequest';
-import { useLatestCallback } from './useLatestCallback';
 
 export interface Transform<R, T> {
   (response: R): T;

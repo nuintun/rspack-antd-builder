@@ -2,7 +2,7 @@
  * @module useFullscreen
  */
 
-import { useLatestCallback } from './useLatestCallback';
+import useLatestCallback from './useLatestCallback';
 import { getTargetElement, Target } from '/js/utils/dom';
 import { useCallback, useEffect, useState } from 'react';
 

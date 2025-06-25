@@ -8,7 +8,7 @@ import * as mime from '/js/utils/mime';
 import useIsMounted from './useIsMounted';
 import useLazyState from './useLazyState';
 import { isObject } from '/js/utils/utils';
-import { useLatestCallback } from './useLatestCallback';
+import useLatestCallback from './useLatestCallback';
 import { Location, useLocation, useNavigate } from 'react-nest-router';
 import fetch, { Options as RequestInit, RequestError } from '/js/utils/request';
 

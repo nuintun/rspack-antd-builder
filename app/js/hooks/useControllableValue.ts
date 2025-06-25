@@ -5,7 +5,7 @@
 import useIsMounted from './useIsMounted';
 import { isFunction } from '/js/utils/utils';
 import React, { useEffect, useState } from 'react';
-import { useLatestCallback } from './useLatestCallback';
+import useLatestCallback from './useLatestCallback';
 
 export interface Props {
   [prop: string]: any;

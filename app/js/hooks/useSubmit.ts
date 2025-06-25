@@ -5,7 +5,7 @@
 import { App } from 'antd';
 import { Fields } from '/js/utils/form';
 import { RequestError } from '/js/utils/request';
-import { useLatestCallback } from './useLatestCallback';
+import useLatestCallback from './useLatestCallback';
 import useRequest, { RequestOptions } from './useRequest';
 
 const { useApp } = App;

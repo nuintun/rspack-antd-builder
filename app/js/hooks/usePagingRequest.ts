@@ -3,7 +3,7 @@
  */
 
 import { App } from 'antd';
-import { useLatestCallback } from './useLatestCallback';
+import useLatestCallback from './useLatestCallback';
 import React, { useMemo, useRef, useState } from 'react';
 import useRequest, { Options as InitOptions, RequestOptions as RequestInit } from './useRequest';
 

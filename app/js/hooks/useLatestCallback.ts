@@ -15,7 +15,7 @@ export interface Callback {
  * @function useLatestCallback
  * @param callback 待处理的回调函数
  */
-export function useLatestCallback<C extends Callback>(callback: C): C {
+export default function useLatestCallback<C extends Callback>(callback: C): C {
   const callbackRef = useLatestRef(callback);
 
   return useCallback<Callback>(function (this, ...args) {

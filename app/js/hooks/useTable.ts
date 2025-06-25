@@ -13,7 +13,7 @@ import usePagingRequest, {
 } from './usePagingRequest';
 import { GetProp, TableProps } from 'antd';
 import React, { useCallback, useMemo } from 'react';
-import { useLatestCallback } from './useLatestCallback';
+import useLatestCallback from './useLatestCallback';
 import useSearchFilters, { Filter } from './useSearchFilters';
 import usePagingOptions, { Options as PagingOptions } from './usePagingOptions';
 

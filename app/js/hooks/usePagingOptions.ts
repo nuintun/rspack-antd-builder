@@ -3,7 +3,7 @@
  */
 
 import { PaginationProps } from 'antd';
-import { useLatestCallback } from './useLatestCallback';
+import useLatestCallback from './useLatestCallback';
 
 export interface UsePagingOptions {
   (pageSize: number): PagingOptions | undefined;
