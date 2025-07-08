@@ -23,7 +23,7 @@ function showTotal(total: number): string {
   return `共 ${total} 条`;
 }
 
-const DEFAULT_PAGE_SIZE_OPTIONS = [20, 30, 50, 80];
+const DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
 
 /**
  * @function usePagingOptions
@@ -46,15 +46,20 @@ export default function usePagingOptions(opitons: Options | false = {}): UsePagi
         }
       }
 
-      return {
+      const pagingOptions: PagingOptions = {
         showTotal,
         showQuickJumper,
         showSizeChanger,
         size: 'default',
         responsive: true,
-        ...opitons,
-        pageSizeOptions: showSizeChanger ? pageSizeOptions.map(item => item.toString()) : []
+        ...opitons
       };
+
+      if (showSizeChanger) {
+        pagingOptions.pageSizeOptions = pageSizeOptions;
+      }
+
+      return pagingOptions;
     }
   });
 }
