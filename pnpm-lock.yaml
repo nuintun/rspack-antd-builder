@@ -85,8 +85,8 @@ importers:
         specifier: ^7.1.2
         version: 7.1.2(@rspack/core@1.4.5(@swc/helpers@0.5.17))
       css-modules-types-loader:
-        specifier: ^0.6.9
-        version: 0.6.9(@rspack/core@1.4.5(@swc/helpers@0.5.17))
+        specifier: ^0.6.10
+        version: 0.6.10(@rspack/core@1.4.5(@swc/helpers@0.5.17))
       find-free-ports:
         specifier: ^3.1.1
         version: 3.1.1
@@ -100,8 +100,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       rspack-dev-middleware:
-        specifier: ^0.1.22
-        version: 0.1.22(@rspack/core@1.4.5(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.0)(utf-8-validate@6.0.5)
+        specifier: ^0.1.23
+        version: 0.1.23(@rspack/core@1.4.5(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.0)(utf-8-validate@6.0.5)
       sass-embedded:
         specifier: ^1.89.2
         version: 1.89.2
@@ -329,8 +329,8 @@ packages:
   '@napi-rs/wasm-runtime@0.2.11':
     resolution: {integrity: sha512-9DPkXtvHydrcOsopiYpUgPHpmj0HWZKMUnL2dZqpvC42lsratuBG06V5ipyno0fUek5VlFsNQ+AcFATSrJXgMA==}
 
-  '@nuintun/ansi@0.3.3':
-    resolution: {integrity: sha512-Ww2UktL+qR3t/yPWQPAXHU1acjDZOymMDaFFrQciVsToonBCPUZDaw/Dg6ewfa/C9kWfTIfnI8Syy999oV96vA==}
+  '@nuintun/ansi@0.3.5':
+    resolution: {integrity: sha512-L/+KfHDq3dYFCow3Cb/m8L5d2bLoTBvgqs5QGuy4kosLFXijRpg4TAJny6OsLrliyRj83SHvhL7NKf9IskkRfw==}
 
   '@nuintun/qrcode@5.0.2':
     resolution: {integrity: sha512-IkbIU+bgHmivthsdjwR5Cos0ZkFJKILY/PgwARiTOzYGQLP4vBa40LDXajlkH5HX/zRuPgg3Jyufp+81t67XLg==}
@@ -684,8 +684,8 @@ packages:
       webpack:
         optional: true
 
-  css-modules-types-loader@0.6.9:
-    resolution: {integrity: sha512-BELA1sliQJFvMR8Acc1iLxhkkPzMQD/26lFTsQifS0qPDzPT8m12Dc/DbbJrabOmEIf4aV9awelavDJjcLINqQ==}
+  css-modules-types-loader@0.6.10:
+    resolution: {integrity: sha512-iyMZabQgHSIUWH/hym7m8eYaQbFszc4WzA9LB6mMpfghO5WiD22VTWfFonC6ivemdI1j0DcEhZO1UfdbGXEhRw==}
     peerDependencies:
       '@rspack/core': ^1.0.0
       webpack: ^5.0.0
@@ -989,8 +989,8 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
 
-  piscina@5.1.2:
-    resolution: {integrity: sha512-9cE/BTA/xhDiyNUEj6EKWLEQC17fh/24ydYzQwcA7QdYh75K6kzL2GHvxDF5i9rFGtUaaKk7/u4xp07qiKXccQ==}
+  piscina@5.1.3:
+    resolution: {integrity: sha512-0u3N7H4+hbr40KjuVn2uNhOcthu/9usKhnw5vT3J7ply79v3D3M8naI00el9Klcy16x557VsEkkUQaHCWFXC/g==}
     engines: {node: '>=20.x'}
 
   postcss-modules-extract-imports@3.1.0:
@@ -1305,8 +1305,8 @@ packages:
   resize-observer-polyfill@1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
 
-  rspack-dev-middleware@0.1.22:
-    resolution: {integrity: sha512-vg228OpLlUcclUPKReOnThG89JQAbyCUV/zY10dYXlMW0t2VUvyuR31M1m8SUHSL25dtWZw0ZF/+iDvRGidtHQ==}
+  rspack-dev-middleware@0.1.23:
+    resolution: {integrity: sha512-TDhr3B9CnopOshwnMDmiUlucBAVm846PJbXVDSm4fyRXnVXMWZpBDaBo/jjFKEknaTbjXDTuZCZ/KlM609F64A==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@rspack/core': '>=1.0.7'
@@ -1829,7 +1829,7 @@ snapshots:
       '@tybys/wasm-util': 0.9.0
     optional: true
 
-  '@nuintun/ansi@0.3.3':
+  '@nuintun/ansi@0.3.5':
     dependencies:
       tslib: 2.8.1
 
@@ -2257,11 +2257,11 @@ snapshots:
     optionalDependencies:
       '@rspack/core': 1.4.5(@swc/helpers@0.5.17)
 
-  css-modules-types-loader@0.6.9(@rspack/core@1.4.5(@swc/helpers@0.5.17)):
+  css-modules-types-loader@0.6.10(@rspack/core@1.4.5(@swc/helpers@0.5.17)):
     dependencies:
       acorn: 8.15.0
       acorn-walk: 8.3.4
-      piscina: 5.1.2
+      piscina: 5.1.3
       tslib: 2.8.1
     optionalDependencies:
       '@rspack/core': 1.4.5(@swc/helpers@0.5.17)
@@ -2542,7 +2542,7 @@ snapshots:
 
   picomatch@2.3.1: {}
 
-  piscina@5.1.2:
+  piscina@5.1.3:
     optionalDependencies:
       '@napi-rs/nice': 1.0.4
 
@@ -2937,9 +2937,9 @@ snapshots:
 
   resize-observer-polyfill@1.5.1: {}
 
-  rspack-dev-middleware@0.1.22(@rspack/core@1.4.5(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.0)(utf-8-validate@6.0.5):
+  rspack-dev-middleware@0.1.23(@rspack/core@1.4.5(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.0)(utf-8-validate@6.0.5):
     dependencies:
-      '@nuintun/ansi': 0.3.3
+      '@nuintun/ansi': 0.3.5
       '@rspack/core': 1.4.5(@swc/helpers@0.5.17)
       '@types/koa': 2.15.0
       '@types/ws': 8.18.1
