@@ -9,7 +9,6 @@ const { fromCharCode } = String;
  * @description 安全模式的 atob
  * @param text 要 Base64 解码的文本
  */
-
 function safeAtob(text: string): string {
   try {
     return globalThis.atob(text);
