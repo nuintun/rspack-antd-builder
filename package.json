@@ -13,6 +13,7 @@
   "license": "MIT",
   "homepage": "https://github.com/nuintun/rspack-antd-builder",
   "scripts": {
+    "tsc-init": "tsc --init",
     "lint": "tsc --noEmit",
     "start": "node server.js",
     "prod": "node tools/bin/rspack.config.prod.js",
@@ -51,14 +52,14 @@
     "css-loader": "^7.1.2",
     "css-modules-types-loader": "^0.6.10",
     "find-free-ports": "^3.1.1",
-    "memfs": "^4.24.0",
+    "memfs": "^4.28.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "rspack-dev-middleware": "^0.1.26",
     "sass-embedded": "^1.89.2",
     "sass-loader": "^16.0.5",
     "svgc-loader": "^0.5.1",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "utf-8-validate": "^6.0.5"
   }
 }

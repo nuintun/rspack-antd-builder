@@ -97,8 +97,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       memfs:
-        specifier: ^4.24.0
-        version: 4.24.0
+        specifier: ^4.28.0
+        version: 4.28.0
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
@@ -118,8 +118,8 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1(@rspack/core@1.4.11(@swc/helpers@0.5.17))(react@18.3.1)
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
       utf-8-validate:
         specifier: ^6.0.5
         version: 6.0.5
@@ -930,8 +930,8 @@ packages:
     resolution: {integrity: sha512-aisnrDP4GNe06UcKFnV5bfMNPBUw4jsLGaWwWfnH3v02GnBuXX2MCVn5RbrWo0j3pczUilYblq7fQ7Nw2t5XKw==}
     engines: {node: '>= 0.8'}
 
-  memfs@4.24.0:
-    resolution: {integrity: sha512-PiyWpigBOgdsdvnn4U3PlQytj46ZEw/dMVmcqXuX1KUHoYzaGTL25E9rfK+c26mPAh9RmBdXldoxbQkYbH20Uw==}
+  memfs@4.28.0:
+    resolution: {integrity: sha512-b+hDyduUpkxKXpi/fIG5e2HTbcldi0pGdbcCUzXmFJM/ImnQgnSO+qe5ssB52lTbHJfzfEkda2zhmOGK1UtaQA==}
     engines: {node: '>= 4.0.0'}
 
   memoize-one@6.0.0:
@@ -1591,8 +1591,8 @@ packages:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
 
-  typescript@5.8.3:
-    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+  typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2486,7 +2486,7 @@ snapshots:
 
   media-typer@1.1.0: {}
 
-  memfs@4.24.0:
+  memfs@4.28.0:
     dependencies:
       '@jsonjoy.com/json-pack': 1.4.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.8.0(tslib@2.8.1)
@@ -2953,7 +2953,7 @@ snapshots:
       '@types/ws': 8.18.1
       etag: 1.8.1
       koa: 3.0.1
-      memfs: 4.24.0
+      memfs: 4.28.0
       range-parser: 1.2.1
       schema-utils: 4.3.2
       supports-color: 10.0.0
@@ -3157,7 +3157,7 @@ snapshots:
       media-typer: 1.1.0
       mime-types: 3.0.1
 
-  typescript@5.8.3: {}
+  typescript@5.9.2: {}
 
   undefsafe@2.0.5: {}
 
