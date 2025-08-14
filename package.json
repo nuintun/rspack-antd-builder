@@ -27,7 +27,7 @@
     "@msgpack/msgpack": "^3.1.2",
     "@nuintun/qrcode": "^5.0.2",
     "@swc/helpers": "^0.5.17",
-    "antd": "^5.26.7",
+    "antd": "^5.27.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "fast-equals": "^5.2.2",
