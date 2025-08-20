@@ -27,8 +27,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       antd:
-        specifier: ^5.27.0
-        version: 5.27.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^5.27.1
+        version: 5.27.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -97,8 +97,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       memfs:
-        specifier: ^4.36.0
-        version: 4.36.0
+        specifier: ^4.36.3
+        version: 4.36.3
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
@@ -106,8 +106,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       rspack-dev-middleware:
-        specifier: ^0.1.28
-        version: 0.1.28(@rspack/core@1.4.11(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.1)(utf-8-validate@6.0.5)
+        specifier: ^0.1.29
+        version: 0.1.29(@rspack/core@1.4.11(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.1)(utf-8-validate@6.0.5)
       sass-embedded:
         specifier: ^1.90.0
         version: 1.90.0
@@ -214,8 +214,8 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@jsonjoy.com/json-pack@1.10.0':
-    resolution: {integrity: sha512-PMOU9Sh0baiLZEDewwR/YAHJBV2D8pPIzcFQSU7HQl/k/HNCDyVfO1OvkyDwBGp4dPtvZc7Hl9FFYWwTP1CbZw==}
+  '@jsonjoy.com/json-pack@1.11.0':
+    resolution: {integrity: sha512-nLqSTAYwpk+5ZQIoVp7pfd/oSKNWlEdvTq2LzVA4r2wtWZg6v+5u0VgBOaDJuUfNOuw/4Ysq6glN5QKSrOCgrA==}
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: '2'
@@ -707,8 +707,8 @@ packages:
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
 
-  antd@5.27.0:
-    resolution: {integrity: sha512-o54dmpooLOc08RSGCkeEQBYAGPxUSmnhmYJKCNTHH46vzjOVxdteu+wPTRVkRbAkDTbs2VcNr5VL7Lu67rPIiA==}
+  antd@5.27.1:
+    resolution: {integrity: sha512-jGMSdBN7hAMvPV27B4RhzZfL6n6yu8yDbo7oXrlJasaOqB7bSDPcjdEy1kXy3JPsny/Qazb1ykzRI4EfcByAPQ==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -1045,8 +1045,8 @@ packages:
     resolution: {integrity: sha512-aisnrDP4GNe06UcKFnV5bfMNPBUw4jsLGaWwWfnH3v02GnBuXX2MCVn5RbrWo0j3pczUilYblq7fQ7Nw2t5XKw==}
     engines: {node: '>= 0.8'}
 
-  memfs@4.36.0:
-    resolution: {integrity: sha512-mfBfzGUdoEw5AZwG8E965ej3BbvW2F9LxEWj4uLxF6BEh1dO2N9eS3AGu9S6vfenuQYrVjsbUOOZK7y3vz4vyQ==}
+  memfs@4.36.3:
+    resolution: {integrity: sha512-rZIVsNPGdZDPls/ckWhIsod2zRNsI2f2kEru0gMldkrEve+fPn7CVBTvfKLNyHQ9rZDWwzVBF8tPsZivzDPiZQ==}
     engines: {node: '>= 4.0.0'}
 
   memoize-one@6.0.0:
@@ -1444,8 +1444,8 @@ packages:
   resize-observer-polyfill@1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
 
-  rspack-dev-middleware@0.1.28:
-    resolution: {integrity: sha512-GIXALZdcLPTZBb2PKrnQCkuzwP87P7IL28tmoUrR/GNTUAhyNpCLhNZkoacoqggYXoMYDGNB8GIdCivAzEpEZQ==}
+  rspack-dev-middleware@0.1.29:
+    resolution: {integrity: sha512-uhgUMH4bHNHOBz+WOgQSl8b1sKiN1mIeJ7T8ezJ35A9jd/irPkndlixfBWXQ1sBfNo8hVVhj2v1Sai9iwNHWkQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@rspack/core': '>=1.0.7'
@@ -1642,8 +1642,8 @@ packages:
   stylis@4.3.6:
     resolution: {integrity: sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ==}
 
-  supports-color@10.1.0:
-    resolution: {integrity: sha512-GBuewsPrhJPftT+fqDa9oI/zc5HNsG9nREqwzoSFDOIqf0NggOZbHQj2TE1P1CDJK8ZogFnlZY9hWoUiur7I/A==}
+  supports-color@10.2.0:
+    resolution: {integrity: sha512-5eG9FQjEjDbAlI5+kdpdyPIBMRH4GfTVDGREVupaZHmVoppknhM29b/S9BkQz7cathp85BVgRi/As3Siln7e0Q==}
     engines: {node: '>=18'}
 
   supports-color@5.5.0:
@@ -1873,7 +1873,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@jsonjoy.com/json-pack@1.10.0(tslib@2.8.1)':
+  '@jsonjoy.com/json-pack@1.11.0(tslib@2.8.1)':
     dependencies:
       '@jsonjoy.com/base64': 1.1.2(tslib@2.8.1)
       '@jsonjoy.com/buffers': 1.0.0(tslib@2.8.1)
@@ -2346,7 +2346,7 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  antd@5.27.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  antd@5.27.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@ant-design/colors': 7.2.1
       '@ant-design/cssinjs': 1.24.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2716,10 +2716,11 @@ snapshots:
 
   media-typer@1.1.0: {}
 
-  memfs@4.36.0:
+  memfs@4.36.3:
     dependencies:
-      '@jsonjoy.com/json-pack': 1.10.0(tslib@2.8.1)
+      '@jsonjoy.com/json-pack': 1.11.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
+      thingies: 2.5.0(tslib@2.8.1)
       tree-dump: 1.0.3(tslib@2.8.1)
       tslib: 2.8.1
 
@@ -3187,7 +3188,7 @@ snapshots:
 
   resize-observer-polyfill@1.5.1: {}
 
-  rspack-dev-middleware@0.1.28(@rspack/core@1.4.11(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.1)(utf-8-validate@6.0.5):
+  rspack-dev-middleware@0.1.29(@rspack/core@1.4.11(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.0.1)(utf-8-validate@6.0.5):
     dependencies:
       '@nuintun/ansi': 0.3.6
       '@rspack/core': 1.4.11(@swc/helpers@0.5.17)
@@ -3195,10 +3196,10 @@ snapshots:
       '@types/ws': 8.18.1
       etag: 1.8.1
       koa: 3.0.1
-      memfs: 4.36.0
+      memfs: 4.36.3
       range-parser: 1.2.1
       schema-utils: 4.3.2
-      supports-color: 10.1.0
+      supports-color: 10.2.0
       tslib: 2.8.1
       uuid: 11.1.0
       ws: 8.18.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -3356,7 +3357,7 @@ snapshots:
 
   stylis@4.3.6: {}
 
-  supports-color@10.1.0: {}
+  supports-color@10.2.0: {}
 
   supports-color@5.5.0:
     dependencies:
