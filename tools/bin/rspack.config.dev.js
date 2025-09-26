@@ -72,7 +72,7 @@ function httpError(error) {
   const app = new Koa();
   const compiler = rspack(configure);
 
-  const devService = dev(compiler, {
+  const devService = await dev(compiler, {
     fs,
     headers: {
       'Cache-Control': 'no-cache',
@@ -98,8 +98,6 @@ function httpError(error) {
   });
 
   app.listen(port, () => {
-    devService.ready(() => {
-      devService.logger.info(`server run at: \x1b[36m${devServerHost}\x1b[0m`);
-    });
+    devService.logger.info(`server run at: \x1b[36m${devServerHost}\x1b[0m`);
   });
 })();
