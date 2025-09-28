@@ -52,7 +52,7 @@
     "css-loader": "^7.1.2",
     "css-modules-types-loader": "^0.6.12",
     "find-free-ports": "^3.1.1",
-    "memfs": "^4.46.1",
+    "memfs": "^4.47.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "rspack-dev-middleware": "^0.2.0",
