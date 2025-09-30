@@ -61,10 +61,21 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
   const optionsRef = useLatestRef(options);
   // 消息发送队列，用于在连接未建立时缓存消息
   const sendQueueRef = useRef<Message[]>([]);
+  // 重连定时器 ref
+  const reconnectTimerRef = useRef<Timeout>();
   // WebSocket 实例的 ref
   const websocketRef = useRef<WebSocket | null>(null);
-  // 重连定时器 ref
-  const reconnectTimerRef = useRef<Timeout>(undefined);
+
+  /**
+   * @description 清除重连定时器
+   */
+  const clearReconnectTimer = useCallback(() => {
+    const reconnectTimer = reconnectTimerRef.current;
+
+    if (reconnectTimer != null) {
+      clearTimeout(reconnectTimer);
+    }
+  }, []);
 
   /**
    * @description 建立 WebSocket 连接
@@ -76,7 +87,7 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
     // 如果当前状态不是 CONNECTING 或 OPEN，则创建新的 WebSocket 实例
     if (readyState !== WebSocket.CONNECTING && readyState !== WebSocket.OPEN) {
       // 清除之前的重连定时器
-      clearTimeout(reconnectTimerRef.current);
+      clearReconnectTimer();
 
       // 创建 WebSocket 连接
       const createWebSocket = () => {
@@ -189,10 +200,10 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
    * @param reason 关闭原因
    */
   const disconnect = useCallback((code: number = 1000, reason?: string): void => {
-    const { reconnectLimit = 3 } = optionsRef.current;
+    // 清除之前的重连定时器
+    clearReconnectTimer();
 
-    // 清除重连定时器
-    clearTimeout(reconnectTimerRef.current);
+    const { reconnectLimit = 3 } = optionsRef.current;
 
     // 设置重连次数达到上限，防止断开后自动重连
     reconnectTimesRef.current = reconnectLimit;
@@ -230,7 +241,8 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
 
       // 如果当前状态不是 CONNECTING 或 OPEN，则创建新的 WebSocket 实例
       if (readyState !== WebSocket.CONNECTING && readyState !== WebSocket.OPEN) {
-        clearTimeout(reconnectTimerRef.current);
+        // 清除之前的重连定时器
+        clearReconnectTimer();
 
         const { reconnectInterval = 3000 } = options;
 
