@@ -5,11 +5,23 @@
 import { Outlet, useMatches, useMatchIndex } from 'react-nest-router';
 import React, { createContext, memo, useContext, useEffect, useMemo } from 'react';
 
+interface OnChange {
+  (active: boolean): void;
+}
+
 export interface KeepAliveProps {
   children: React.ReactNode;
 }
 
 const KeepAliveContext = createContext(false);
+
+export function useActiveChange(onChange: OnChange): void {
+  const active = useContext(KeepAliveContext);
+
+  useEffect(() => {
+    onChange(active);
+  }, [active]);
+}
 
 export default memo(function KeepAlive({ children }: KeepAliveProps) {
   const matches = useMatches();
@@ -28,11 +40,3 @@ export default memo(function KeepAlive({ children }: KeepAliveProps) {
     </KeepAliveContext.Provider>
   );
 });
-
-export function useActiveChange(onChange: (active: boolean) => void): void {
-  const active = useContext(KeepAliveContext);
-
-  useEffect(() => {
-    onChange(active);
-  }, [active]);
-}
