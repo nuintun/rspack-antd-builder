@@ -61,10 +61,10 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
   const optionsRef = useLatestRef(options);
   // 消息发送队列，用于在连接未建立时缓存消息
   const sendQueueRef = useRef<Message[]>([]);
-  // 重连定时器 ref
-  const reconnectTimerRef = useRef<Timeout>();
   // WebSocket 实例的 ref
   const websocketRef = useRef<WebSocket | null>(null);
+  // 重连定时器 ref
+  const reconnectTimerRef = useRef<Timeout | null>(null);
 
   /**
    * @description 清除重连定时器
