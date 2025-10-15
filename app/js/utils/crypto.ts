@@ -144,6 +144,7 @@ export function encrypt(buffer: Uint8Array, littleEndian?: boolean): Uint8Array 
 
   // 循环加密数据，每块 4 字节
   for (let offset = 0; offset < encryptBlocks; offset++) {
+    // 加密数据块并更新密钥
     xorKey = encryptBlock(packetView, offset, xorKey, littleEndian);
   }
 
@@ -212,6 +213,7 @@ export function decrypt(packet: Uint8Array, littleEndian?: boolean): Uint8Array 
 
   // 循环解密数据，每块 4 字节，忽略最后一块，放后面以便补位处理
   for (let offset = 0; offset < maxBlockOffset; offset++) {
+    // 解密数据块并更新密钥
     xorKey = decryptBlock(bufferView, offset, xorKey, littleEndian);
   }
 
