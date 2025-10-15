@@ -69,6 +69,50 @@ function crc32c(bytes: Uint8Array, offset: number, end: number): number {
 }
 
 /**
+ * @function encryptBlock
+ * @description 加密单个数据块并派生下一个密钥
+ * @param {DataView} view 数据视图
+ * @param {number} offset 数据块偏移量（以 4 字节为单位）
+ * @param {number} xorKey XOR 加密密钥
+ * @param {boolean} [littleEndian] 是否使用小端字节序
+ * @returns {number} 根据加密数据派生的新密钥
+ */
+function encryptBlock(view: DataView, offset: number, xorKey: number, littleEndian?: boolean): number {
+  // 计算当前块偏移位置
+  const blockOffset = Packet.HEAD_SIZE + offset * 4;
+  // 读取4字节数据并与密钥进行 XOR 运算实现加密
+  const value = (view.getUint32(blockOffset, littleEndian) ^ xorKey) >>> 0;
+
+  // 写入加密后的数据
+  view.setUint32(blockOffset, value, littleEndian);
+
+  // 根据加密后的数据派生新的密钥，实现密钥流加密
+  return deriveXorKey(value);
+}
+
+/**
+ * @function decryptBlock
+ * @description 解密单个数据块并派生下一个密钥
+ * @param {DataView} view 数据视图
+ * @param {number} offset 数据块偏移量（以 4 字节为单位）
+ * @param {number} xorKey XOR 解密密钥
+ * @param {boolean} [littleEndian] 是否使用小端字节序
+ * @returns {number} 根据解密数据派生的新密钥
+ */
+function decryptBlock(view: DataView, offset: number, xorKey: number, littleEndian?: boolean): number {
+  // 计算当前块偏移位置
+  const blockOffset = offset * 4;
+  // 读取当前块数据
+  const value = view.getUint32(blockOffset, littleEndian);
+
+  // 进行 XOR 解密并写入解密后的数据
+  view.setUint32(blockOffset, value ^ xorKey, littleEndian);
+
+  // 更新解密密钥，实现密钥流解密
+  return deriveXorKey(value);
+}
+
+/**
  * @function encrypt
  * @description 对数据进行加密处理
  * @param {Uint8Array} buffer 需要加密的数据
@@ -99,16 +143,8 @@ export function encrypt(buffer: Uint8Array, littleEndian?: boolean): Uint8Array 
   let xorKey = deriveXorKey(key);
 
   // 循环加密数据，每块 4 字节
-  for (let i = 0; i < encryptBlocks; i++) {
-    const blockOffset = Packet.HEAD_SIZE + i * 4;
-    // 读取4字节数据并与密钥进行 XOR 运算实现加密
-    const value = (packetView.getUint32(blockOffset, littleEndian) ^ xorKey) >>> 0;
-
-    // 写入加密后的数据
-    packetView.setUint32(blockOffset, value, littleEndian);
-
-    // 根据加密后的数据派生新的密钥，实现密钥流加密
-    xorKey = deriveXorKey(value);
+  for (let offset = 0; offset < encryptBlocks; offset++) {
+    xorKey = encryptBlock(packetView, offset, xorKey, littleEndian);
   }
 
   // 实际使用的数据长度
@@ -174,32 +210,26 @@ export function decrypt(packet: Uint8Array, littleEndian?: boolean): Uint8Array 
   // 创建缓冲区视图
   const bufferView = new DataView(buffer.buffer);
 
-  // 循环解密数据，每块 4 字节
-  for (let i = 0; i < decryptBlocks; i++) {
-    // 处理补齐字节，确保数据完整性
-    if (paddingSize > 0 && i >= maxBlockOffset) {
-      // 创建补齐缓冲区
-      const padding = new Uint8Array(4);
-      const paddingView = new DataView(padding.buffer);
-
-      // 写入当前密钥作为补齐数据
-      paddingView.setUint32(0, xorKey, littleEndian);
-
-      // 将补齐数据写入缓冲区末尾
-      buffer.set(padding.subarray(4 - paddingSize), size);
-    }
-
-    // 计算当前块偏移位置
-    const blockOffset = i * 4;
-    // 读取当前块数据
-    const value = bufferView.getUint32(blockOffset, littleEndian);
-
-    // 进行 XOR 解密并写入解密后的数据
-    bufferView.setUint32(blockOffset, value ^ xorKey, littleEndian);
-
-    // 更新解密密钥，实现密钥流解密
-    xorKey = deriveXorKey(value);
+  // 循环解密数据，每块 4 字节，忽略最后一块，放后面以便补位处理
+  for (let offset = 0; offset < maxBlockOffset; offset++) {
+    xorKey = decryptBlock(bufferView, offset, xorKey, littleEndian);
   }
+
+  // 处理补齐字节，确保数据完整性
+  if (paddingSize > 0) {
+    // 创建补齐缓冲区
+    const padding = new Uint8Array(4);
+    const paddingView = new DataView(padding.buffer);
+
+    // 写入当前密钥作为补齐数据
+    paddingView.setUint32(0, xorKey, littleEndian);
+
+    // 将补齐数据写入缓冲区末尾
+    buffer.set(padding.subarray(4 - paddingSize), size);
+  }
+
+  // 解密最后一块数据
+  xorKey = decryptBlock(bufferView, maxBlockOffset, xorKey, littleEndian);
 
   // 提取实际数据部分（去除填充）
   return buffer.subarray(0, size);
