@@ -10,10 +10,10 @@ const utf8 = new TextEncoder();
 const MD5_T = new Int32Array(64);
 
 const G_INDEX = [
-  (i: number) => i,
-  (i: number) => (5 * i + 1) % 16,
-  (i: number) => (3 * i + 5) % 16,
-  (i: number) => (7 * i) % 16
+  (i: number): number => i,
+  (i: number): number => (5 * i + 1) % 16,
+  (i: number): number => (3 * i + 5) % 16,
+  (i: number): number => (7 * i) % 16
 ];
 
 // prettier-ignore
