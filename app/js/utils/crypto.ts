@@ -230,7 +230,7 @@ export function decrypt(packet: Uint8Array, littleEndian?: boolean): Uint8Array 
     buffer.set(padding.subarray(4 - paddingSize), size);
   }
 
-  // 解密最后一块数据
+  // 解密最后一块数据块
   xorKey = decryptBlock(bufferView, maxBlockOffset, xorKey, littleEndian);
 
   // 提取实际数据部分（去除填充）
