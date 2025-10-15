@@ -6,9 +6,9 @@
 const enum Packet {
   HEAD_SIZE = 0x08,
   KEY_OFFSET = 0x04,
-  SEED_KEY = 0x76efd8ba,
   CHECKSUM_OFFSET = 0x00,
-  SECURITY_KEY = 0xf0578e23
+  XOR_KEY_SEED = 0x76efd8ba,
+  SECURITY_KEY_SEED = 0xf0578e23
 }
 
 /**
@@ -31,8 +31,11 @@ function deriveXorKey(seed: number): number {
   const high = seedToRandom(seed >>> 16);
   const low = seedToRandom(seed & 0xffff);
 
-  return (((high << 16) | low) ^ Packet.SEED_KEY) >>> 0;
+  return (((high << 16) | low) ^ Packet.XOR_KEY_SEED) >>> 0;
 }
+
+// 安全密钥
+const SECURITY_KEY = deriveXorKey(Packet.SECURITY_KEY_SEED);
 
 // CRC32C 查找表，用于快速计算 CRC32C 校验值
 const CRC32C_TABLE = new Uint32Array(256);
@@ -87,7 +90,7 @@ export function encrypt(buffer: Uint8Array, littleEndian?: boolean): Uint8Array 
   const packetView = new DataView(packet.buffer);
 
   // 写入加密后的初始密钥到包头
-  packetView.setUint32(Packet.KEY_OFFSET, key ^ Packet.SECURITY_KEY, littleEndian);
+  packetView.setUint32(Packet.KEY_OFFSET, key ^ SECURITY_KEY, littleEndian);
 
   // 拷贝原始数据到包中
   packet.set(buffer, Packet.HEAD_SIZE);
@@ -141,7 +144,7 @@ export function decrypt(packet: Uint8Array, littleEndian?: boolean): Uint8Array 
   // 创建数据包视图
   const packetView = new DataView(packet.buffer);
   // 从包头读取初始密钥
-  const key = (packetView.getUint32(Packet.KEY_OFFSET, littleEndian) ^ Packet.SECURITY_KEY) >>> 0;
+  const key = (packetView.getUint32(Packet.KEY_OFFSET, littleEndian) ^ SECURITY_KEY) >>> 0;
   // 从包头读取校验码
   const checksum = (packetView.getUint32(Packet.CHECKSUM_OFFSET, littleEndian) ^ key) >>> 0;
 
