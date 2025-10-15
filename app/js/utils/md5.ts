@@ -34,11 +34,11 @@ function leftRotate(x: number, c: number): number {
 
 export type DigestEncoding = 'base64' | 'hex' | 'binary';
 
-const F_TABLE: ((b: number, c: number, d: number) => number)[] = [
-  (b, c, d) => (b & c) | (~b & d),
-  (b, c, d) => (d & b) | (~d & c),
-  (b, c, d) => b ^ c ^ d,
-  (b, c, d) => c ^ (b | ~d)
+const F_TABLE = [
+  (b: number, c: number, d: number): number => (b & c) | (~b & d),
+  (b: number, c: number, d: number): number => (d & b) | (~d & c),
+  (b: number, c: number, d: number): number => b ^ c ^ d,
+  (b: number, c: number, d: number): number => c ^ (b | ~d)
 ];
 
 for (let i = 0; i < 64; i++) {
