@@ -38,6 +38,15 @@ export function isBigInt(value: unknown): value is bigint {
 }
 
 /**
+ * @function isFunction
+ * @description 是否为函数
+ * @param value 需要验证的值
+ */
+export function isFunction(value: unknown): value is Function {
+  return typeof value === 'function';
+}
+
+/**
  * @function isTypedArray
  * @description 是否为 TypedArray
  * @param value 需要验证的值
@@ -80,15 +89,6 @@ export function isNumber(value: unknown): value is number {
  */
 export function isBoolean(value: unknown): value is boolean {
   return Object.prototype.toString.call(value) === '[object Boolean]';
-}
-
-/**
- * @function isFunction
- * @description 是否为函数
- * @param value 需要验证的值
- */
-export function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
-  return typeof value === 'function';
 }
 
 /**
