@@ -11,6 +11,11 @@ const enum Packet {
   SECURITY_KEY_SEED = 0xf0578e23
 }
 
+// 预创建补位缓冲区，减少垃圾回收次数
+const padding = new Uint8Array(4);
+// 预创建补位缓冲区视图，减少垃圾回收次数
+const paddingView = new DataView(padding.buffer);
+
 /**
  * @function seedToRandom
  * @description 基于 LCG 算法通过种子生成随机数
@@ -219,10 +224,6 @@ export function decrypt(packet: Uint8Array, littleEndian?: boolean): Uint8Array 
 
   // 处理补齐字节，确保数据完整性
   if (paddingSize > 0) {
-    // 创建补齐缓冲区
-    const padding = new Uint8Array(4);
-    const paddingView = new DataView(padding.buffer);
-
     // 写入当前密钥作为补齐数据
     paddingView.setUint32(0, xorKey, littleEndian);
 
