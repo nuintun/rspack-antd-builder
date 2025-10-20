@@ -144,7 +144,7 @@ function createErrorCatch(code: number): (error: Error | DOMException | string) 
       throw new RequestError(code, error.message, error);
     }
 
-    throw new RequestError(code, stringify(error), { name: 'AbortError' });
+    throw new RequestError(code, error, { name: 'AbortError' });
   };
 }
 
