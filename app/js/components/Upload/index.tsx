@@ -187,10 +187,10 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
     ...restProps
   } = props;
 
+  const scope = useStyles();
   const { message } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
-  const [scope, render] = useStyles();
   const uploadURL = useMemo(() => new URL(action, self.location.href).href, [action]);
   const [value, setValue] = useControllableValue<string[]>(props, { defaultValue: [] });
   const [fileList, setFileList] = useState<FileList<T>>(() => getFileList(value, getThumbImage));
@@ -272,7 +272,7 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
     }
   }, [propsValue]);
 
-  return render(
+  return (
     <div className={classNames(scope, prefixCls, rootClassName)}>
       {showUploadList &&
         fileList.map((file, index) => {

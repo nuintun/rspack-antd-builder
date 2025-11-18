@@ -13,9 +13,9 @@ export interface PaperProps {
 }
 
 export default memo(function Paper({ style, className, children }: PaperProps) {
-  const [scope, render] = useStyles();
+  const scope = useStyles();
 
-  return render(
+  return (
     <div style={style} className={classNames(scope, prefixCls, className)}>
       {children}
     </div>

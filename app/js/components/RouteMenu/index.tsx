@@ -35,7 +35,7 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
   const { inlineCollapsed } = props;
   const { items, className, renderItem, rootClassName, defaultOpenKeys, ...restProps } = props;
 
-  const [scope, render] = useStyles();
+  const scope = useStyles();
   const matches = useMatches() as IRoute[];
   const { siderCollapsed } = useContext(SiderContext);
   const propsRef = useLatestRef<RouteMenuProps>(props);
@@ -85,7 +85,7 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
     setSelectedKeys(selectedKeys);
   }, [expandKeys, collapsed]);
 
-  return render(
+  return (
     <Menu
       {...restProps}
       multiple={false}

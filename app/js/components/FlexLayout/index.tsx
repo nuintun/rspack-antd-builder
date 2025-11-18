@@ -40,7 +40,7 @@ export default memo(function FlexLayout(props: FlexLayoutProps) {
     mobileQuery = '(max-width: 576px)'
   } = props;
 
-  const [scope, render] = useStyles();
+  const scope = useStyles();
 
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -93,7 +93,7 @@ export default memo(function FlexLayout(props: FlexLayoutProps) {
 
   const getTargetContainer = useCallback(() => contentRef.current || document.body, []);
 
-  return render(
+  return (
     <Layout hasSider={!isMobile} className={classNames(scope, prefixCls, `${prefixCls}-${theme}`)}>
       <FlexMenu
         items={menus}

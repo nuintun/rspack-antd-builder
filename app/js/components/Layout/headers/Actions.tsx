@@ -143,9 +143,9 @@ const UserAction = memo(function UserAction({ isMobile }: UserActionProps) {
 });
 
 export default memo(function ActionsHeader({ isMobile }: RenderHeaderProps) {
-  const [scope, render] = useStyles();
+  const scope = useStyles();
 
-  return render(
+  return (
     <div className={classNames(scope, prefixCls)}>
       {!isMobile && <ThemeAction />}
       <UserAction isMobile={isMobile} />

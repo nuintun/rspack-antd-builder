@@ -39,8 +39,8 @@ export default memo(function RouteTabs({
   icon: showIcon = true,
   ...restProps
 }: RouteTabsProps) {
+  const scope = useStyles();
   const index = useMatchIndex();
-  const [scope, render] = useStyles();
   const match = useMatch() as IRoute<Meta>;
   const matches = useMatches() as IRoute<Meta>[];
   const activeKey = useMemo(() => matches[index + 1]?.meta.key, [matches, index]);
@@ -73,7 +73,7 @@ export default memo(function RouteTabs({
     });
   }, [activeKey, match]);
 
-  return render(
+  return (
     <ConfigProvider
       theme={{
         components: {

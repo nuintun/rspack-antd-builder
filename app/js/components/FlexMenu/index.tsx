@@ -51,7 +51,7 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
     ...restProps
   } = props;
 
-  const [scope, render] = useStyles();
+  const scope = useStyles();
   const propsRef = useLatestRef(props);
   const cachedOpenKeysRef = useRef<string[]>(defaultOpenKeys);
 
@@ -104,32 +104,30 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
     </>
   );
 
-  return render(
-    isMobile ? (
-      <Drawer
-        width={width}
-        closable={false}
-        placement="left"
-        onClose={onClose}
-        open={!collapsed}
-        styles={drawerStyles}
-        className={rootClassName}
-      >
-        {menu}
-      </Drawer>
-    ) : (
-      <Sider
-        collapsible
-        theme={theme}
-        width={width}
-        trigger={trigger}
-        collapsed={collapsed}
-        onCollapse={onCollapse}
-        className={rootClassName}
-        collapsedWidth={collapsedWidth}
-      >
-        {menu}
-      </Sider>
-    )
+  return isMobile ? (
+    <Drawer
+      width={width}
+      closable={false}
+      placement="left"
+      onClose={onClose}
+      open={!collapsed}
+      styles={drawerStyles}
+      className={rootClassName}
+    >
+      {menu}
+    </Drawer>
+  ) : (
+    <Sider
+      collapsible
+      theme={theme}
+      width={width}
+      trigger={trigger}
+      collapsed={collapsed}
+      onCollapse={onCollapse}
+      className={rootClassName}
+      collapsedWidth={collapsedWidth}
+    >
+      {menu}
+    </Sider>
   );
 });
