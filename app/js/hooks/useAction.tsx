@@ -8,7 +8,7 @@ import useLatestCallback from './useLatestCallback';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { GetProp, Popconfirm, PopconfirmProps } from 'antd';
 import React, { useCallback, useRef, useState } from 'react';
-import useSubmit, { Options as UseSubmitOptions } from '/js/hooks/useSubmit';
+import useSubmit, { Options as UseSubmitOptions } from './useSubmit';
 
 type PopconfirmOmitted =
   | 'ref'
