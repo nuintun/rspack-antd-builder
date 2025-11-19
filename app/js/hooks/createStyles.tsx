@@ -21,13 +21,15 @@ interface CSSUtils {
   calc(value: number | string): AbstractCalculator;
 }
 
-interface Styles<C extends Components = Components> {
+interface Styles<C extends Components> {
   (token: Token<C>, utils: CSSUtils): CSSInterpolation;
 }
 
-type ComponentTokens = { [key in keyof AliasToken]: string | number | boolean };
+type ComponentToken = {
+  [key in keyof AliasToken]: string | number | boolean;
+};
 
-type Token<C extends Components = Components> = AliasToken & Pick<OverrideToken, C>;
+type Token<C extends Components> = AliasToken & Pick<OverrideToken, C>;
 
 function prefixToken(component: string, key: string): string {
   return `${component}${key.replace(/^[a-z]/, match => {
@@ -53,7 +55,7 @@ export default function createStyles<C extends Components = never>(path: string[
       if (shared) {
         for (const component of shared) {
           const sharedToken = realToken[component];
-          const componentToken: Partial<ComponentTokens> = {};
+          const componentToken: Partial<ComponentToken> = {};
 
           if (sharedToken) {
             let length = 0;
