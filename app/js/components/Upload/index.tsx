@@ -66,7 +66,7 @@ export interface RenderFile {
 export interface UploadProps<T>
   extends
     Pick<React.CSSProperties, 'width' | 'height' | 'aspectRatio'>,
-    Omit<AntdUploadProps<T>, 'onChange' | 'listType' | 'itemRender'> {
+    Omit<AntdUploadProps<T>, 'styles' | 'onChange' | 'listType' | 'itemRender' | 'classNames' | 'rootClassName'> {
   action: string;
   accept?: string;
   value?: string[];
@@ -172,12 +172,13 @@ function getFileList<T>(value: string[], getThumbImage: GetThumbImage): FileList
 
 export default memo(function Upload<T extends UploadResponse>(props: UploadProps<T>) {
   const {
+    style,
     accept,
     action,
     height,
     children,
+    className,
     maxCount = 1,
-    rootClassName,
     width = '100%',
     value: propsValue,
     showUploadList = true,
@@ -196,7 +197,7 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
   const [value, setValue] = useControllableValue<string[]>(props, { defaultValue: [] });
   const [fileList, setFileList] = useState<FileList<T>>(() => getFileList(value, getThumbImage));
 
-  const style = useMemo(() => {
+  const itemStyle = useMemo(() => {
     return {
       width,
       height,
@@ -274,7 +275,7 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
   }, [propsValue]);
 
   return (
-    <div className={clsx(scope, prefixCls, rootClassName)}>
+    <div style={style} className={clsx(scope, prefixCls, className)}>
       {showUploadList &&
         fileList.map((file, index) => {
           const { uid } = file;
@@ -298,14 +299,14 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
 
           return renderFile(file, {
             index,
-            style,
             remove,
+            style: itemStyle,
             get node() {
               return defaultRenderFile(file, {
                 index,
-                style,
                 remove,
-                node: null
+                node: null,
+                style: itemStyle
               });
             }
           });
@@ -321,8 +322,8 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
       >
         <Dragger
           {...restProps}
-          style={style}
           accept={accept}
+          style={itemStyle}
           action={uploadURL}
           listType="picture"
           fileList={fileList}
@@ -332,11 +333,9 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
           customRequest={request}
           height={height as number}
           withCredentials={withCredentials}
-          classNames={{
-            root: clsx(`${prefixCls}-input`, {
-              [`${prefixCls}-hidden`]: showUploadList && fileList.length >= maxCount
-            })
-          }}
+          className={clsx(`${prefixCls}-input`, {
+            [`${prefixCls}-hidden`]: showUploadList && fileList.length >= maxCount
+          })}
         >
           {children || (
             <div className={`${prefixCls}-action`}>

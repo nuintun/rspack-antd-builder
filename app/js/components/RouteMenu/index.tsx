@@ -18,10 +18,10 @@ type OmitProps =
   | 'items'
   | 'multiple'
   | 'openKeys'
-  | 'selectable'
   | 'onDeselect'
-  | 'selectedKeys'
+  | 'selectable'
   | 'onOpenChange'
+  | 'selectedKeys'
   | 'defaultSelectedKeys';
 
 export interface RouteMenuProps extends Omit<MenuProps, OmitProps> {
@@ -33,7 +33,7 @@ export interface RouteMenuProps extends Omit<MenuProps, OmitProps> {
 
 export default memo(function RouteMenu(props: RouteMenuProps) {
   const { inlineCollapsed } = props;
-  const { items, className, renderItem, rootClassName, defaultOpenKeys, ...restProps } = props;
+  const { items, renderItem, className, defaultOpenKeys, ...restProps } = props;
 
   const scope = useStyles();
   const matches = useMatches() as IRoute[];
@@ -92,9 +92,10 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
       openKeys={openKeys}
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChangeHander}
+      className={clsx(scope, prefixCls, className, {
+        [`${prefixCls}-collapsed`]: collapsed
+      })}
       items={useItems(items, selectedKeys, renderItem)}
-      rootClassName={clsx(scope, prefixCls, rootClassName)}
-      className={clsx(className, { [`${prefixCls}-collapsed`]: collapsed })}
     />
   );
 });

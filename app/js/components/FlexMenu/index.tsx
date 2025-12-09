@@ -26,26 +26,33 @@ export interface RenderHeader {
 export type OnOpenChange = GetProp<FlexMenuProps, 'onOpenChange'>;
 
 export interface FlexMenuProps
-  extends Pick<SiderProps, 'trigger' | 'onCollapse'>, Omit<RouteMenuProps, 'mode' | 'inlineCollapsed' | 'rootClassName'> {
+  extends
+    Pick<SiderProps, 'trigger' | 'onCollapse'>,
+    Omit<RouteMenuProps, 'mode' | 'styles' | 'classNames' | 'inlineCollapsed' | 'rootClassName'> {
   width?: number;
   isMobile?: boolean;
   collapsed?: boolean;
   collapsedWidth?: number;
   renderHeader?: RenderHeader;
+  routeMenuStyles?: GetProp<RouteMenuProps, 'styles'>;
+  routeMenuClassNames?: GetProp<RouteMenuProps, 'classNames'>;
 }
 
 export default memo(function FlexMenu(props: FlexMenuProps) {
   const {
+    style,
     className,
     onCollapse,
     width = 256,
     onOpenChange,
     renderHeader,
     trigger = null,
+    routeMenuStyles,
     theme = 'light',
     isMobile = false,
     collapsed = false,
     collapsedWidth = 64,
+    routeMenuClassNames,
     defaultOpenKeys = [],
     ...restProps
   } = props;
@@ -96,7 +103,9 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
       <RouteMenu
         {...restProps}
         mode="inline"
+        styles={routeMenuStyles}
         className={`${prefixCls}-body`}
+        classNames={routeMenuClassNames}
         onOpenChange={onOpenChangeHander}
         defaultOpenKeys={cachedOpenKeysRef.current}
       />
@@ -106,6 +115,7 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
   return isMobile ? (
     <Drawer
       size={width}
+      style={style}
       closable={false}
       placement="left"
       onClose={onClose}
@@ -118,6 +128,7 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
   ) : (
     <Sider
       collapsible
+      style={style}
       theme={theme}
       width={width}
       trigger={trigger}
