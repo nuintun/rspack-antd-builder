@@ -65,12 +65,6 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
     return { body: { padding: 0, overflow: 'hidden' } };
   }, []);
 
-  const rootClassName = useMemo(() => {
-    return clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
-      [`${prefixCls}-mobile`]: isMobile
-    });
-  }, [scope, theme, isMobile, className]);
-
   const onClose = useCallback(() => {
     const { onCollapse } = propsRef.current;
 
@@ -121,7 +115,9 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
       onClose={onClose}
       open={!collapsed}
       styles={drawerStyles}
-      className={rootClassName}
+      className={clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
+        [`${prefixCls}-mobile`]: isMobile
+      })}
     >
       {menu}
     </Drawer>
@@ -134,8 +130,10 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
       trigger={trigger}
       collapsed={collapsed}
       onCollapse={onCollapse}
-      className={rootClassName}
       collapsedWidth={collapsedWidth}
+      className={clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
+        [`${prefixCls}-mobile`]: isMobile
+      })}
     >
       {menu}
     </Sider>
