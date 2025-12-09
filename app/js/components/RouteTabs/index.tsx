@@ -2,8 +2,8 @@
  * @module index
  */
 
+import clsx from 'clsx';
 import { Meta } from '/js/router';
-import classNames from 'classnames';
 import Link from '/js/components/Link';
 import { IRoute } from '/js/utils/router';
 import FlexIcon from '/js/components/FlexIcon';
@@ -21,7 +21,7 @@ type TabsPicked =
   | 'moreIcon'
   | 'className'
   | 'tabBarStyle'
-  | 'tabPosition'
+  | 'tabPlacement'
   | 'renderTabBar'
   | 'tabBarGutter'
   | 'popupClassName'
@@ -34,7 +34,7 @@ export interface RouteTabsProps extends Pick<TabsProps, TabsPicked> {
 
 export default memo(function RouteTabs({
   className,
-  tabPosition,
+  tabPlacement,
   tabBarGutter = 16,
   icon: showIcon = true,
   ...restProps
@@ -61,7 +61,7 @@ export default memo(function RouteTabs({
           <Link
             href={link.href}
             target={link.target}
-            className={classNames(`${prefixCls}-nav`, {
+            className={clsx(`${prefixCls}-nav`, {
               [`${prefixCls}-active`]: active
             })}
           >
@@ -88,10 +88,10 @@ export default memo(function RouteTabs({
         items={items}
         destroyOnHidden
         activeKey={activeKey}
-        tabPosition={tabPosition}
+        tabPlacement={tabPlacement}
         tabBarGutter={tabBarGutter}
-        className={classNames(scope, prefixCls, className, {
-          [`${prefixCls}-vertical`]: tabPosition === 'left' || tabPosition === 'right'
+        className={clsx(scope, prefixCls, className, {
+          [`${prefixCls}-vertical`]: tabPlacement === 'start' || tabPlacement === 'end'
         })}
       />
     </ConfigProvider>

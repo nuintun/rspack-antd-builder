@@ -2,7 +2,7 @@
  * @module index
  */
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Menu, MenuProps } from 'antd';
 import { IRoute } from '/js/utils/router';
 import { MenuItem } from '/js/utils/menus';
@@ -12,7 +12,7 @@ import useItems, { RenderItem } from './useItems';
 import useLatestRef from '/js/hooks/useLatestRef';
 import { SiderContext } from 'antd/es/layout/Sider';
 import { flattenItems, getExpandKeys, mergeKeys } from './utils';
-import React, { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, use, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type OmitProps =
   | 'items'
@@ -37,7 +37,7 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
 
   const scope = useStyles();
   const matches = useMatches() as IRoute[];
-  const { siderCollapsed } = useContext(SiderContext);
+  const { siderCollapsed } = use(SiderContext);
   const propsRef = useLatestRef<RouteMenuProps>(props);
   const flatItems = useMemo(() => flattenItems(items), [items]);
   const cachedOpenKeysRef = useRef<string[]>(defaultOpenKeys ?? []);
@@ -93,8 +93,8 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChangeHander}
       items={useItems(items, selectedKeys, renderItem)}
-      rootClassName={classNames(scope, prefixCls, rootClassName)}
-      className={classNames(className, { [`${prefixCls}-collapsed`]: collapsed })}
+      rootClassName={clsx(scope, prefixCls, rootClassName)}
+      className={clsx(className, { [`${prefixCls}-collapsed`]: collapsed })}
     />
   );
 });

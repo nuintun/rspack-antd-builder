@@ -21,8 +21,8 @@ import {
   UploadFile,
   UploadProps as AntdUploadProps
 } from 'antd';
+import clsx from 'clsx';
 import request from './request';
-import classNames from 'classnames';
 import useStyles, { prefixCls } from './style';
 import { useLocation, useNavigate } from 'react-nest-router';
 import useControllableValue from '/js/hooks/useControllableValue';
@@ -64,7 +64,8 @@ export interface RenderFile {
 }
 
 export interface UploadProps<T>
-  extends Pick<React.CSSProperties, 'width' | 'height' | 'aspectRatio'>,
+  extends
+    Pick<React.CSSProperties, 'width' | 'height' | 'aspectRatio'>,
     Omit<AntdUploadProps<T>, 'onChange' | 'listType' | 'itemRender'> {
   action: string;
   accept?: string;
@@ -273,7 +274,7 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
   }, [propsValue]);
 
   return (
-    <div className={classNames(scope, prefixCls, rootClassName)}>
+    <div className={clsx(scope, prefixCls, rootClassName)}>
       {showUploadList &&
         fileList.map((file, index) => {
           const { uid } = file;
@@ -331,9 +332,11 @@ export default memo(function Upload<T extends UploadResponse>(props: UploadProps
           customRequest={request}
           height={height as number}
           withCredentials={withCredentials}
-          rootClassName={classNames(`${prefixCls}-input`, {
-            [`${prefixCls}-hidden`]: showUploadList && fileList.length >= maxCount
-          })}
+          classNames={{
+            root: clsx(`${prefixCls}-input`, {
+              [`${prefixCls}-hidden`]: showUploadList && fileList.length >= maxCount
+            })
+          }}
         >
           {children || (
             <div className={`${prefixCls}-action`}>

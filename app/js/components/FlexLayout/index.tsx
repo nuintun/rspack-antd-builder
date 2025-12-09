@@ -2,7 +2,7 @@
  * @module index
  */
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import useStorage from '/js/hooks/useStorage';
 import { ConfigProvider, Layout } from 'antd';
 import useStyles, { prefixCls } from './style';
@@ -41,7 +41,6 @@ export default memo(function FlexLayout(props: FlexLayoutProps) {
   } = props;
 
   const scope = useStyles();
-
   const contentRef = useRef<HTMLDivElement>(null);
 
   const isBreak = useMediaQuery(breakQuery, isBreak => {
@@ -94,7 +93,7 @@ export default memo(function FlexLayout(props: FlexLayoutProps) {
   const getTargetContainer = useCallback(() => contentRef.current || document.body, []);
 
   return (
-    <Layout hasSider={!isMobile} className={classNames(scope, prefixCls, `${prefixCls}-${theme}`)}>
+    <Layout hasSider={!isMobile} className={clsx(scope, prefixCls, `${prefixCls}-${theme}`)}>
       <FlexMenu
         items={menus}
         theme={theme}

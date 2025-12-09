@@ -2,7 +2,7 @@
  * @module Actions
  */
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { memo, useCallback, useMemo } from 'react';
 import useTheme, { Theme } from '/js/hooks/useTheme';
 import Icon, { LogoutOutlined } from '@ant-design/icons';
@@ -146,7 +146,7 @@ export default memo(function ActionsHeader({ isMobile }: RenderHeaderProps) {
   const scope = useStyles();
 
   return (
-    <div className={classNames(scope, prefixCls)}>
+    <div className={clsx(scope, prefixCls)}>
       {!isMobile && <ThemeAction />}
       <UserAction isMobile={isMobile} />
     </div>

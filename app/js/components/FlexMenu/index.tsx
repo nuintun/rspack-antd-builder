@@ -2,7 +2,7 @@
  * @module index
  */
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import useStyles, { prefixCls } from './style';
 import useLatestRef from '/js/hooks/useLatestRef';
 import React, { memo, useCallback, useMemo, useRef } from 'react';
@@ -26,8 +26,7 @@ export interface RenderHeader {
 export type OnOpenChange = GetProp<FlexMenuProps, 'onOpenChange'>;
 
 export interface FlexMenuProps
-  extends Pick<SiderProps, 'trigger' | 'onCollapse'>,
-    Omit<RouteMenuProps, 'mode' | 'inlineCollapsed' | 'rootClassName'> {
+  extends Pick<SiderProps, 'trigger' | 'onCollapse'>, Omit<RouteMenuProps, 'mode' | 'inlineCollapsed' | 'rootClassName'> {
   width?: number;
   isMobile?: boolean;
   collapsed?: boolean;
@@ -60,7 +59,7 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
   }, []);
 
   const rootClassName = useMemo(() => {
-    return classNames(scope, prefixCls, className, `${prefixCls}-${theme}`, {
+    return clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
       [`${prefixCls}-mobile`]: isMobile
     });
   }, [scope, theme, isMobile, className]);
@@ -106,7 +105,7 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
 
   return isMobile ? (
     <Drawer
-      width={width}
+      size={width}
       closable={false}
       placement="left"
       onClose={onClose}

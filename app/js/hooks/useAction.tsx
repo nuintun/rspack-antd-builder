@@ -43,15 +43,22 @@ export default function useAction<F extends Fields | null, R>(
 ): [loading: boolean, onAction: (fields: F) => void, render: (children: React.ReactElement) => React.ReactElement] {
   const valuesRef = useRef<F>(null);
   const [open, setOpen] = useState(false);
-  const [loading, onSubmit] = useSubmit<F, R>(action, options);
+  const [loading, onSubmit] = useSubmit<F, R>(action, {
+    ...options,
+    onSuccess(response, fields) {
+      options.onSuccess?.(response, fields);
+
+      requestAnimationFrame(() => {
+        setOpen(false);
+      });
+    }
+  });
 
   const onCancel = useCallback(() => {
     setOpen(false);
   }, []);
 
   const onConfirm = useCallback(() => {
-    setOpen(false);
-
     onSubmit(valuesRef.current!);
   }, []);
 

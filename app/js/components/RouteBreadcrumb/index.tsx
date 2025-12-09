@@ -2,7 +2,7 @@
  * @module index
  */
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Link from '/js/components/Link';
 import { IRoute } from '/js/utils/router';
 import React, { memo, useMemo } from 'react';
@@ -46,7 +46,7 @@ function getBreadcrumbItems(matches: IRoute[], showIcon: boolean): BreadcrumbIte
       } else {
         items.push({
           title: (
-            <span className={classNames(`${prefixCls}-item`, { active })}>
+            <span className={clsx(`${prefixCls}-item`, { active })}>
               {showIcon && <FlexIcon icon={icon} className={`${prefixCls}-icon`} />}
               <span>{name}</span>
             </span>
@@ -64,5 +64,5 @@ export default memo(function RouteBreadcrumb({ style, className, icon: showIcon 
   const matches = useMatches() as IRoute[];
   const items = useMemo(() => getBreadcrumbItems(matches, showIcon), [matches, showIcon]);
 
-  return <Breadcrumb items={items} style={style} className={classNames(scope, prefixCls, className)} />;
+  return <Breadcrumb items={items} style={style} className={clsx(scope, prefixCls, className)} />;
 });

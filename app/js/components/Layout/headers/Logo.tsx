@@ -2,8 +2,8 @@
  * @module Logo
  */
 
+import clsx from 'clsx';
 import { memo } from 'react';
-import classNames from 'classnames';
 import Link from '/js/components/Link';
 import { RenderHeaderProps } from '/js/components/FlexMenu';
 import useStyles, { prefixCls } from '/js/components/Layout/style/logo';
@@ -14,7 +14,7 @@ export default memo(function LogoHeader({ collapsed }: RenderHeaderProps) {
   const scope = useStyles();
 
   return (
-    <Link href="/" title="Home" className={classNames(scope, prefixCls)}>
+    <Link href="/" title="Home" className={clsx(scope, prefixCls)}>
       <img alt="logo" src={logo} />
       {!collapsed && <span>{__APP_NAME__}</span>}
     </Link>
