@@ -65,10 +65,10 @@ importers:
     devDependencies:
       '@nuintun/svgo-loader':
         specifier: ^0.5.7
-        version: 0.5.7(@rspack/core@1.6.6(@swc/helpers@0.5.17))
+        version: 0.5.7(@rspack/core@1.6.7(@swc/helpers@0.5.17))
       '@rspack/core':
-        specifier: ^1.6.6
-        version: 1.6.6(@swc/helpers@0.5.17)
+        specifier: ^1.6.7
+        version: 1.6.7(@swc/helpers@0.5.17)
       '@rspack/plugin-react-refresh':
         specifier: ^1.5.3
         version: 1.5.3(react-refresh@0.18.0)
@@ -86,10 +86,10 @@ importers:
         version: 4.0.9
       css-loader:
         specifier: ^7.1.2
-        version: 7.1.2(@rspack/core@1.6.6(@swc/helpers@0.5.17))
+        version: 7.1.2(@rspack/core@1.6.7(@swc/helpers@0.5.17))
       css-modules-types-loader:
         specifier: ^0.6.15
-        version: 0.6.15(@rspack/core@1.6.6(@swc/helpers@0.5.17))
+        version: 0.6.15(@rspack/core@1.6.7(@swc/helpers@0.5.17))
       find-free-ports:
         specifier: ^3.1.1
         version: 3.1.1
@@ -104,16 +104,16 @@ importers:
         version: 3.7.4
       rspack-dev-middleware:
         specifier: ^0.2.2
-        version: 0.2.2(@rspack/core@1.6.6(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.1.1)(utf-8-validate@6.0.5)
+        version: 0.2.2(@rspack/core@1.6.7(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.1.1)(utf-8-validate@6.0.5)
       sass-embedded:
-        specifier: ^1.93.3
-        version: 1.93.3
+        specifier: ^1.95.1
+        version: 1.95.1
       sass-loader:
         specifier: ^16.0.6
-        version: 16.0.6(@rspack/core@1.6.6(@swc/helpers@0.5.17))(sass-embedded@1.93.3)(sass@1.93.3)
+        version: 16.0.6(@rspack/core@1.6.7(@swc/helpers@0.5.17))(sass-embedded@1.95.1)(sass@1.95.1)
       svgc-loader:
         specifier: ^0.5.7
-        version: 0.5.7(@rspack/core@1.6.6(@swc/helpers@0.5.17))(react@19.2.1)
+        version: 0.5.7(@rspack/core@1.6.7(@swc/helpers@0.5.17))(react@19.2.1)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -717,8 +717,8 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  '@rc-component/util@1.5.0':
-    resolution: {integrity: sha512-K5vyzoDUzDqzKZFwU7F8/O4sI5YI47eOCcpIFOtK/KAKg7Mfo6fNOcHl4PIsp7sQ5LFXN7KflOClvQ+fS6RnHQ==}
+  '@rc-component/util@1.6.0':
+    resolution: {integrity: sha512-YbjuIVAm8InCnXVoA4n6G+uh31yESTxQ6fSY2frZ2/oMSvktoB+bumFUfNN7RKh7YeOkZgOvN2suGtEDhJSX0A==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -730,60 +730,60 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  '@rspack/binding-darwin-arm64@1.6.6':
-    resolution: {integrity: sha512-vGVDP0rlWa2w/gLba/sncVfkCah0HmhdmK5vGj/7sSX0iViwQneA2xjxDHyCNSQrvfq9GJmj4Kmdq/9tGh0KuA==}
+  '@rspack/binding-darwin-arm64@1.6.7':
+    resolution: {integrity: sha512-QiIAP8JTAtht0j8/xZZEQTJRB9e+KrOm9c7JJm73CewVg55rDWRrwopiVfBNlTu1coem1ztUHJYdQhg2uXfqww==}
     cpu: [arm64]
     os: [darwin]
 
-  '@rspack/binding-darwin-x64@1.6.6':
-    resolution: {integrity: sha512-IcdEG2kOmbPPO70Zl7gDnowDjK7d7C1hWew2vU7dPltr2t1JalRIMnS051lhiur0ULkSxV3cW1zXqv0Oi8AnOg==}
+  '@rspack/binding-darwin-x64@1.6.7':
+    resolution: {integrity: sha512-DpQRxxTXkMMNPmBXeJBaAB8HmWKxH2IfvHv7vU+kBhJ3xdPtXU4/xBv1W3biluoNRG11gc1WLIgjzeGgaLCxmw==}
     cpu: [x64]
     os: [darwin]
 
-  '@rspack/binding-linux-arm64-gnu@1.6.6':
-    resolution: {integrity: sha512-rIguCCtlTcwoFlwheDiUgdImk27spuCRn43zGJogARpM/ZYRFKIuSwFDGUtJT2g0TSLUAHUhWAUqC36NwvrbMQ==}
+  '@rspack/binding-linux-arm64-gnu@1.6.7':
+    resolution: {integrity: sha512-211/XoBiooGGgUo/NxNpsrzGUXtH1d7g/4+UTtjYtfc8QHwu7ZMHcsqg0wss53fXzn/yyxd0DZ56vBHq52BiFw==}
     cpu: [arm64]
     os: [linux]
 
-  '@rspack/binding-linux-arm64-musl@1.6.6':
-    resolution: {integrity: sha512-x6X6Gr0fUw6qrJGxZt3Rb6oIX+jd9pdcyp0VbtofcLaqGVQbzustYsYnuLATPOys0q4J/4kWnmEhkjLJHwkhpQ==}
+  '@rspack/binding-linux-arm64-musl@1.6.7':
+    resolution: {integrity: sha512-0WnqAWz3WPDsXGvOOA++or7cHpoidVsH3FlqNaAfRu6ni6n7ig/s0/jKUB+C5FtXOgmGjAGkZHfFgNHsvZ0FWw==}
     cpu: [arm64]
     os: [linux]
 
-  '@rspack/binding-linux-x64-gnu@1.6.6':
-    resolution: {integrity: sha512-gSlVdASszWHosQKn+nzYOInBijdQboUnmNMGgW9/PijVg3433IvQjzviUuJFno8CMGgrACV9yw+ZFDuK0J57VA==}
+  '@rspack/binding-linux-x64-gnu@1.6.7':
+    resolution: {integrity: sha512-iMrE0Q4IuYpkE0MjpaOVaUDYbQFiCRI9D3EPoXzlXJj4kJSdNheODpHTBVRlWt8Xp7UAoWuIFXCvKFKcSMm3aQ==}
     cpu: [x64]
     os: [linux]
 
-  '@rspack/binding-linux-x64-musl@1.6.6':
-    resolution: {integrity: sha512-TZaqVkh7memsTK/hxkOBrbpdzbmBUMea1YnYt++7QjMgco1kWFvAQ+YhAWtIaOaEg8s6C07Lt0Zp8izM2Dja0g==}
+  '@rspack/binding-linux-x64-musl@1.6.7':
+    resolution: {integrity: sha512-e7gKFxpdEQwYGk7lTC/hukTgNtaoAstBXehnZNk4k3kuU6+86WDrkn18Cd949iNqfIPtIG/wIsFNGbkHsH69hQ==}
     cpu: [x64]
     os: [linux]
 
-  '@rspack/binding-wasm32-wasi@1.6.6':
-    resolution: {integrity: sha512-W4mWdlLnYrbUaktyHOGNfATblxMTbgF7CBfDw8PhbDtjd2l8e/TnaHgIDkwITHXAOMEF/QEKfo9FtusbcQJNKw==}
+  '@rspack/binding-wasm32-wasi@1.6.7':
+    resolution: {integrity: sha512-yx88EFdE9RP3hh7VhjjW6uc6wGU0KcpOcZp8T8E/a+X8L98fX0aVrtM1IDbndhmdluIMqGbfJNap2+QqOCY9Mw==}
     cpu: [wasm32]
 
-  '@rspack/binding-win32-arm64-msvc@1.6.6':
-    resolution: {integrity: sha512-cw5OgxqoDwjoZlk0L3vGEwcjPZsOVFYLwr2ssiC05rsTbhBwxj8coLpAJdvUvbf6C2TTmCB7iPe2sPq1KWD37g==}
+  '@rspack/binding-win32-arm64-msvc@1.6.7':
+    resolution: {integrity: sha512-vgxVYpFK8P5ulSXQQA+EbX78R/SUU+WIf0JIY+LoUoP89gZOsise/lKAJMAybzpeTJ1t0ndLchFznDYnzq+l4Q==}
     cpu: [arm64]
     os: [win32]
 
-  '@rspack/binding-win32-ia32-msvc@1.6.6':
-    resolution: {integrity: sha512-M4ruR+VZ59iy+mPjy6FQPT27cOgeytf3wFBrt7e0suKeNLYGxrNyI9YhgpCTY++SMJsAMgRLGDHoI3ZgWulw1Q==}
+  '@rspack/binding-win32-ia32-msvc@1.6.7':
+    resolution: {integrity: sha512-bV5RTW0Va0UQKJm9HWLt7fWNBPaBBBxCJOA2pJT3nGGm6CCXKnZSyEiVbFUk4jI/uiwBfqenlLkzaGoMRbeDhA==}
     cpu: [ia32]
     os: [win32]
 
-  '@rspack/binding-win32-x64-msvc@1.6.6':
-    resolution: {integrity: sha512-q5QTvdhPUh+CA93cQG5zWKRIHMIWPzw+ftFDEwBw52zYdvNAoLniqD8o5Mi8CT0pndhulXgR5aw0Sjd3eMah+A==}
+  '@rspack/binding-win32-x64-msvc@1.6.7':
+    resolution: {integrity: sha512-8xlbuJQtYktlBjZupOHlO8FeZqSIhsV3ih7xBSiOYar6LI6uQzA7XiO3I5kaPSDirBMMMKv1Z4rKCxWx10a3TQ==}
     cpu: [x64]
     os: [win32]
 
-  '@rspack/binding@1.6.6':
-    resolution: {integrity: sha512-noiV+qhyBTVpvG2M4bnOwKk2Ynl6G47Wf7wpCjPCFr87qr3txNwTTnhkEJEU59yj+VvIhbRD2rf5+9TLoT0Wxg==}
+  '@rspack/binding@1.6.7':
+    resolution: {integrity: sha512-7ICabuBN3gHc6PPN52+m1kruz3ogiJjg1C0gSWdLRk18m/4jlcM2aAy6wfXjgODJdB0Yh2ro/lIpBbj+AYWUGA==}
 
-  '@rspack/core@1.6.6':
-    resolution: {integrity: sha512-2mR+2YBydlgZ7Q0Rpd6bCC3MBnV9TS0x857K0zIhbDj4BQOqaWVy1n7fx/B3MrS8TR0QCuzKfyDAjNz+XTyJVQ==}
+  '@rspack/core@1.6.7':
+    resolution: {integrity: sha512-tkd4nSzTf+pDa9OAE4INi/JEa93HNszjWy5C9+trf4ZCXLLHsHxHQFbzoreuz4Vv2PlCWajgvAdiPMV1vGIkuw==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
       '@swc/helpers': '>=0.5.1'
@@ -1422,112 +1422,112 @@ packages:
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
 
-  sass-embedded-all-unknown@1.93.3:
-    resolution: {integrity: sha512-3okGgnE41eg+CPLtAPletu6nQ4N0ij7AeW+Sl5Km4j29XcmqZQeFwYjHe1AlKTEgLi/UAONk1O8i8/lupeKMbw==}
+  sass-embedded-all-unknown@1.95.1:
+    resolution: {integrity: sha512-ObGM3xSHEK2fu89GusvAdk1hId3D1R03CyQ6/AVTFSrcBFav1a3aWUmBWtImzf5LsVzliRnlAPPS6+rT/Ghb1A==}
     cpu: ['!arm', '!arm64', '!riscv64', '!x64']
 
-  sass-embedded-android-arm64@1.93.3:
-    resolution: {integrity: sha512-uqUl3Kt1IqdGVAcAdbmC+NwuUJy8tM+2ZnB7/zrt6WxWVShVCRdFnWR9LT8HJr7eJN7AU8kSXxaVX/gedanPsg==}
+  sass-embedded-android-arm64@1.95.1:
+    resolution: {integrity: sha512-E+3vZXhUOVHFiSITH2g53/ynxTG4zz8vTVrXGAKkZQwSe6aCO22uc1Pah23F3jOrDNF/YLrsyp82T/CIIczK3w==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [android]
 
-  sass-embedded-android-arm@1.93.3:
-    resolution: {integrity: sha512-8xOw9bywfOD6Wv24BgCmgjkk6tMrsOTTHcb28KDxeJtFtoxiUyMbxo0vChpPAfp2Hyg2tFFKS60s0s4JYk+Raw==}
+  sass-embedded-android-arm@1.95.1:
+    resolution: {integrity: sha512-siaN1TVEjhBP4QJ5UlDBRhyKmMbFhbdcyHj0B4hIuNcinuVprP6tH1NT0NkHvkXh2egBmTvjzZgJ1ySsCB32JA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm]
     os: [android]
 
-  sass-embedded-android-riscv64@1.93.3:
-    resolution: {integrity: sha512-2jNJDmo+3qLocjWqYbXiBDnfgwrUeZgZFHJIwAefU7Fn66Ot7rsXl+XPwlokaCbTpj7eMFIqsRAZ/uDueXNCJg==}
+  sass-embedded-android-riscv64@1.95.1:
+    resolution: {integrity: sha512-UcPcr5JXVtInD+/XE+2DhwPsALUdRAHyippnnAP6MtdaT3+AnqqvzSVy9Gb6SKyeqEk4YxPmIlQpZCVODDT4eA==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [android]
 
-  sass-embedded-android-x64@1.93.3:
-    resolution: {integrity: sha512-y0RoAU6ZenQFcjM9PjQd3cRqRTjqwSbtWLL/p68y2oFyh0QGN0+LQ826fc0ZvU/AbqCsAizkqjzOn6cRZJxTTQ==}
+  sass-embedded-android-x64@1.95.1:
+    resolution: {integrity: sha512-sW/TO+B0Wq9VDTa7YiO74DW4iF9jEYds+9yslaHtc69r/Ch+Zj+ZB6HeJysfmen91zn5CLJDGrnTSrIk+/COfQ==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [android]
 
-  sass-embedded-darwin-arm64@1.93.3:
-    resolution: {integrity: sha512-7zb/hpdMOdKteK17BOyyypemglVURd1Hdz6QGsggy60aUFfptTLQftLRg8r/xh1RbQAUKWFbYTNaM47J9yPxYg==}
+  sass-embedded-darwin-arm64@1.95.1:
+    resolution: {integrity: sha512-SWTCwszlBzjin35T2OiGZSDRbC/sqg5Mjepih18lelELrz14eB9LcFTZeiqDfdnwx6qQqPWj2VufCpExr8jElA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [darwin]
 
-  sass-embedded-darwin-x64@1.93.3:
-    resolution: {integrity: sha512-Ek1Vp8ZDQEe327Lz0b7h3hjvWH3u9XjJiQzveq74RPpJQ2q6d9LfWpjiRRohM4qK6o4XOHw1X10OMWPXJtdtWg==}
+  sass-embedded-darwin-x64@1.95.1:
+    resolution: {integrity: sha512-0GZEgkE1e8E2h97lUtwgZbKHrJYmRE/KhWQBHv6ZueAto8DJcAFNFrIQiQoRJjraE6QTaw6ahSvc1YJ7gL4OQA==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [darwin]
 
-  sass-embedded-linux-arm64@1.93.3:
-    resolution: {integrity: sha512-RBrHWgfd8Dd8w4fbmdRVXRrhh8oBAPyeWDTKAWw8ZEmuXfVl4ytjDuyxaVilh6rR1xTRTNpbaA/YWApBlLrrNw==}
+  sass-embedded-linux-arm64@1.95.1:
+    resolution: {integrity: sha512-MQxa+qVX7Os2rMpJ/AvhWup+1cS0JieQgCfi9cz1Zckn4zaUhg35+m2FQhfKvzv4afeW5bubTMOQeTRMQujbXw==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [linux]
 
-  sass-embedded-linux-arm@1.93.3:
-    resolution: {integrity: sha512-yeiv2y+dp8B4wNpd3+JsHYD0mvpXSfov7IGyQ1tMIR40qv+ROkRqYiqQvAOXf76Qwh4Y9OaYZtLpnsPjfeq6mA==}
+  sass-embedded-linux-arm@1.95.1:
+    resolution: {integrity: sha512-zUAm/rztm5Uyy+DSs408VJg404siVgUuZyqId4tFwkPNC5WRKu25Z8bFMriyGaE4YfEqbNwFV07C16mJoGeVOA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm]
     os: [linux]
 
-  sass-embedded-linux-musl-arm64@1.93.3:
-    resolution: {integrity: sha512-PS829l+eUng+9W4PFclXGb4uA2+965NHV3/Sa5U7qTywjeeUUYTZg70dJHSqvhrBEfCc2XJABeW3adLJbyQYkw==}
+  sass-embedded-linux-musl-arm64@1.95.1:
+    resolution: {integrity: sha512-8lD5vHGzBjBRCMIr9CXCyjmy8Q1q+H4ygcYCIm/aPNYhrm9uPOzJfs8hv9kDRgRAASFkcPGlFw8tDH4QqiJ5wg==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [linux]
 
-  sass-embedded-linux-musl-arm@1.93.3:
-    resolution: {integrity: sha512-fU0fwAwbp7sBE3h5DVU5UPzvaLg7a4yONfFWkkcCp6ZrOiPuGRHXXYriWQ0TUnWy4wE+svsVuWhwWgvlb/tkKg==}
+  sass-embedded-linux-musl-arm@1.95.1:
+    resolution: {integrity: sha512-gNdaGmM3nZ0jkFNmyXWyNlXZPdaMP+7n5Mk3yGFGShqRt/6T/bHh5SkyNnU2ZdP1z7R9poPItJhULrZJ42ETeA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm]
     os: [linux]
 
-  sass-embedded-linux-musl-riscv64@1.93.3:
-    resolution: {integrity: sha512-cK1oBY+FWQquaIGEeQ5H74KTO8cWsSWwXb/WaildOO9U6wmUypTgUYKQ0o5o/29nZbWWlM1PHuwVYTSnT23Jjg==}
+  sass-embedded-linux-musl-riscv64@1.95.1:
+    resolution: {integrity: sha512-WjKfHxnFc/jOL5QtmgYuiWCc4616V15DkpE+7z41JWEawRXku6w++w7AR+Zx/jbz93FZ/AsZp27IS3XUt80u3Q==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [linux]
 
-  sass-embedded-linux-musl-x64@1.93.3:
-    resolution: {integrity: sha512-A7wkrsHu2/I4Zpa0NMuPGkWDVV7QGGytxGyUq3opSXgAexHo/vBPlGoDXoRlSdex0cV+aTMRPjoGIfdmNlHwyg==}
+  sass-embedded-linux-musl-x64@1.95.1:
+    resolution: {integrity: sha512-3U6994SRUUmC8mPvSG/vNLUo2ZcGv3jHuPoBywTbJhGQI8gq0hef1MY8TU5mvtj9DhQYlah6MYktM4YrOQgqcQ==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [linux]
 
-  sass-embedded-linux-riscv64@1.93.3:
-    resolution: {integrity: sha512-vWkW1+HTF5qcaHa6hO80gx/QfB6GGjJUP0xLbnAoY4pwEnw5ulGv6RM8qYr8IDhWfVt/KH+lhJ2ZFxnJareisQ==}
+  sass-embedded-linux-riscv64@1.95.1:
+    resolution: {integrity: sha512-CJ0tEEQnfpJEMCQrdubLsmuVc/c66EgaCAO0ZgSJ/KpxBKF3O1lHN6e1UErRf6VO0rh8ExAOh75po12Vu849Og==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [linux]
 
-  sass-embedded-linux-x64@1.93.3:
-    resolution: {integrity: sha512-k6uFxs+e5jSuk1Y0niCwuq42F9ZC5UEP7P+RIOurIm8w/5QFa0+YqeW+BPWEW5M1FqVOsNZH3qGn4ahqvAEjPA==}
+  sass-embedded-linux-x64@1.95.1:
+    resolution: {integrity: sha512-nGnzrEpZZOsGOwrRVyX4t15M8ijZWhc4e4lLpOqaPm+lv23HFncfY05WxU5bRj0KAknrkeTM2IX/6veP2aeUdA==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [linux]
 
-  sass-embedded-unknown-all@1.93.3:
-    resolution: {integrity: sha512-o5wj2rLpXH0C+GJKt/VpWp6AnMsCCbfFmnMAttcrsa+U3yrs/guhZ3x55KAqqUsE8F47e3frbsDL+1OuQM5DAA==}
+  sass-embedded-unknown-all@1.95.1:
+    resolution: {integrity: sha512-bhywAcadVQoCotD4gVmyMBi2SENPvyLFPrXf33VK5mY487Nf/g5SgGCUuGmfTsbns4NBwbwR7PA/1fnJmeMtdA==}
     os: ['!android', '!darwin', '!linux', '!win32']
 
-  sass-embedded-win32-arm64@1.93.3:
-    resolution: {integrity: sha512-0dOfT9moy9YmBolodwYYXtLwNr4jL4HQC9rBfv6mVrD7ud8ue2kDbn+GVzj1hEJxvEexVSmDCf7MHUTLcGs9xQ==}
+  sass-embedded-win32-arm64@1.95.1:
+    resolution: {integrity: sha512-RWWODCthWdMVODoq98lyIk9R56mgGJ4TFUjD9LSCe7fAYD/tiTkUabE4AUzkZqknQSYr0n0Q2uy7POSDIKvhVg==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [win32]
 
-  sass-embedded-win32-x64@1.93.3:
-    resolution: {integrity: sha512-wHFVfxiS9hU/sNk7KReD+lJWRp3R0SLQEX4zfOnRP2zlvI2X4IQR5aZr9GNcuMP6TmNpX0nQPZTegS8+h9RrEg==}
+  sass-embedded-win32-x64@1.95.1:
+    resolution: {integrity: sha512-jotHgOQnCb1XdjK0fhsyuhsfox7Y5EkrOc4h2caEpRcNCnsPTBZHqhuc8Lnw8HbKIhwKYkqWhexkjgz62MShhg==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [win32]
 
-  sass-embedded@1.93.3:
-    resolution: {integrity: sha512-+VUy01yfDqNmIVMd/LLKl2TTtY0ovZN0rTonh+FhKr65mFwIYgU9WzgIZKS7U9/SPCQvWTsTGx9jyt+qRm/XFw==}
+  sass-embedded@1.95.1:
+    resolution: {integrity: sha512-l086+s40Z0qP7ckj4T+rI/7tZcwAfcKCG9ah9A808yINWOxZFv0kO0u/UHhR4G9Aimeyax/JNvqh8RE7z1wngg==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
@@ -1552,8 +1552,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.93.3:
-    resolution: {integrity: sha512-elOcIZRTM76dvxNAjqYrucTSI0teAF/L2Lv0s6f6b7FOwcwIuA357bIE871580AjHJuSvLIRUosgV+lIWx6Rgg==}
+  sass@1.95.1:
+    resolution: {integrity: sha512-uPoDh5NIEZV4Dp5GBodkmNY9tSQfXY02pmCcUo+FR1P+x953HGkpw+vV28D4IqYB6f8webZtwoSaZaiPtpTeMg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -1739,7 +1739,7 @@ snapshots:
     dependencies:
       '@ant-design/cssinjs': 2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@babel/runtime': 7.28.4
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
@@ -1748,7 +1748,7 @@ snapshots:
       '@babel/runtime': 7.28.4
       '@emotion/hash': 0.8.0
       '@emotion/unitless': 0.7.5
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       csstype: 3.2.3
       react: 19.2.1
@@ -1763,7 +1763,7 @@ snapshots:
     dependencies:
       '@ant-design/colors': 8.0.0
       '@ant-design/icons-svg': 4.4.2
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -1951,12 +1951,12 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@nuintun/svgo-loader@0.5.7(@rspack/core@1.6.6(@swc/helpers@0.5.17))':
+  '@nuintun/svgo-loader@0.5.7(@rspack/core@1.6.7(@swc/helpers@0.5.17))':
     dependencies:
       svgo: 4.0.0
       tslib: 2.8.1
     optionalDependencies:
-      '@rspack/core': 1.6.6(@swc/helpers@0.5.17)
+      '@rspack/core': 1.6.7(@swc/helpers@0.5.17)
 
   '@parcel/watcher-android-arm64@2.5.1':
     optional: true
@@ -2027,14 +2027,14 @@ snapshots:
     dependencies:
       '@rc-component/select': 1.3.4(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/tree': 1.1.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/checkbox@1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2043,7 +2043,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.28.4
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2051,14 +2051,14 @@ snapshots:
   '@rc-component/color-picker@3.0.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@ant-design/fast-color': 3.0.0
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/context@2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
@@ -2066,7 +2066,7 @@ snapshots:
     dependencies:
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/portal': 2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2075,7 +2075,7 @@ snapshots:
     dependencies:
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/portal': 2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2083,7 +2083,7 @@ snapshots:
   '@rc-component/dropdown@1.0.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2091,7 +2091,7 @@ snapshots:
   '@rc-component/form@1.4.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@rc-component/async-validator': 5.0.4
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2100,7 +2100,7 @@ snapshots:
     dependencies:
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/portal': 2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2108,14 +2108,14 @@ snapshots:
   '@rc-component/input-number@1.6.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@rc-component/mini-decimal': 1.1.0
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/input@1.1.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2126,7 +2126,7 @@ snapshots:
       '@rc-component/menu': 1.2.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/textarea': 1.1.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2136,7 +2136,7 @@ snapshots:
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/overflow': 1.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2147,21 +2147,21 @@ snapshots:
 
   '@rc-component/motion@1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/mutate-observer@2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/notification@1.2.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2170,14 +2170,14 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.28.4
       '@rc-component/resize-observer': 1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/pagination@1.2.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2187,7 +2187,7 @@ snapshots:
       '@rc-component/overflow': 1.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/resize-observer': 1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2196,14 +2196,14 @@ snapshots:
 
   '@rc-component/portal@2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/progress@1.0.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2216,14 +2216,14 @@ snapshots:
 
   '@rc-component/rate@1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/resize-observer@1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
@@ -2231,7 +2231,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.28.4
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2240,7 +2240,7 @@ snapshots:
     dependencies:
       '@rc-component/overflow': 1.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/virtual-list': 1.0.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
@@ -2248,21 +2248,21 @@ snapshots:
 
   '@rc-component/slider@1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/steps@1.2.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/switch@1.0.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2271,7 +2271,7 @@ snapshots:
     dependencies:
       '@rc-component/context': 2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/resize-observer': 1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/virtual-list': 1.0.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
@@ -2283,7 +2283,7 @@ snapshots:
       '@rc-component/menu': 1.2.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/resize-observer': 1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2292,7 +2292,7 @@ snapshots:
     dependencies:
       '@rc-component/input': 1.1.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/resize-observer': 1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2300,7 +2300,7 @@ snapshots:
   '@rc-component/tooltip@1.4.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2309,7 +2309,7 @@ snapshots:
     dependencies:
       '@rc-component/portal': 2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2318,7 +2318,7 @@ snapshots:
     dependencies:
       '@rc-component/select': 1.3.4(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/tree': 1.1.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -2326,7 +2326,7 @@ snapshots:
   '@rc-component/tree@1.1.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/virtual-list': 1.0.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
@@ -2337,19 +2337,19 @@ snapshots:
       '@rc-component/motion': 1.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/portal': 2.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/resize-observer': 1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
   '@rc-component/upload@1.1.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
-  '@rc-component/util@1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@rc-component/util@1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       is-mobile: 5.0.0
       react: 19.2.1
@@ -2360,60 +2360,60 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.28.4
       '@rc-component/resize-observer': 1.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
-  '@rspack/binding-darwin-arm64@1.6.6':
+  '@rspack/binding-darwin-arm64@1.6.7':
     optional: true
 
-  '@rspack/binding-darwin-x64@1.6.6':
+  '@rspack/binding-darwin-x64@1.6.7':
     optional: true
 
-  '@rspack/binding-linux-arm64-gnu@1.6.6':
+  '@rspack/binding-linux-arm64-gnu@1.6.7':
     optional: true
 
-  '@rspack/binding-linux-arm64-musl@1.6.6':
+  '@rspack/binding-linux-arm64-musl@1.6.7':
     optional: true
 
-  '@rspack/binding-linux-x64-gnu@1.6.6':
+  '@rspack/binding-linux-x64-gnu@1.6.7':
     optional: true
 
-  '@rspack/binding-linux-x64-musl@1.6.6':
+  '@rspack/binding-linux-x64-musl@1.6.7':
     optional: true
 
-  '@rspack/binding-wasm32-wasi@1.6.6':
+  '@rspack/binding-wasm32-wasi@1.6.7':
     dependencies:
       '@napi-rs/wasm-runtime': 1.0.7
     optional: true
 
-  '@rspack/binding-win32-arm64-msvc@1.6.6':
+  '@rspack/binding-win32-arm64-msvc@1.6.7':
     optional: true
 
-  '@rspack/binding-win32-ia32-msvc@1.6.6':
+  '@rspack/binding-win32-ia32-msvc@1.6.7':
     optional: true
 
-  '@rspack/binding-win32-x64-msvc@1.6.6':
+  '@rspack/binding-win32-x64-msvc@1.6.7':
     optional: true
 
-  '@rspack/binding@1.6.6':
+  '@rspack/binding@1.6.7':
     optionalDependencies:
-      '@rspack/binding-darwin-arm64': 1.6.6
-      '@rspack/binding-darwin-x64': 1.6.6
-      '@rspack/binding-linux-arm64-gnu': 1.6.6
-      '@rspack/binding-linux-arm64-musl': 1.6.6
-      '@rspack/binding-linux-x64-gnu': 1.6.6
-      '@rspack/binding-linux-x64-musl': 1.6.6
-      '@rspack/binding-wasm32-wasi': 1.6.6
-      '@rspack/binding-win32-arm64-msvc': 1.6.6
-      '@rspack/binding-win32-ia32-msvc': 1.6.6
-      '@rspack/binding-win32-x64-msvc': 1.6.6
+      '@rspack/binding-darwin-arm64': 1.6.7
+      '@rspack/binding-darwin-x64': 1.6.7
+      '@rspack/binding-linux-arm64-gnu': 1.6.7
+      '@rspack/binding-linux-arm64-musl': 1.6.7
+      '@rspack/binding-linux-x64-gnu': 1.6.7
+      '@rspack/binding-linux-x64-musl': 1.6.7
+      '@rspack/binding-wasm32-wasi': 1.6.7
+      '@rspack/binding-win32-arm64-msvc': 1.6.7
+      '@rspack/binding-win32-ia32-msvc': 1.6.7
+      '@rspack/binding-win32-x64-msvc': 1.6.7
 
-  '@rspack/core@1.6.6(@swc/helpers@0.5.17)':
+  '@rspack/core@1.6.7(@swc/helpers@0.5.17)':
     dependencies:
       '@module-federation/runtime-tools': 0.21.6
-      '@rspack/binding': 1.6.6
+      '@rspack/binding': 1.6.7
       '@rspack/lite-tapable': 1.1.0
     optionalDependencies:
       '@swc/helpers': 0.5.17
@@ -2596,7 +2596,7 @@ snapshots:
       '@rc-component/tree-select': 1.4.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/trigger': 3.7.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@rc-component/upload': 1.1.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@rc-component/util': 1.5.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@rc-component/util': 1.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       clsx: 2.1.1
       dayjs: 1.11.19
       react: 19.2.1
@@ -2678,7 +2678,7 @@ snapshots:
       depd: 2.0.0
       keygrip: 1.1.0
 
-  css-loader@7.1.2(@rspack/core@1.6.6(@swc/helpers@0.5.17)):
+  css-loader@7.1.2(@rspack/core@1.6.7(@swc/helpers@0.5.17)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.6)
       postcss: 8.5.6
@@ -2689,16 +2689,16 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.7.3
     optionalDependencies:
-      '@rspack/core': 1.6.6(@swc/helpers@0.5.17)
+      '@rspack/core': 1.6.7(@swc/helpers@0.5.17)
 
-  css-modules-types-loader@0.6.15(@rspack/core@1.6.6(@swc/helpers@0.5.17)):
+  css-modules-types-loader@0.6.15(@rspack/core@1.6.7(@swc/helpers@0.5.17)):
     dependencies:
       acorn: 8.15.0
       acorn-walk: 8.3.4
       piscina: 5.1.4
       tslib: 2.8.1
     optionalDependencies:
-      '@rspack/core': 1.6.6(@swc/helpers@0.5.17)
+      '@rspack/core': 1.6.7(@swc/helpers@0.5.17)
 
   css-select@5.2.2:
     dependencies:
@@ -3063,10 +3063,10 @@ snapshots:
 
   require-from-string@2.0.2: {}
 
-  rspack-dev-middleware@0.2.2(@rspack/core@1.6.6(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.1.1)(utf-8-validate@6.0.5):
+  rspack-dev-middleware@0.2.2(@rspack/core@1.6.7(@swc/helpers@0.5.17))(bufferutil@4.0.9)(koa@3.1.1)(utf-8-validate@6.0.5):
     dependencies:
       '@nuintun/ansi': 0.3.9
-      '@rspack/core': 1.6.6(@swc/helpers@0.5.17)
+      '@rspack/core': 1.6.7(@swc/helpers@0.5.17)
       '@types/koa': 3.0.1
       '@types/ws': 8.18.1
       etag: 1.8.1
@@ -3088,65 +3088,65 @@ snapshots:
 
   safe-buffer@5.2.1: {}
 
-  sass-embedded-all-unknown@1.93.3:
+  sass-embedded-all-unknown@1.95.1:
     dependencies:
-      sass: 1.93.3
+      sass: 1.95.1
     optional: true
 
-  sass-embedded-android-arm64@1.93.3:
+  sass-embedded-android-arm64@1.95.1:
     optional: true
 
-  sass-embedded-android-arm@1.93.3:
+  sass-embedded-android-arm@1.95.1:
     optional: true
 
-  sass-embedded-android-riscv64@1.93.3:
+  sass-embedded-android-riscv64@1.95.1:
     optional: true
 
-  sass-embedded-android-x64@1.93.3:
+  sass-embedded-android-x64@1.95.1:
     optional: true
 
-  sass-embedded-darwin-arm64@1.93.3:
+  sass-embedded-darwin-arm64@1.95.1:
     optional: true
 
-  sass-embedded-darwin-x64@1.93.3:
+  sass-embedded-darwin-x64@1.95.1:
     optional: true
 
-  sass-embedded-linux-arm64@1.93.3:
+  sass-embedded-linux-arm64@1.95.1:
     optional: true
 
-  sass-embedded-linux-arm@1.93.3:
+  sass-embedded-linux-arm@1.95.1:
     optional: true
 
-  sass-embedded-linux-musl-arm64@1.93.3:
+  sass-embedded-linux-musl-arm64@1.95.1:
     optional: true
 
-  sass-embedded-linux-musl-arm@1.93.3:
+  sass-embedded-linux-musl-arm@1.95.1:
     optional: true
 
-  sass-embedded-linux-musl-riscv64@1.93.3:
+  sass-embedded-linux-musl-riscv64@1.95.1:
     optional: true
 
-  sass-embedded-linux-musl-x64@1.93.3:
+  sass-embedded-linux-musl-x64@1.95.1:
     optional: true
 
-  sass-embedded-linux-riscv64@1.93.3:
+  sass-embedded-linux-riscv64@1.95.1:
     optional: true
 
-  sass-embedded-linux-x64@1.93.3:
+  sass-embedded-linux-x64@1.95.1:
     optional: true
 
-  sass-embedded-unknown-all@1.93.3:
+  sass-embedded-unknown-all@1.95.1:
     dependencies:
-      sass: 1.93.3
+      sass: 1.95.1
     optional: true
 
-  sass-embedded-win32-arm64@1.93.3:
+  sass-embedded-win32-arm64@1.95.1:
     optional: true
 
-  sass-embedded-win32-x64@1.93.3:
+  sass-embedded-win32-x64@1.95.1:
     optional: true
 
-  sass-embedded@1.93.3:
+  sass-embedded@1.95.1:
     dependencies:
       '@bufbuild/protobuf': 2.10.1
       buffer-builder: 0.2.0
@@ -3157,34 +3157,34 @@ snapshots:
       sync-child-process: 1.0.2
       varint: 6.0.0
     optionalDependencies:
-      sass-embedded-all-unknown: 1.93.3
-      sass-embedded-android-arm: 1.93.3
-      sass-embedded-android-arm64: 1.93.3
-      sass-embedded-android-riscv64: 1.93.3
-      sass-embedded-android-x64: 1.93.3
-      sass-embedded-darwin-arm64: 1.93.3
-      sass-embedded-darwin-x64: 1.93.3
-      sass-embedded-linux-arm: 1.93.3
-      sass-embedded-linux-arm64: 1.93.3
-      sass-embedded-linux-musl-arm: 1.93.3
-      sass-embedded-linux-musl-arm64: 1.93.3
-      sass-embedded-linux-musl-riscv64: 1.93.3
-      sass-embedded-linux-musl-x64: 1.93.3
-      sass-embedded-linux-riscv64: 1.93.3
-      sass-embedded-linux-x64: 1.93.3
-      sass-embedded-unknown-all: 1.93.3
-      sass-embedded-win32-arm64: 1.93.3
-      sass-embedded-win32-x64: 1.93.3
+      sass-embedded-all-unknown: 1.95.1
+      sass-embedded-android-arm: 1.95.1
+      sass-embedded-android-arm64: 1.95.1
+      sass-embedded-android-riscv64: 1.95.1
+      sass-embedded-android-x64: 1.95.1
+      sass-embedded-darwin-arm64: 1.95.1
+      sass-embedded-darwin-x64: 1.95.1
+      sass-embedded-linux-arm: 1.95.1
+      sass-embedded-linux-arm64: 1.95.1
+      sass-embedded-linux-musl-arm: 1.95.1
+      sass-embedded-linux-musl-arm64: 1.95.1
+      sass-embedded-linux-musl-riscv64: 1.95.1
+      sass-embedded-linux-musl-x64: 1.95.1
+      sass-embedded-linux-riscv64: 1.95.1
+      sass-embedded-linux-x64: 1.95.1
+      sass-embedded-unknown-all: 1.95.1
+      sass-embedded-win32-arm64: 1.95.1
+      sass-embedded-win32-x64: 1.95.1
 
-  sass-loader@16.0.6(@rspack/core@1.6.6(@swc/helpers@0.5.17))(sass-embedded@1.93.3)(sass@1.93.3):
+  sass-loader@16.0.6(@rspack/core@1.6.7(@swc/helpers@0.5.17))(sass-embedded@1.95.1)(sass@1.95.1):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
-      '@rspack/core': 1.6.6(@swc/helpers@0.5.17)
-      sass: 1.93.3
-      sass-embedded: 1.93.3
+      '@rspack/core': 1.6.7(@swc/helpers@0.5.17)
+      sass: 1.95.1
+      sass-embedded: 1.95.1
 
-  sass@1.93.3:
+  sass@1.95.1:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.4
@@ -3238,13 +3238,13 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  svgc-loader@0.5.7(@rspack/core@1.6.6(@swc/helpers@0.5.17))(react@19.2.1):
+  svgc-loader@0.5.7(@rspack/core@1.6.7(@swc/helpers@0.5.17))(react@19.2.1):
     dependencies:
       css-tree: 3.1.0
       svgo: 4.0.0
       tslib: 2.8.1
     optionalDependencies:
-      '@rspack/core': 1.6.6(@swc/helpers@0.5.17)
+      '@rspack/core': 1.6.7(@swc/helpers@0.5.17)
       react: 19.2.1
 
   svgo@4.0.0:
