@@ -81,19 +81,15 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
     onOpenChange?.(openKeys, cachedOpenKeys);
   }, []);
 
+  const rootClassName = clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
+    [`${prefixCls}-mobile`]: isMobile
+  });
+
+  const header = renderHeader?.({ theme, width, isMobile, collapsed, collapsedWidth });
+
   const menu = (
     <>
-      {renderHeader && (
-        <div className={`${prefixCls}-header`}>
-          {renderHeader({
-            theme,
-            width,
-            isMobile,
-            collapsed,
-            collapsedWidth
-          })}
-        </div>
-      )}
+      {header && <div className={`${prefixCls}-header`}>{header}</div>}
       <RouteMenu
         {...restProps}
         mode="inline"
@@ -115,9 +111,7 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
       onClose={onClose}
       open={!collapsed}
       styles={drawerStyles}
-      className={clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
-        [`${prefixCls}-mobile`]: isMobile
-      })}
+      className={rootClassName}
     >
       {menu}
     </Drawer>
@@ -130,10 +124,8 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
       trigger={trigger}
       collapsed={collapsed}
       onCollapse={onCollapse}
+      className={rootClassName}
       collapsedWidth={collapsedWidth}
-      className={clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
-        [`${prefixCls}-mobile`]: isMobile
-      })}
     >
       {menu}
     </Sider>

@@ -92,6 +92,10 @@ export default memo(function FlexLayout(props: FlexLayoutProps) {
 
   const getTargetContainer = useCallback(() => contentRef.current || document.body, []);
 
+  const Trigger = collapsed ? MenuUnfoldOutlined : MenuFoldOutlined;
+
+  const logo = isMobile && renderLogoHeader?.({ theme, isMobile, collapsedWidth, collapsed: true, width: siderWidth });
+
   return (
     <Layout hasSider={!isMobile} className={clsx(scope, prefixCls, `${prefixCls}-${theme}`)}>
       <FlexMenu
@@ -107,31 +111,10 @@ export default memo(function FlexLayout(props: FlexLayoutProps) {
       />
       <Layout>
         <Header className={`${prefixCls}-header`}>
-          {isMobile && renderLogoHeader && (
-            <div className={`${prefixCls}-logo-header`}>
-              {renderLogoHeader({
-                theme,
-                isMobile,
-                collapsedWidth,
-                collapsed: true,
-                width: siderWidth
-              })}
-            </div>
-          )}
+          {logo && <div className={`${prefixCls}-logo-header`}>{logo}</div>}
           <div className={`${prefixCls}-actions-header`}>
-            {collapsed ? (
-              <MenuUnfoldOutlined onClick={onTriggerClick} className={`${prefixCls}-trigger`} />
-            ) : (
-              <MenuFoldOutlined onClick={onTriggerClick} className={`${prefixCls}-trigger`} />
-            )}
-            {renderActionsHeader &&
-              renderActionsHeader({
-                theme,
-                isMobile,
-                collapsed,
-                collapsedWidth,
-                width: siderWidth
-              })}
+            <Trigger onClick={onTriggerClick} className={`${prefixCls}-trigger`} />
+            {renderActionsHeader?.({ theme, isMobile, collapsed, collapsedWidth, width: siderWidth })}
           </div>
         </Header>
         <Content>
