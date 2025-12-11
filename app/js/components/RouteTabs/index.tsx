@@ -59,7 +59,7 @@ export default memo(function RouteTabs({
         ),
         label: (
           <Link
-            href={link.href}
+            to={link.href}
             target={link.target}
             className={clsx(`${prefixCls}-nav`, {
               [`${prefixCls}-active`]: active

@@ -21,8 +21,8 @@ type SwitchPicked =
 
 export interface ActionSwitchProps<R>
   extends
-    ActionProps<Record<string, boolean> | null, R>,
     Pick<SwitchProps, SwitchPicked>,
+    ActionProps<Record<string, boolean> | null, R>,
     Pick<RequestOptions<R>, 'query' | 'method' | 'notify'> {
   name?: string;
   action: string;

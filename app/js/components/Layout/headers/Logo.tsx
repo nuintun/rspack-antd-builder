@@ -14,7 +14,7 @@ export default memo(function LogoHeader({ collapsed }: RenderHeaderProps) {
   const scope = useStyles();
 
   return (
-    <Link href="/" title="Home" className={clsx(scope, prefixCls)}>
+    <Link to="/" title="Home" className={clsx(scope, prefixCls)}>
       <img alt="logo" src={logo} />
       {!collapsed && <span>{__APP_NAME__}</span>}
     </Link>

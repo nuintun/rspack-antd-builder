@@ -37,7 +37,7 @@ function getBreadcrumbItems(matches: IRoute[], showIcon: boolean): BreadcrumbIte
       if (isLinkable) {
         items.push({
           title: (
-            <Link href={link.href} target={link.target} className={`${prefixCls}-link`}>
+            <Link to={link.href} target={link.target} className={`${prefixCls}-link`}>
               {showIcon && <FlexIcon icon={icon} className={`${prefixCls}-icon`} />}
               <span>{name}</span>
             </Link>
