@@ -82,15 +82,15 @@ function ActionButton<R>({
       style={style}
       title={title}
       danger={danger}
+      loading={loading}
       onClick={onClick}
       variant={variant}
       tabIndex={tabIndex}
       autoFocus={autoFocus}
       className={className}
-      iconPlacement={iconPlacement}
       disabled={restProps.disabled}
+      iconPlacement={iconPlacement}
       autoInsertSpace={autoInsertSpace}
-      loading={restProps.confirm ? false : loading}
     >
       {children}
     </Button>
