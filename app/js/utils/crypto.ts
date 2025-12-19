@@ -92,7 +92,7 @@ function encryptBlock(view: DataView, offset: number, xorKey: number, littleEndi
   view.setUint32(blockOffset, value, littleEndian);
 
   // 根据加密后的数据派生新的密钥，实现密钥流加密
-  return deriveXorKey(value);
+  return deriveXorKey(value) ^ SECRET_KEY;
 }
 
 /**
@@ -114,7 +114,7 @@ function decryptBlock(view: DataView, offset: number, xorKey: number, littleEndi
   view.setUint32(blockOffset, value ^ xorKey, littleEndian);
 
   // 更新解密密钥，实现密钥流解密
-  return deriveXorKey(value);
+  return deriveXorKey(value) ^ SECRET_KEY;
 }
 
 /**
@@ -145,7 +145,7 @@ export function encrypt(buffer: Uint8Array, littleEndian?: boolean): Uint8Array 
   packet.set(buffer, Packet.HEAD_SIZE);
 
   // 创建 XOR 密钥
-  let xorKey = deriveXorKey(key);
+  let xorKey = deriveXorKey(key) ^ SECRET_KEY;
 
   // 循环加密数据，每块 4 字节
   for (let offset = 0; offset < encryptBlocks; offset++) {
@@ -211,7 +211,7 @@ export function decrypt(packet: Uint8Array, littleEndian?: boolean): Uint8Array 
   const maxBlockOffset = decryptBlocks - 1;
 
   // 创建 XOR 密钥
-  let xorKey = deriveXorKey(key);
+  let xorKey = deriveXorKey(key) ^ SECRET_KEY;
 
   // 创建缓冲区视图
   const bufferView = new DataView(buffer.buffer);
