@@ -25,7 +25,7 @@
     "@ant-design/icons": "^6.1.0",
     "@msgpack/msgpack": "^3.1.2",
     "@nuintun/qrcode": "^5.0.2",
-    "@swc/helpers": "^0.5.17",
+    "@swc/helpers": "^0.5.18",
     "antd": "^6.1.2",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
