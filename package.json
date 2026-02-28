@@ -30,7 +30,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
     "fast-equals": "^6.0.0",
-    "koa": "^3.1.1",
+    "koa": "^3.1.2",
     "koa-compress": "^5.1.1",
     "koa-files": "^4.1.6",
     "memoize-one": "^6.0.0",
