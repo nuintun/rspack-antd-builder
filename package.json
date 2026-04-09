@@ -34,8 +34,8 @@
     "koa-compress": "^5.2.1",
     "koa-files": "^5.0.1",
     "memoize-one": "^6.0.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "react-error-boundary": "^6.1.1",
     "react-nest-router": "^0.21.5",
     "throttle-debounce": "^5.0.2"
