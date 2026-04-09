@@ -74,7 +74,7 @@ export default async function (mode: Mode): Promise<Configuration> {
       new rspack.DefinePlugin(env),
       new rspack.CssExtractRspackPlugin(css),
       new rspack.HtmlRspackPlugin(html),
-      ...(appConfig.plugins || [])
+      ...(appConfig.plugins ?? [])
     ],
     optimization: {
       splitChunks: {
