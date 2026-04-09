@@ -118,5 +118,5 @@ export default async function (mode: Mode): Promise<Configuration> {
         }
       }
     }
-  } satisfies Configuration;
+  };
 }
