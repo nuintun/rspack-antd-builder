@@ -14,7 +14,6 @@
   "homepage": "https://github.com/nuintun/rspack-antd-builder",
   "scripts": {
     "lint": "tsc --noEmit",
-    "tsc-init": "tsc --init",
     "start": "node server.ts",
     "prod": "node tools/bin/rspack.config.prod.ts",
     "dev": "nodemon --exec node tools/bin/rspack.config.dev.ts",
