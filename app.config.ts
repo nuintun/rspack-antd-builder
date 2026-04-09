@@ -10,6 +10,7 @@ const js = resolve('app/js');
 const css = resolve('app/css');
 const images = resolve('app/images');
 
+// 生成配置文件
 export default defineConfig({
   ports: 8000,
   lang: 'zh-CN',
