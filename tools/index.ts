@@ -80,7 +80,7 @@ export interface AppConfig extends Pick<Configuration, Props> {
    * @property ports
    * @description 开发服务器端口配置
    */
-  ports: [start: number, end?: number] | number;
+  ports: number | [start: number, end?: number];
   /**
    * @property alias
    * @description 模块解析别名配置，简化导入路径
