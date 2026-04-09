@@ -67,7 +67,7 @@ export default async function (mode: Mode): Promise<Rules> {
               loader: rspack.CssExtractRspackPlugin.loader
             },
             {
-              loader: 'css-modules-types-loader'
+              loader: 'css-modules-types-loader/rspack'
             },
             {
               loader: 'css-loader',
@@ -87,7 +87,7 @@ export default async function (mode: Mode): Promise<Rules> {
               loader: rspack.CssExtractRspackPlugin.loader
             },
             {
-              loader: 'css-modules-types-loader'
+              loader: 'css-modules-types-loader/rspack'
             },
             {
               loader: 'css-loader',
@@ -119,7 +119,7 @@ export default async function (mode: Mode): Promise<Rules> {
               resourceQuery: /^\?url$/,
               use: [
                 {
-                  loader: '@nuintun/svgo-loader',
+                  loader: '@nuintun/svgo-loader/rspack',
                   options: svgoOptions
                 }
               ]
@@ -132,7 +132,7 @@ export default async function (mode: Mode): Promise<Rules> {
                   options: swcOptions
                 },
                 {
-                  loader: 'svgc-loader',
+                  loader: 'svgc-loader/rspack',
                   options: svgoOptions
                 }
               ]
@@ -141,7 +141,7 @@ export default async function (mode: Mode): Promise<Rules> {
               type: 'asset/resource',
               use: [
                 {
-                  loader: '@nuintun/svgo-loader',
+                  loader: '@nuintun/svgo-loader/rspack',
                   options: svgoOptions
                 }
               ]
