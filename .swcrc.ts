@@ -3,7 +3,7 @@
  * @description SWC 配置模块，用于生成 JavaScript/TypeScript 编译和转换的配置选项
  */
 
-import targets from './tools/lib/targets.ts';
+import { targets } from './tools/index.ts';
 import type { Mode, SwcLoaderOptions } from '@rspack/core';
 
 /**

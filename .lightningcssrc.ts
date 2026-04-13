@@ -3,7 +3,7 @@
  * @description LightningCSS 配置模块，用于生成 CSS 转换和优化的配置选项
  */
 
-import targets from './tools/lib/targets.ts';
+import { targets } from './tools/index.ts';
 import type { LightningcssLoaderOptions, Mode } from '@rspack/core';
 
 /**

@@ -3,9 +3,9 @@
  * @description 环境变量处理模块，负责解析和转换构建时的环境变量
  */
 
+import type { Env } from '../index.ts';
 import type { Mode } from '@rspack/core';
 import appConfig from '../../app.config.ts';
-import type { Env, EnvFunction } from '../index.ts';
 
 /**
  * @function resolveEnvironment
@@ -13,12 +13,7 @@ import type { Env, EnvFunction } from '../index.ts';
  * @param mode 打包模式，如 'development'、'production' 等
  * @param env 可选的环境变量配置，可以是对象或返回对象的异步函数
  */
-export async function resolveEnvironment(mode: Mode, env?: Env | EnvFunction) {
-  // 如果 env 是函数，则调用它并传入模式和当前进程环境变量
-  if (typeof env === 'function') {
-    env = await env(mode, process.env);
-  }
-
+export async function resolveEnvironment(mode: Mode, env?: Env) {
   // 合并默认环境变量：应用名称和开发模式标识
   env = {
     ...env,

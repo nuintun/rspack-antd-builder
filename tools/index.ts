@@ -3,7 +3,11 @@
  * @description Rspack 构建配置的类型定义模块，提供应用配置的接口和工具类型
  */
 
+import targets from './utils/targets.ts';
+import { isFunction } from './utils/typeof.ts';
 import type { Configuration, HtmlRspackPluginOptions, Mode } from '@rspack/core';
+
+export { targets };
 
 /**
  * @typedef Env
@@ -12,16 +16,16 @@ import type { Configuration, HtmlRspackPluginOptions, Mode } from '@rspack/core'
 export type Env = Record<string, unknown>;
 
 /**
- * @interface EnvFunction
- * @description 动态环境变量配置函数接口，用于根据打包模式和系统环境变量生成配置
+ * @typedef PageConfig
+ * @description
  */
-export interface EnvFunction {
-  /**
-   * @param mode 打包模式，如 'development'、'production'
-   * @param env 当前进程的环境变量对象（process.env）
-   */
-  (mode: Mode, env: Env): Env | Promise<Env>;
-}
+export type PageConfig = HtmlRspackPluginOptions;
+
+/**
+ * @typedef AppConfigFactory
+ * @description
+ */
+export type AppConfigFactory = (mode: Mode) => AppConfig;
 
 /**
  * @type GetProp
@@ -30,26 +34,29 @@ export interface EnvFunction {
 export type GetProp<T, K extends keyof T> = NonNullable<T[K]>;
 
 /**
- * @typedef Props
- * @description 从 Rspack Configuration 中 pick 的属性键名集合
- */
-type Props = 'context' | 'plugins' | 'externals' | 'externalsType';
-
-/**
  * @interface AppConfig
  * @description 应用配置接口，定义了 rspack-antd-builder 的项目配置结构
  */
-export interface AppConfig extends Pick<Configuration, Props> {
-  /**
-   * @property name
-   * @description 应用名称，用于注入到环境变量 __APP_NAME__ 中
-   */
-  name: string;
+export interface AppConfig extends Pick<
+  Configuration,
+  // 从 Rspack Configuration 中 pick 的属性键名集合
+  'context' | 'plugins' | 'externals' | 'externalsType'
+> {
   /**
    * @property env
    * @description 可选的环境变量配置，可以是静态对象或动态生成函数
    */
-  env?: Env | EnvFunction;
+  env?: Env;
+  /**
+   * @property name
+   * @description 应用名称，用于注入到环境变量 __APP_NAME__ 和 HTML <title> 中
+   */
+  name: string;
+  /**
+   * @property lang
+   * @description HTML 文档的语言属性值，如 'zh-CN'、'en-US' 等
+   */
+  lang: string;
   /**
    * @property entry
    * @description 应用入口配置，支持单入口字符串或多入口对象
@@ -64,8 +71,9 @@ export interface AppConfig extends Pick<Configuration, Props> {
   /**
    * @property pages
    * @description  页面应用配置列表，支持单页面和多页面配置
+   * @see https://rspack.rs/plugins/rspack/html-rspack-plugin
    */
-  pages?: HtmlRspackPluginOptions | HtmlRspackPluginOptions[];
+  pages: PageConfig | [PageConfig, ...PageConfig[]];
   /**
    * @property alias
    * @description 模块解析别名配置，简化导入路径
@@ -88,6 +96,6 @@ export interface AppConfig extends Pick<Configuration, Props> {
  * @description 定义应用配置的辅助函数，提供类型推断和智能提示
  * @param config 应用配置对象，必须符合 AppConfig 接口规范
  */
-export function defineConfig(config: AppConfig): AppConfig {
-  return config;
+export function defineConfig(config: AppConfig | AppConfigFactory): AppConfigFactory {
+  return isFunction(config) ? config : () => config;
 }
