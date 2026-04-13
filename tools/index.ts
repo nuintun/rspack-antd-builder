@@ -41,6 +41,11 @@ type Props = 'context' | 'plugins' | 'externals' | 'externalsType';
  */
 export interface AppConfig extends Pick<Configuration, Props> {
   /**
+   * @property name
+   * @description 应用名称，用于注入到环境变量 __APP_NAME__ 中
+   */
+  name: string;
+  /**
    * @property env
    * @description 可选的环境变量配置，可以是静态对象或动态生成函数
    */
