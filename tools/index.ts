@@ -3,7 +3,7 @@
  * @description Rspack 构建配置的类型定义模块，提供应用配置的接口和工具类型
  */
 
-import type { Configuration, Mode } from '@rspack/core';
+import type { Configuration, HtmlRspackPluginOptions, Mode } from '@rspack/core';
 
 /**
  * @typedef Env
@@ -41,38 +41,13 @@ type Props = 'context' | 'plugins' | 'externals' | 'externalsType';
  */
 export interface AppConfig extends Pick<Configuration, Props> {
   /**
-   * @property lang
-   * @description HTML 文档的语言属性值，如 'zh-CN'、'en-US'
-   */
-  lang: string;
-  /**
-   * @property name
-   * @description 应用名称，用于注入到环境变量 __APP_NAME__ 中
-   */
-  name: string;
-  /**
-   * @property favicon
-   * @description 网站图标文件路径
-   */
-  favicon: string;
-  /**
-   * @property entryHTML
-   * @description HTML 模板文件路径，作为页面入口模板
-   */
-  entryHTML: string;
-  /**
    * @property env
    * @description 可选的环境变量配置，可以是静态对象或动态生成函数
    */
   env?: Env | EnvFunction;
   /**
-   * @property meta
-   * @description HTML 页面的 meta 标签配置，键值对形式
-   */
-  meta?: Record<string, string>;
-  /**
    * @property entry
-   * @description 应用入口文件配置，指定打包的起始文件
+   * @description 应用入口配置，支持单入口字符串或多入口对象
    * @see https://rspack.dev/config/entry
    */
   entry: GetProp<Configuration, 'entry'>;
@@ -81,6 +56,11 @@ export interface AppConfig extends Pick<Configuration, Props> {
    * @description 开发服务器端口配置
    */
   ports: number | [start: number, end?: number];
+  /**
+   * @property pages
+   * @description  页面应用配置列表，支持单页面和多页面配置
+   */
+  pages?: HtmlRspackPluginOptions | HtmlRspackPluginOptions[];
   /**
    * @property alias
    * @description 模块解析别名配置，简化导入路径
