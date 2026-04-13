@@ -24,6 +24,7 @@ export default defineConfig({
   context: resolve('app'),
   outputPath: resolve('wwwroot/public'),
   entry: resolve('app/js/pages/index.tsx'),
+  historyApiFallback: resolve('wwwroot/app.html'),
   pages: {
     filename: resolve('wwwroot/app.html'),
     favicon: resolve('app/images/favicon.ico'),

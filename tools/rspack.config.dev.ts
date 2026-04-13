@@ -15,6 +15,7 @@ import compress from 'koa-compress';
 import resolveIp from './utils/ip.ts';
 import { createMemfs } from './utils/fs.ts';
 import { resolvePort } from './utils/port.ts';
+import { isFunction } from './utils/typeof.ts';
 import resolveConfigs from './rspack.config.base.ts';
 import { server as dev } from 'rspack-dev-middleware';
 import { ReactRefreshRspackPlugin } from '@rspack/plugin-react-refresh';
@@ -29,11 +30,10 @@ const HTTP_CLIENT_ERROR_CODES = new Set([
   'ERR_STREAM_PREMATURE_CLOSE' // Stream closed before finishing.
 ]);
 
-const [appConfig, configure] = await resolveConfigs(mode);
+const [{ ports, historyApiFallback }, configure] = await resolveConfigs(mode);
 
 const ip = resolveIp();
 const fs = createMemfs();
-const { ports } = appConfig;
 const port = await resolvePort(ports);
 const devServerHost = `http://${ip}:${port}`;
 
@@ -64,10 +64,17 @@ app.use(
 
 app.use(devService);
 
-app.use(async ctx => {
-  ctx.type = 'text/html; charset=utf-8';
-  // ctx.body = fs.createReadStream(???);
-});
+if (historyApiFallback != null) {
+  app.use(async ctx => {
+    ctx.type = 'text/html; charset=utf-8';
+
+    if (isFunction(historyApiFallback)) {
+      ctx.body = fs.createReadStream(historyApiFallback(ctx.path));
+    } else {
+      ctx.body = fs.createReadStream(historyApiFallback);
+    }
+  });
+}
 
 app.on('error', error => {
   if (!HTTP_CLIENT_ERROR_CODES.has(error.code)) {

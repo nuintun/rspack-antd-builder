@@ -75,6 +75,11 @@ export interface AppConfig extends Pick<
    */
   pages: PageConfig | [PageConfig, ...PageConfig[]];
   /**
+   * @property historyApiFallback
+   * @description History API 回退配置，当请求未匹配到静态资源时返回 HTML 入口文件
+   */
+  historyApiFallback?: string | ((path: string) => string);
+  /**
    * @property alias
    * @description 模块解析别名配置，简化导入路径
    */
