@@ -5,7 +5,7 @@
 
 import targets from './utils/targets.ts';
 import { isFunction } from './utils/typeof.ts';
-import { AppConfig, AppConfigFactory } from './utils/types.ts';
+import type { AppConfig, AppConfigFactory } from './utils/types.ts';
 
 // 导出 targets 解析函数
 export { targets };
