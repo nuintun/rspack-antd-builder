@@ -3,21 +3,20 @@
  * @description 环境变量处理模块，负责解析和转换构建时的环境变量
  */
 
-import type { Env } from '../index.ts';
 import type { Mode } from '@rspack/core';
-import appConfig from '../../app.config.ts';
+import type { AppConfig } from '../index.ts';
 
 /**
  * @function resolveEnvironment
  * @description 解析并标准化环境变量，将其转换为适合注入到构建环境的格式
  * @param mode 打包模式，如 'development'、'production' 等
- * @param env 可选的环境变量配置，可以是对象或返回对象的异步函数
+ * @param config 完整的应用配置对象
  */
-export async function resolveEnvironment(mode: Mode, env?: Env) {
+export async function resolveEnvironment(mode: Mode, config: AppConfig) {
   // 合并默认环境变量：应用名称和开发模式标识
-  env = {
-    ...env,
-    __APP_NAME__: appConfig.name,
+  const env = {
+    ...config.env,
+    __APP_NAME__: config.name,
     __DEV__: mode !== 'production'
   };
 

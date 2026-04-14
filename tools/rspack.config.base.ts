@@ -22,7 +22,7 @@ export default async function (mode: Mode): Promise<[AppConfig, Configuration]> 
   const isDevelopment = mode !== 'production';
 
   const appConfig = await resolveConfig(mode);
-  const env = await resolveEnvironment(mode, appConfig.env);
+  const env = await resolveEnvironment(mode, appConfig);
 
   const css = {
     ignoreOrder: true,
