@@ -4,7 +4,8 @@
  */
 
 import { targets } from './tools/index.ts';
-import type { LightningcssLoaderOptions, Mode } from '@rspack/core';
+import type { Mode } from './tools/index.ts';
+import type { LightningcssLoaderOptions } from '@rspack/core';
 
 /**
  * @function lightningcssrc

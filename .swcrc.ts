@@ -4,7 +4,8 @@
  */
 
 import { targets } from './tools/index.ts';
-import type { Mode, SwcLoaderOptions } from '@rspack/core';
+import type { Mode } from './tools/index.ts';
+import type { SwcLoaderOptions } from '@rspack/core';
 
 /**
  * @function swcrc
