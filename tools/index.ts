@@ -5,23 +5,18 @@
 
 import targets from './utils/targets.ts';
 import { isFunction } from './utils/typeof.ts';
-import type { Configuration, HtmlRspackPluginOptions, Mode } from '@rspack/core';
+import type { PageConfig } from './utils/pages.ts';
+import type { Configuration, Mode } from '@rspack/core';
 
 export { targets };
 
-export type { Mode };
+export type { Mode, PageConfig };
 
 /**
  * @typedef Env
  * @description 环境变量配置对象类型，键值对形式存储自定义环境变量
  */
 export type Env = Record<string, unknown>;
-
-/**
- * @typedef PageConfig
- * @description 页面配置类型，继承自 HtmlRspackPluginOptions，用于配置单个 HTML 页面的生成选项
- */
-export type PageConfig = HtmlRspackPluginOptions;
 
 /**
  * @typedef AppConfigFactory

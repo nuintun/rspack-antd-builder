@@ -6,8 +6,14 @@
 import rspack from '@rspack/core';
 import { resolve } from 'node:path';
 import { isBoolean, isFunction } from './typeof.ts';
-import type { AppConfig, GetProp, PageConfig } from '../index.ts';
+import type { AppConfig, GetProp } from '../index.ts';
 import type { HtmlRspackPluginOptions, Mode } from '@rspack/core';
+
+/**
+ * @typedef PageConfig
+ * @description 页面配置类型，继承自 HtmlRspackPluginOptions，用于配置单个 HTML 页面的生成选项
+ */
+export type PageConfig = HtmlRspackPluginOptions;
 
 /**
  * @constant DEFAULT_TEMPLATE
