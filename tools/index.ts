@@ -9,6 +9,8 @@ import type { Configuration, HtmlRspackPluginOptions, Mode } from '@rspack/core'
 
 export { targets };
 
+export type { Mode };
+
 /**
  * @typedef Env
  * @description 环境变量配置对象类型，键值对形式存储自定义环境变量
