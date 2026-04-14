@@ -29,10 +29,10 @@ function resolveTemplateParameters(
   }
 
   if (isFunction(templateParameters)) {
-    return params => {
+    return (...args) => {
       return {
         lang,
-        ...templateParameters(params)
+        ...templateParameters(...args)
       };
     };
   }
