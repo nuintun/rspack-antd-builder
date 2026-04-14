@@ -20,10 +20,13 @@ import resolveConfigs from './rspack.config.base.ts';
 import { server as dev } from 'rspack-dev-middleware';
 import { ReactRefreshRspackPlugin } from '@rspack/plugin-react-refresh';
 
-// HTTP 客户端错误码集合
+/**
+ * @constant HTTP_CLIENT_ERROR_CODES
+ * @description HTTP 客户端错误码集合，用于过滤可忽略的连接中断错误
+ */
 const HTTP_CLIENT_ERROR_CODES = new Set([
-  'EOF', // 文件结束 - 客户端关闭连接
-  'EPIPE', // 管道破裂 - 客户端断开连接
+  'EOF', // 文件结束：客户端关闭连接
+  'EPIPE', // 管道破裂：客户端断开连接
   'ECANCELED', // 操作已取消
   'ECONNRESET', // 连接被对端重置
   'ECONNABORTED', // 连接已中止

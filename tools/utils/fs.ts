@@ -10,6 +10,10 @@ import { createFsFromVolume, Volume } from 'memfs';
 import type { Options } from 'rspack-dev-middleware';
 import { lstat, readdir, realpath } from 'node:fs/promises';
 
+/**
+ * @typedef FileSystem
+ * @description 文件系统类型，扩展自 rspack-dev-middleware 的 Options.fs，并添加 createReadStream 方法
+ */
 export type FileSystem = Options['fs'] & {
   createReadStream: IFs['createReadStream'];
 };
