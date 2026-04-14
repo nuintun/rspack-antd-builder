@@ -1,5 +1,6 @@
 /**
  * @module port
+ * @description 端口解析工具模块，在指定范围内查找可用空闲端口
  */
 
 import type { AppConfig } from '../index.ts';

@@ -17,13 +17,13 @@ export type Env = Record<string, unknown>;
 
 /**
  * @typedef PageConfig
- * @description
+ * @description 页面配置类型，继承自 HtmlRspackPluginOptions，用于配置单个 HTML 页面的生成选项
  */
 export type PageConfig = HtmlRspackPluginOptions;
 
 /**
  * @typedef AppConfigFactory
- * @description
+ * @description 应用配置工厂函数类型，根据打包模式动态生成应用配置
  */
 export type AppConfigFactory = (mode: Mode) => AppConfig;
 
