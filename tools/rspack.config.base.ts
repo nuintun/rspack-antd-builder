@@ -7,9 +7,9 @@ import rspack from '@rspack/core';
 import { resolve } from 'node:path';
 import { scanFiles } from './utils/fs.ts';
 import resolveRules from './utils/rules.ts';
-import type { AppConfig } from './index.ts';
 import resolveConfig from './../app.config.ts';
 import resolveHtmlPlugins from './utils/pages.ts';
+import type { AppConfig } from './utils/types.ts';
 import { resolveEnvironment } from './utils/env.ts';
 import type { Configuration, Mode } from '@rspack/core';
 
