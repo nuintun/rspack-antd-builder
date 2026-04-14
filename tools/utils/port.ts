@@ -3,8 +3,8 @@
  * @description 端口解析工具模块，在指定范围内查找可用空闲端口
  */
 
+import type { AppConfig } from './types.ts';
 import { findFreePorts } from 'find-free-ports';
-import type { AppConfig } from '../utils/types.ts';
 
 /**
  * @function resolvePort

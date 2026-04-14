@@ -6,7 +6,7 @@
 import rspack from '@rspack/core';
 import swcrc from '../../.swcrc.ts';
 import svgorc from '../../.svgorc.ts';
-import type { GetProp } from '../utils/types.ts';
+import type { GetProp } from './types.ts';
 import lightningcssrc from '../../.lightningcssrc.ts';
 import type { Configuration, Mode } from '@rspack/core';
 

@@ -4,7 +4,7 @@
  */
 
 import type { Mode } from '@rspack/core';
-import type { AppConfig } from '../utils/types.ts';
+import type { AppConfig } from './types.ts';
 
 /**
  * @function resolveEnvironment
