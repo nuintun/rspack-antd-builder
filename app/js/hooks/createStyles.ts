@@ -29,16 +29,12 @@ export interface CSSUtils {
   calc(value: number | string): AbstractCalculator;
 }
 
-export interface Styles<C extends Components = Components> {
-  (token: Token<C>, utils: CSSUtils): CSSInterpolation;
+function createKey(id: string): string {
+  return `css-var-${id.replace(/[^a-z_\d]/gi, '')}`;
 }
 
-type ComponentTokens = { [key in keyof AliasToken]: string | number | boolean };
-
-export type Token<C extends Components = Components> = AliasToken & Pick<OverrideToken, C>;
-
-function createScopeId(id: string): string {
-  return `css-var-scope-${id.replace(/[^a-z_\d]/gi, '')}`;
+export interface Styles<C extends Components = Components> {
+  (token: Token<C>, utils: CSSUtils): CSSInterpolation;
 }
 
 function prefixToken(component: string, key: string): string {
@@ -46,6 +42,10 @@ function prefixToken(component: string, key: string): string {
     return match.toUpperCase();
   })}`;
 }
+
+type ComponentTokens = { [key in keyof AliasToken]: string | number | boolean };
+
+export type Token<C extends Components = Components> = AliasToken & Pick<OverrideToken, C>;
 
 /**
  * @function createStyles
@@ -72,7 +72,7 @@ export default function createStyles<C extends Components = never>(path: string[
 
   return () => {
     const id = useId();
-    const scopeId = useMemo(() => createScopeId(id), [id]);
+    const scopeKey = useMemo(() => createKey(id), [id]);
     const [theme, token, hashId, realToken, cssVar = {}] = useToken();
 
     const key = cssVar.key;
@@ -97,16 +97,16 @@ export default function createStyles<C extends Components = never>(path: string[
     const [override, globalToken, overrideToken] = useMemo(() => {
       let override = false;
 
-      const { motion, wireframe } = token;
-      const globalToken = { ...realToken, motion, wireframe };
+      const { motion, wireframe, focusOutline } = token;
       const overrideToken: Record<string, string | number> = {};
+      const globalToken = { ...realToken, motion, wireframe, focusOutline };
 
       if (shared) {
         for (const component of shared) {
           const shareToken = token[component];
           const componentToken: Partial<ComponentTokens> = {};
 
-          if (shareToken) {
+          if (shareToken != null) {
             let length = 0;
 
             const entries = Object.entries(shareToken) as Entries<string | number | boolean>;
@@ -144,12 +144,10 @@ export default function createStyles<C extends Components = never>(path: string[
         hashId,
         ignore,
         prefix,
-        key: scopeId,
+        key: scopeKey,
         unitless: cssVarUnitless
       },
-      () => {
-        return overrideToken;
-      }
+      () => overrideToken
     );
 
     useStyleRegister(
@@ -159,27 +157,25 @@ export default function createStyles<C extends Components = never>(path: string[
         theme,
         hashId
       },
-      () => {
-        return styles(globalToken, utils);
-      }
+      () => styles(globalToken, utils)
     );
 
     return useMemo<string>(() => {
-      const scopes: string[] = [];
+      const scope: string[] = [];
 
       if (hashId) {
-        scopes.push(hashId);
+        scope.push(hashId);
       }
 
       if (key) {
-        scopes.push(key);
+        scope.push(key);
       }
 
       if (override) {
-        scopes.push(scopeId);
+        scope.push(scopeKey);
       }
 
-      return scopes.join(' ');
-    }, [override, scopeId, key, hashId]);
+      return scope.join(' ');
+    }, [hashId, key, override, scopeKey]);
   };
 }
