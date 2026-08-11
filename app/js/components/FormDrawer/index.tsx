@@ -12,13 +12,13 @@ const { useForm } = Form;
 
 type DrawerPicked =
   | 'size'
+  | 'mask'
   | 'title'
   | 'loading'
   | 'children'
   | 'keyboard'
   | 'placement'
   | 'forceRender'
-  | 'maskClosable'
   | 'destroyOnHidden'
   | 'afterOpenChange';
 type FormOmitted = 'size' | 'title' | 'onError' | 'children';
@@ -84,10 +84,8 @@ function FormDrawer<F extends Fields, R = unknown>({
   notify = true,
   afterOpenChange,
   destroyOnHidden,
-  keyboard = false,
   layout = 'vertical',
   extra = defaultExtra,
-  maskClosable = false,
   ...restProps
 }: FormDrawerProps<F, R>) {
   const id = useId();
@@ -145,11 +143,9 @@ function FormDrawer<F extends Fields, R = unknown>({
         size={size}
         title={title}
         loading={loading}
-        keyboard={keyboard}
         placement={placement}
         onClose={onCloseHandler}
         forceRender={forceRender}
-        maskClosable={maskClosable}
         afterOpenChange={afterOpenChange}
         destroyOnHidden={destroyOnHidden}
         extra={extra(submitting, wrapForm, onCloseHandler)}
