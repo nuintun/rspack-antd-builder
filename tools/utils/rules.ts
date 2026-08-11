@@ -64,10 +64,8 @@ export default async function (mode: Mode): Promise<Rules> {
           test: /\.css$/i,
           oneOf: [
             {
-              with: {
-                type: 'url'
-              },
               type: 'asset/resource',
+              resourceQuery: /^\?url$/i,
               use: [
                 {
                   loader: 'builtin:lightningcss-loader',
@@ -100,10 +98,8 @@ export default async function (mode: Mode): Promise<Rules> {
           test: /\.s[ac]ss$/i,
           oneOf: [
             {
-              with: {
-                type: 'url'
-              },
               type: 'asset/resource',
+              resourceQuery: /^\?url$/i,
               use: [
                 {
                   loader: 'builtin:lightningcss-loader',
@@ -150,10 +146,8 @@ export default async function (mode: Mode): Promise<Rules> {
           test: /\.svg$/i,
           oneOf: [
             {
-              with: {
-                type: 'url'
-              },
               type: 'asset/resource',
+              resourceQuery: /^\?url$/i,
               use: [
                 {
                   loader: '@nuintun/svgo-loader/rspack',

@@ -16,17 +16,15 @@ import LoadingFallback from '/js/components/Fallback/Loading';
 
 const NotFound = lazy(() => import('/js/pages/404'));
 
-const { useToken, darkAlgorithm, defaultAlgorithm } = theme;
+const { darkAlgorithm, defaultAlgorithm } = theme;
 
 const Page = memo(function Page() {
-  const { token } = useToken();
-  const { colorBgContainer } = token;
   const routes = useMemo(() => parse(router), [router]);
 
   return (
-    <App className="ui-app" style={{ backgroundColor: colorBgContainer }} message={{ maxCount: 3 }}>
+    <App component={false} message={{ maxCount: 3 }}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<LoadingFallback />}>
+        <Suspense fallback={<LoadingFallback fullscreen description="正在加载页面" />}>
           <Router routes={routes} context={routes}>
             <NotFound />
           </Router>

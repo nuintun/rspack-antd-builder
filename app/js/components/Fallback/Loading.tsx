@@ -7,12 +7,20 @@ import React, { memo } from 'react';
 
 export interface LoadingFallbackProps extends Pick<React.CSSProperties, 'width' | 'height'> {
   delay?: number;
+  fullscreen?: boolean;
+  description?: string;
 }
 
-export default memo(function LoadingFallback({ delay = 128, width, height = 360 }: LoadingFallbackProps) {
+export default memo(function LoadingFallback({
+  width,
+  fullscreen,
+  description,
+  delay = 200,
+  height = 360
+}: LoadingFallbackProps) {
   return (
-    <Spin delay={delay}>
-      <div style={{ width, height }} />
+    <Spin delay={delay} fullscreen={fullscreen} description={description}>
+      {!fullscreen && <div style={{ width, height }} />}
     </Spin>
   );
 });
