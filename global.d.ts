@@ -46,14 +46,6 @@ declare module '*.webp' {
   export = content;
 }
 
-declare module '*.module.css' {
-  const content: {
-    readonly [name: string]: string;
-  };
-
-  export = content;
-}
-
 declare module '*.css' {
   const content: string;
 
@@ -66,7 +58,7 @@ declare module '*.css?url' {
   export = content;
 }
 
-declare module '*.module.scss' {
+declare module '*.module.css' {
   const content: {
     readonly [name: string]: string;
   };
@@ -82,6 +74,14 @@ declare module '*.scss' {
 
 declare module '*.scss?url' {
   const content: string;
+
+  export = content;
+}
+
+declare module '*.module.scss' {
+  const content: {
+    readonly [name: string]: string;
+  };
 
   export = content;
 }
