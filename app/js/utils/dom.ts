@@ -26,6 +26,14 @@ export type Target<T extends TargetType = Element> =
   // React Ref 对象
   | React.RefObject<TargetValue<T>>;
 
+export function isTopWindow(): boolean {
+  try {
+    return window.self === window.top;
+  } catch {
+    return true;
+  }
+}
+
 export function isWindow(target: unknown): target is Window {
   return canUseDOM && target instanceof Window;
 }

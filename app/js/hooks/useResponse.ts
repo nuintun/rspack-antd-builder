@@ -29,7 +29,7 @@ export type Dispatch<S> = React.Dispatch<React.SetStateAction<S>>;
  * @param options 发送请求请求配置
  */
 export default function useResponse<R>(
-  url: string,
+  url: string | URL,
   request: Request,
   options?: Options<R, R>
 ): [response: R | undefined, fetch: Fetch<R>, dispatch: Dispatch<R | undefined>];
@@ -41,7 +41,7 @@ export default function useResponse<R>(
  * @param options 发送请求请求配置
  */
 export default function useResponse<R, T>(
-  url: string,
+  url: string | URL,
   request: Request,
   options: Options<R, T> & { transform: Transform<R, T> }
 ): [response: T | undefined, fetch: Fetch<R>, dispatch: Dispatch<T | undefined>];
@@ -53,7 +53,7 @@ export default function useResponse<R, T>(
  * @param options 发送请求请求配置
  */
 export default function useResponse<R, T>(
-  url: string,
+  url: string | URL,
   request: Request,
   options: Options<R, T> = {}
 ): [response: R | T | undefined, fetch: Fetch<R>, dispatch: Dispatch<R | T | undefined>] {

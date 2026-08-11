@@ -58,7 +58,7 @@ export type Pagination = Omit<PagingOptions & Partial<RequestPagination> & Table
  * @param initialLoadingState 初始加载状态
  */
 export default function useTable<I, E = unknown>(
-  url: string,
+  url: string | URL,
   options?: Options<I, E, I>,
   initialLoadingState?: boolean | (() => boolean)
 ): [props: DefaultTableProps<I>, fetch: Fetch, dispatch: Dispatch<I[]>, refs: Refs<I, E>];
@@ -70,7 +70,7 @@ export default function useTable<I, E = unknown>(
  * @param initialLoadingState 初始加载状态
  */
 export default function useTable<I, E = unknown, T = I>(
-  url: string,
+  url: string | URL,
   options: Options<I, E, T> & { transform: Transform<I, T> },
   initialLoadingState?: boolean | (() => boolean)
 ): [props: DefaultTableProps<T>, fetch: Fetch, dispatch: Dispatch<T[]>, refs: Refs<I, E>];
@@ -82,7 +82,7 @@ export default function useTable<I, E = unknown, T = I>(
  * @param initialLoadingState 初始加载状态
  */
 export default function useTable<I, E = unknown, T = I>(
-  url: string,
+  url: string | URL,
   options: Options<I, E, T> = {},
   initialLoadingState?: boolean | (() => boolean)
 ): [props: DefaultTableProps<I | T>, fetch: Fetch, dispatch: Dispatch<I[] | T[]>, refs: Refs<I, E>] {
@@ -186,7 +186,7 @@ export default function useTable<I, E = unknown, T = I>(
     onChange,
     dataSource,
     pagination,
-    size: 'middle'
+    size: 'medium'
   };
 
   return [props, fetch, dispatch as Dispatch<I[] | T[]>, refs];

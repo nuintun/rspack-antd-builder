@@ -58,7 +58,7 @@ export type Pagination = Omit<PagingOptions & Partial<RequestPagination> & ListP
  * @param initialLoadingState 初始加载状态
  */
 export default function useList<I, E = unknown>(
-  url: string,
+  url: string | URL,
   options?: Options<I, E, I>,
   initialLoadingState?: boolean | (() => boolean)
 ): [props: DefaultListProps<I>, fetch: Fetch, dispatch: Dispatch<I[]>, refs: Refs<I, E>];
@@ -70,7 +70,7 @@ export default function useList<I, E = unknown>(
  * @param initialLoadingState 初始加载状态
  */
 export default function useList<I, E = unknown, T = I>(
-  url: string,
+  url: string | URL,
   options: Options<I, E, T> & { transform: Transform<I, T> },
   initialLoadingState?: boolean | (() => boolean)
 ): [props: DefaultListProps<T>, fetch: Fetch, dispatch: Dispatch<T[]>, refs: Refs<I, E>];
@@ -82,7 +82,7 @@ export default function useList<I, E = unknown, T = I>(
  * @param initialLoadingState 初始加载状态
  */
 export default function useList<I, E = unknown, T = I>(
-  url: string,
+  url: string | URL,
   options: Options<I, E, T> = {},
   initialLoadingState?: boolean | (() => boolean)
 ): [props: DefaultListProps<I | T>, fetch: Fetch, dispatch: Dispatch<I[] | T[]>, refs: Refs<I, E>] {

@@ -117,12 +117,16 @@ function parseResponse<R>(response: Response): Promise<RequestResult<R>> {
 }
 
 export class RequestError extends Error {
-  public code: number;
+  #code: number;
+
+  get code() {
+    return this.#code;
+  }
 
   constructor(code: number, message: string, options?: RequestErrorOptions) {
     super(message, options);
 
-    this.code = code;
+    this.#code = code;
 
     if (options) {
       const { name, stack } = options;
@@ -154,8 +158,8 @@ function createErrorCatch(code: number): (error: Error | DOMException | string) 
  * @param url 请求地址
  * @param init 请求配置
  */
-export default function request<R>(url: string, init: Options = {}): Promise<R> {
-  const { query, onMessage, baseURL = self.location.href, onUnauthorized, ...options } = init;
+export default function request<R>(url: string | URL, init: Options = {}): Promise<R> {
+  const { query, onMessage, baseURL = __RPC_ENDPOINT__, onUnauthorized, ...options } = init;
 
   options.cache = options.cache || 'no-cache';
   options.headers = new Headers(options.headers || {});
@@ -184,7 +188,7 @@ export default function request<R>(url: string, init: Options = {}): Promise<R> 
   }
 
   // 发送请求
-  return fetch(input.href, options as RequestInit).then((response: Response): Promise<R> => {
+  return fetch(input, options as RequestInit).then((response: Response): Promise<R> => {
     return parseResponse<R>(response).then(({ code, message, payload }) => {
       const { status } = response;
 

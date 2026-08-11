@@ -48,7 +48,7 @@ export default function useLazyState<S = undefined>(initialState?: State<S>, del
  * @param initialState 默认状态
  * @param delay 延迟时间
  */
-export default function useLazyState<S = undefined>(initialState?: State<S>, delay: number = 128): UseLazyState<S | undefined> {
+export default function useLazyState<S = undefined>(initialState?: State<S>, delay: number = 200): UseLazyState<S | undefined> {
   const delayRef = useLatestRef(delay);
   const timerRef = useRef<Timeout | null>(null);
   const [state, setState] = useState(initialState);

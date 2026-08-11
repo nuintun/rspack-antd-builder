@@ -124,3 +124,7 @@ export function formatThousands(number: number | string = 0, precision: number =
 export function createMarkup(html: string): { __html: string } {
   return { __html: html };
 }
+
+export function unblockKeyboard(event: React.KeyboardEvent<HTMLFormElement>): void {
+  event.stopPropagation();
+}

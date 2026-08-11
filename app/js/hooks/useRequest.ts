@@ -16,7 +16,7 @@ const { useApp } = App;
 export type Navigate = ReturnType<typeof useNavigate>;
 
 export interface Request {
-  <R>(url: string, options?: RequestOptions<R>): void;
+  <R>(url: string | URL, options?: RequestOptions<R>): void;
 }
 
 export interface RequestOptions<R> extends Omit<Options, 'delay'> {
@@ -48,7 +48,7 @@ export default function useRequest(
   const isMounted = useIsMounted();
   const [loading, setLoading] = useLazyState(initialLoadingState, options.delay);
 
-  const request = useLatestCallback(<R>(url: string, requestInit: RequestOptions<R> = {}): void => {
+  const request = useLatestCallback(<R>(url: string | URL, requestInit: RequestOptions<R> = {}): void => {
     if (isMounted()) {
       requestInit = {
         ...options,
