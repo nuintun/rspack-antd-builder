@@ -60,6 +60,12 @@ declare module '*.css' {
   export = content;
 }
 
+declare module '*.css?url' {
+  const content: string;
+
+  export = content;
+}
+
 declare module '*.module.scss' {
   const content: {
     readonly [name: string]: string;
@@ -74,7 +80,7 @@ declare module '*.scss' {
   export = content;
 }
 
-declare module '*.svg?url' {
+declare module '*.scss?url' {
   const content: string;
 
   export = content;
@@ -82,6 +88,12 @@ declare module '*.svg?url' {
 
 declare module '*.svg' {
   const content: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+
+  export = content;
+}
+
+declare module '*.svg?url' {
+  const content: string;
 
   export = content;
 }
