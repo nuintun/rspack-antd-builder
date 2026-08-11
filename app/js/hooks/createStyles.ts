@@ -134,7 +134,7 @@ export default function createStyles<C extends Components = never>(path: string[
         }
       }
 
-      return [override, globalToken, overrideToken] as const;
+      return [override, globalToken as Token<C>, overrideToken];
     }, [token, realToken, prefix]);
 
     useCSSVarRegister(

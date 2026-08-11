@@ -44,7 +44,7 @@ export default memo(function FlexDrawer({
         return {
           ...resolved,
           body: {
-            ...resolved.body,
+            ...resolved?.body,
             outline: 'none',
             position: 'relative',
             minWidth: 'fit-content'
