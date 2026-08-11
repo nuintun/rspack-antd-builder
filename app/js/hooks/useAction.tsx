@@ -11,15 +11,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import useSubmit, { Options as UseSubmitOptions } from './useSubmit';
 
 type PopconfirmOmitted =
-  | 'ref'
-  | 'open'
-  | 'trigger'
-  | 'disabled'
-  | 'onCancel'
-  | 'onConfirm'
-  | 'hideAction'
-  | 'showAction'
-  | 'onOpenChange';
+  'ref' | 'open' | 'trigger' | 'disabled' | 'onCancel' | 'onConfirm' | 'hideAction' | 'showAction' | 'onOpenChange';
 
 interface ConfirmInit extends Omit<PopconfirmProps, PopconfirmOmitted> {
   okButtonProps?: Omit<GetProp<PopconfirmProps, 'okButtonProps'>, 'loading'>;
