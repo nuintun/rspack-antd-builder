@@ -159,7 +159,7 @@ function createErrorCatch(code: number): (error: Error | DOMException | string) 
  * @param init 请求配置
  */
 export default function request<R>(url: string | URL, init: Options = {}): Promise<R> {
-  const { query, onMessage, baseURL = __RPC_ENDPOINT__, onUnauthorized, ...options } = init;
+  const { query, onMessage, baseURL = window.location.href, onUnauthorized, ...options } = init;
 
   options.cache = options.cache || 'no-cache';
   options.headers = new Headers(options.headers || {});
