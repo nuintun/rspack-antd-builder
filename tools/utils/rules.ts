@@ -62,61 +62,98 @@ export default async function (mode: Mode): Promise<Rules> {
         // CSS 文件的加载器配置
         {
           test: /\.css$/i,
-          use: [
+          oneOf: [
             {
-              loader: rspack.CssExtractRspackPlugin.loader
+              with: {
+                type: 'url'
+              },
+              type: 'asset/resource',
+              use: [
+                {
+                  loader: 'builtin:lightningcss-loader',
+                  options: lightningcssOptions
+                }
+              ]
             },
             {
-              loader: 'css-modules-types-loader/rspack'
-            },
-            {
-              loader: 'css-loader',
-              options: getCssLoaderOptions(1)
-            },
-            {
-              loader: 'builtin:lightningcss-loader',
-              options: lightningcssOptions
+              use: [
+                {
+                  loader: rspack.CssExtractRspackPlugin.loader
+                },
+                {
+                  loader: 'css-modules-types-loader/rspack'
+                },
+                {
+                  loader: 'css-loader',
+                  options: getCssLoaderOptions(1)
+                },
+                {
+                  loader: 'builtin:lightningcss-loader',
+                  options: lightningcssOptions
+                }
+              ]
             }
           ]
         },
         // SCSS/Sass 文件的加载器配置
         {
           test: /\.s[ac]ss$/i,
-          use: [
+          oneOf: [
             {
-              loader: rspack.CssExtractRspackPlugin.loader
-            },
-            {
-              loader: 'css-modules-types-loader/rspack'
-            },
-            {
-              loader: 'css-loader',
-              options: getCssLoaderOptions(2)
-            },
-            {
-              loader: 'builtin:lightningcss-loader',
-              options: lightningcssOptions
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: isDevelopment
+              with: {
+                type: 'url'
+              },
+              type: 'asset/resource',
+              use: [
+                {
+                  loader: 'builtin:lightningcss-loader',
+                  options: lightningcssOptions
+                },
+                {
+                  loader: 'sass-loader',
+                  options: {
+                    sourceMap: isDevelopment
+                  }
+                }
+              ],
+              generator: {
+                filename: `css/[${isDevelopment ? 'name' : 'contenthash'}].css`
               }
+            },
+            {
+              use: [
+                {
+                  loader: rspack.CssExtractRspackPlugin.loader
+                },
+                {
+                  loader: 'css-modules-types-loader/rspack'
+                },
+                {
+                  loader: 'css-loader',
+                  options: getCssLoaderOptions(2)
+                },
+                {
+                  loader: 'builtin:lightningcss-loader',
+                  options: lightningcssOptions
+                },
+                {
+                  loader: 'sass-loader',
+                  options: {
+                    sourceMap: isDevelopment
+                  }
+                }
+              ]
             }
           ]
-        },
-        // 静态资源文件的加载器配置
-        {
-          type: 'asset/resource',
-          test: /\.(mp3|ogg|wav|mp4|flv|webm)$/i
         },
         {
           test: /\.svg$/i,
           oneOf: [
             {
-              issuer: /\.[jt]sx?$/i,
+              with: {
+                type: 'url'
+              },
               type: 'asset/resource',
-              resourceQuery: /^\?url$/,
               use: [
                 {
                   loader: '@nuintun/svgo-loader/rspack',
@@ -148,9 +185,10 @@ export default async function (mode: Mode): Promise<Rules> {
             }
           ]
         },
+        // 静态资源文件的加载器配置
         {
           type: 'asset/resource',
-          test: /\.(png|gif|bmp|ico|jpe?g|webp|woff2?|ttf|eot)$/i
+          test: /\.(png|gif|bmp|ico|jpe?g|webp|woff2?|ttf|eot|mp3|ogg|wav|mp4|flv|webm)$/i
         }
       ]
     }

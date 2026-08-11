@@ -1,8 +1,8 @@
 /**
- * @module BitMask
+ * @module Bitmask
  */
 
-export class BitMask {
+export class Bitmask {
   #mask: number;
 
   constructor(mask: number = 0) {
@@ -13,13 +13,13 @@ export class BitMask {
     return this.#mask;
   }
 
-  add(flag: number): BitMask {
+  add(flag: number): Bitmask {
     this.#mask |= flag;
 
     return this;
   }
 
-  remove(flag: number): BitMask {
+  remove(flag: number): Bitmask {
     this.#mask &= ~flag;
 
     return this;

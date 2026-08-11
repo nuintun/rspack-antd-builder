@@ -21,6 +21,9 @@ export default async function (mode: Mode): Promise<SwcLoaderOptions> {
         tsx: true,
         syntax: 'typescript'
       },
+      experimental: {
+        keepImportAssertions: true
+      },
       transform: {
         react: {
           runtime: 'automatic',

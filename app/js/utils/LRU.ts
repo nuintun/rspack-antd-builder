@@ -2,11 +2,15 @@
  * @module LRU
  */
 
-export default class LRU<K, V> {
+export class LRU<K, V> {
   #cache: Map<K, V>;
   #capacity: number;
 
   constructor(capacity: number) {
+    if (capacity <= 0 || !Number.isInteger(capacity)) {
+      throw new RangeError('capacity must be a positive integer');
+    }
+
     this.#cache = new Map();
     this.#capacity = capacity;
   }
@@ -15,21 +19,12 @@ export default class LRU<K, V> {
     return this.#cache.size;
   }
 
-  set(key: K, value: V): void {
-    const cache = this.#cache;
+  get capacity(): number {
+    return this.#capacity;
+  }
 
-    if (cache.has(key)) {
-      cache.delete(key);
-    } else if (cache.size === this.#capacity) {
-      const keys = cache.keys();
-      const head = keys.next();
-
-      if (!head.done) {
-        cache.delete(head.value);
-      }
-    }
-
-    cache.set(key, value);
+  has(key: K): boolean {
+    return this.#cache.has(key);
   }
 
   get(key: K): V | undefined {
@@ -44,8 +39,20 @@ export default class LRU<K, V> {
     return value;
   }
 
-  has(key: K): boolean {
-    return this.#cache.has(key);
+  set(key: K, value: V): void {
+    const cache = this.#cache;
+
+    if (cache.has(key)) {
+      cache.delete(key);
+    } else if (cache.size >= this.#capacity) {
+      const head = cache.keys().next();
+
+      if (!head.done) {
+        cache.delete(head.value);
+      }
+    }
+
+    cache.set(key, value);
   }
 
   delete(key: K): void {
@@ -54,6 +61,29 @@ export default class LRU<K, V> {
 
   clear(): void {
     this.#cache.clear();
+  }
+
+  // 复合操作
+  getOrInsert(key: K, value: V): V {
+    if (this.has(key)) {
+      return this.get(key) as V;
+    }
+
+    this.set(key, value);
+
+    return value;
+  }
+
+  getOrInsertComputed(key: K, callback: (key: K) => V): V {
+    if (this.has(key)) {
+      return this.get(key) as V;
+    }
+
+    const value = callback(key);
+
+    this.set(key, value);
+
+    return value;
   }
 
   keys(): IterableIterator<K> {
@@ -68,6 +98,11 @@ export default class LRU<K, V> {
     return this.#cache.entries();
   }
 
+  [Symbol.iterator](): IterableIterator<[K, V]> {
+    return this.entries();
+  }
+
+  // 序列化
   toJSON(): { key: K; value: V }[] {
     const json: { key: K; value: V }[] = [];
 
@@ -86,9 +121,5 @@ export default class LRU<K, V> {
     }
 
     return strings.join(' < ');
-  }
-
-  [Symbol.iterator](): IterableIterator<[K, V]> {
-    return this.entries();
   }
 }

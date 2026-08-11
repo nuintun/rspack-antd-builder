@@ -56,6 +56,11 @@ export default async function (mode: Mode): Promise<[AppConfig, Configuration]> 
         assetModuleFilename: `[path][${isDevelopment ? 'name' : 'contenthash'}][ext]`
       },
       module: {
+        parser: {
+          javascript: {
+            importMetaResolve: true
+          }
+        },
         rules: await resolveRules(mode)
       },
       resolve: {
