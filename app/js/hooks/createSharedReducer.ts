@@ -11,7 +11,7 @@ import React, { useSyncExternalStore } from 'react';
  * @param reducer 状态生成器
  * @param initialState 初始状态
  */
-export default function createSharedReducer<S>(
+function createSharedReducer<S>(
   reducer: React.ReducerWithoutAction<S>,
   initialState: S
 ): () => [state: S, dispatch: React.DispatchWithoutAction];
@@ -21,7 +21,7 @@ export default function createSharedReducer<S>(
  * @param reducer 状态生成器
  * @param initialState 初始状态
  */
-export default function createSharedReducer<S, A>(
+function createSharedReducer<S, A>(
   reducer: React.Reducer<S, A>,
   initialState: S
 ): () => [state: S, dispatch: React.Dispatch<A>];
@@ -30,7 +30,7 @@ export default function createSharedReducer<S, A>(
  * @description [hook] 生成共享 Reducer
  * @param reducer 状态生成器
  */
-export default function createSharedReducer<S = undefined>(
+function createSharedReducer<S = undefined>(
   reducer: React.ReducerWithoutAction<S | undefined>
 ): () => [state: S | undefined, dispatch: React.DispatchWithoutAction];
 /**
@@ -38,7 +38,7 @@ export default function createSharedReducer<S = undefined>(
  * @description [hook] 生成共享 Reducer
  * @param reducer 状态生成器
  */
-export default function createSharedReducer<S = undefined, A = unknown>(
+function createSharedReducer<S = undefined, A = unknown>(
   reducer: React.Reducer<S | undefined, A>
 ): () => [state: S | undefined, dispatch: React.Dispatch<A>];
 /**
@@ -47,7 +47,7 @@ export default function createSharedReducer<S = undefined, A = unknown>(
  * @param reducer 状态生成器
  * @param initialState 初始状态
  */
-export default function createSharedReducer<S = undefined, A = unknown>(
+function createSharedReducer<S = undefined, A = unknown>(
   reducer: React.Reducer<S | undefined, A> | React.ReducerWithoutAction<S | undefined>,
   initialState?: S
 ): () => [state: S | undefined, dispatch: React.Dispatch<A> | React.DispatchWithoutAction] {
@@ -65,3 +65,5 @@ export default function createSharedReducer<S = undefined, A = unknown>(
     return [useSyncExternalStore(subscribe, getSnapshot), dispatch];
   };
 }
+
+export default createSharedReducer;

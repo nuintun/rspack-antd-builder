@@ -82,7 +82,7 @@ function getDefaultState<V>(props: Props, options: Options<V>): V {
  * @param props 组件 Props
  * @param options 配置选项
  */
-export default function useControllableValue<V>(
+function useControllableValue<V>(
   props: Props,
   options: Options<V> & { defaultValue: V }
 ): [value: V, setValue: SetValueAction<V>];
@@ -92,7 +92,7 @@ export default function useControllableValue<V>(
  * @param props 组件 Props
  * @param options 配置选项
  */
-export default function useControllableValue<V = undefined>(
+function useControllableValue<V = undefined>(
   props: Props,
   options?: Omit<Options<V>, 'defaultValue'>
 ): [value: V | undefined, setValue: SetValueAction<V | undefined>];
@@ -102,7 +102,7 @@ export default function useControllableValue<V = undefined>(
  * @param props 组件 Props
  * @param options 配置选项
  */
-export default function useControllableValue<V = undefined>(
+function useControllableValue<V = undefined>(
   props: Props,
   options: Options<V> = {}
 ): [value: V | undefined, setValue: SetValueAction<V | undefined>] {
@@ -147,3 +147,5 @@ export default function useControllableValue<V = undefined>(
 
   return [currentState, setValue];
 }
+
+export default useControllableValue;

@@ -28,7 +28,7 @@ export type Dispatch<S> = React.Dispatch<React.SetStateAction<S>>;
  * @param request 发送请求工厂函数
  * @param options 发送请求请求配置
  */
-export default function useResponse<R>(
+function useResponse<R>(
   url: string | URL,
   request: Request,
   options?: Options<R, R>
@@ -40,7 +40,7 @@ export default function useResponse<R>(
  * @param request 发送请求工厂函数
  * @param options 发送请求请求配置
  */
-export default function useResponse<R, T>(
+function useResponse<R, T>(
   url: string | URL,
   request: Request,
   options: Options<R, T> & { transform: Transform<R, T> }
@@ -52,7 +52,7 @@ export default function useResponse<R, T>(
  * @param request 发送请求工厂函数
  * @param options 发送请求请求配置
  */
-export default function useResponse<R, T>(
+function useResponse<R, T>(
   url: string | URL,
   request: Request,
   options: Options<R, T> = {}
@@ -85,3 +85,5 @@ export default function useResponse<R, T>(
 
   return [response, fetch, setResponse];
 }
+
+export default useResponse;

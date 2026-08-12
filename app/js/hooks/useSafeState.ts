@@ -16,18 +16,18 @@ type UseSafeState<S> = [state: S, setSafeState: Dispatch<S>];
  * @description [hook] 使用安全状态
  * @param initialState 初始状态
  */
-export default function useSafeState<S>(initialState: State<S>): UseSafeState<S>;
+function useSafeState<S>(initialState: State<S>): UseSafeState<S>;
 /**
  * @function useSafeState
  * @description [hook] 使用安全状态
  */
-export default function useSafeState<S = undefined>(): UseSafeState<S | undefined>;
+function useSafeState<S = undefined>(): UseSafeState<S | undefined>;
 /**
  * @function useSafeState
  * @description [hook] 使用安全状态
  * @param initialState 初始状态
  */
-export default function useSafeState<S = undefined>(initialState?: State<S>): UseSafeState<S | undefined> {
+function useSafeState<S = undefined>(initialState?: State<S>): UseSafeState<S | undefined> {
   const isMounted = useIsMounted();
   const [state, setState] = useState(initialState);
 
@@ -39,3 +39,5 @@ export default function useSafeState<S = undefined>(initialState?: State<S>): Us
 
   return [state, setSafeState];
 }
+
+export default useSafeState;

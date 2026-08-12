@@ -14,18 +14,18 @@ type UseSharedState<S> = () => [state: S, dispatch: Dispatch<S>];
  * @description [hook] 生成共享状态
  * @param initialState 初始状态
  */
-export default function createSharedState<S>(initialState: S): UseSharedState<S>;
+function createSharedState<S>(initialState: S): UseSharedState<S>;
 /**
  * @function createSharedState
  * @description [hook] 生成共享状态
  */
-export default function createSharedState<S = undefined>(): UseSharedState<S | undefined>;
+function createSharedState<S = undefined>(): UseSharedState<S | undefined>;
 /**
  * @function createSharedState
  * @description [hook] 生成共享状态
  * @param initialState 初始状态
  */
-export default function createSharedState<S = undefined>(initialState?: S): UseSharedState<S | undefined> {
+function createSharedState<S = undefined>(initialState?: S): UseSharedState<S | undefined> {
   const store = new StateStore(initialState);
   const dispatch = store.dispatch.bind(store);
   const subscribe = store.subscribe.bind(store);
@@ -35,3 +35,5 @@ export default function createSharedState<S = undefined>(initialState?: S): UseS
     return [useSyncExternalStore(subscribe, getSnapshot), dispatch];
   };
 }
+
+export default createSharedState;
