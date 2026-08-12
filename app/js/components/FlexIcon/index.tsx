@@ -4,7 +4,7 @@
 
 import clsx from 'clsx';
 import { Icon } from '/js/utils/router';
-import { isString } from '/js/utils/utils';
+import { isString } from '/js/utils/typeof';
 import { cloneElement, memo, use } from 'react';
 import { ConfigContext } from 'antd/es/config-provider';
 

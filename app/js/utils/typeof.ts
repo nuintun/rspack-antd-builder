@@ -1,5 +1,5 @@
 /**
- * @module utils
+ * @module typeof
  */
 
 export type TypedArray =
@@ -89,42 +89,4 @@ export function isNumber(value: unknown): value is number {
  */
 export function isBoolean(value: unknown): value is boolean {
   return Object.prototype.toString.call(value) === '[object Boolean]';
-}
-
-/**
- * @function formatThousands
- * @description 格式化数字
- * @param number 需要格式化的数字
- * @param precision 小数位保留个数
- */
-export function formatThousands(number: number | string = 0, precision: number = 2): string {
-  number = Number(number);
-
-  const { Intl } = window;
-
-  if (Intl) {
-    return new Intl.NumberFormat('en-us', {
-      minimumFractionDigits: precision,
-      maximumFractionDigits: precision
-    }).format(number);
-  }
-
-  const parts = number.toFixed(precision).split('.');
-
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-  return parts.join('.');
-}
-
-/**
- * @function createMarkup
- * @description 生成 React HTML 字符串
- * @param html HTML 字符串
- */
-export function createMarkup(html: string): { __html: string } {
-  return { __html: html };
-}
-
-export function unblockKeyboard(event: React.KeyboardEvent<HTMLFormElement>): void {
-  event.stopPropagation();
 }

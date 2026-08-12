@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { isFunction } from './utils';
+import { isFunction } from './typeof';
 import { shallowEqual } from 'fast-equals';
 
 export interface Callback {

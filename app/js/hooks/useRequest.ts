@@ -6,7 +6,7 @@ import { App } from 'antd';
 import { useRef } from 'react';
 import useIsMounted from './useIsMounted';
 import useLazyState from './useLazyState';
-import { isObject } from '/js/utils/utils';
+import { isObject } from '/js/utils/typeof';
 import useLatestCallback from './useLatestCallback';
 import { Location, useLocation, useNavigate } from 'react-nest-router';
 import fetch, { Options as RequestInit, RequestError } from '/js/utils/request';

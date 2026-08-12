@@ -3,7 +3,7 @@
  */
 
 import { Fields } from '/js/utils/form';
-import { isObject } from '/js/utils/utils';
+import { isObject } from '/js/utils/typeof';
 import useLatestCallback from './useLatestCallback';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { GetProp, Popconfirm, PopconfirmProps } from 'antd';

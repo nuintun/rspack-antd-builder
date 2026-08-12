@@ -2,9 +2,9 @@
  * @module useStorage
  */
 
-import { isFunction } from '/js/utils/utils';
 import { useCallback, useMemo } from 'react';
 import createStorage from '/js/utils/storage';
+import { isFunction } from '/js/utils/typeof';
 
 export interface Options<V> {
   storage?: Storage;

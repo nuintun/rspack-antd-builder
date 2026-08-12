@@ -3,7 +3,7 @@
  * @see https://github.com/cassiozen/useStateMachine
  */
 
-import { isFunction, isString } from '/js/utils/utils';
+import { isFunction, isString } from '/js/utils/typeof';
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
 
 const enum ActionType {

@@ -12,7 +12,7 @@ import {
   useStyleRegister
 } from '@ant-design/cssinjs';
 import { useId, useMemo } from 'react';
-import { isNumber, isString } from '/js/utils/utils';
+import { isNumber, isString } from '/js/utils/typeof';
 import useToken, { ignore, unitless } from 'antd/es/theme/useToken';
 import { AliasToken, GlobalToken, OverrideToken } from 'antd/es/theme/interface';
 

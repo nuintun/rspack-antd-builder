@@ -5,7 +5,7 @@
 import React from 'react';
 import { resolve } from './url';
 import { DFSTree } from './Tree';
-import { assert } from './utils';
+import { assert } from './typeof';
 import { IRoute as NIRoute, Route as NRoute } from 'react-nest-router';
 
 export interface Link {

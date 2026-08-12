@@ -4,7 +4,7 @@
 
 import { GetProp } from 'antd';
 import React, { memo, useMemo } from 'react';
-import { isFunction } from '/js/utils/utils';
+import { isFunction } from '/js/utils/typeof';
 import useLatestCallback from '/js/hooks/useLatestCallback';
 import { To, useNavigate, useResolve } from 'react-nest-router';
 

@@ -5,7 +5,7 @@
 
 import * as msgpack from './msgpack';
 import { Fields, serialize } from './form';
-import { isBigInt, isObject } from './utils';
+import { isBigInt, isObject } from './typeof';
 
 export type Query = Fields;
 

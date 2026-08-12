@@ -3,7 +3,7 @@
  */
 
 import { encode } from './hex';
-import { isTypedArray, TypedArray } from './utils';
+import { isTypedArray, TypedArray } from './typeof';
 
 const utf8 = new TextEncoder();
 

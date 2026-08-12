@@ -2,7 +2,7 @@
  * @module index
  */
 
-import { isFunction } from '/js/utils/utils';
+import { isFunction } from '/js/utils/typeof';
 import { memo, useCallback, useRef } from 'react';
 import { ConfigProvider, Drawer, DrawerProps, GetProp } from 'antd';
 
