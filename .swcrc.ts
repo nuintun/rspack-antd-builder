@@ -25,6 +25,7 @@ export default async function (mode: Mode): Promise<SwcLoaderOptions> {
         keepImportAssertions: true
       },
       transform: {
+        reactCompiler: true,
         react: {
           runtime: 'automatic',
           refresh: mode !== 'production'
