@@ -2,6 +2,8 @@
  * @module  react
  */
 
+import React from 'react';
+
 /**
  * @function createMarkup
  * @description 生成 React HTML 字符串
