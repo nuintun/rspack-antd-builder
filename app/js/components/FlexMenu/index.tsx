@@ -4,8 +4,8 @@
 
 import clsx from 'clsx';
 import useStyles, { prefixCls } from './style';
-import useLatestRef from '/js/hooks/useLatestRef';
-import React, { memo, useCallback, useMemo, useRef } from 'react';
+import React, { memo, useMemo, useRef } from 'react';
+import useStableCallback from '/js/hooks/useStableCallback';
 import RouteMenu, { RouteMenuProps } from '/js/components/RouteMenu';
 import { Drawer, GetProp, Layout, MenuTheme, SiderProps } from 'antd';
 
@@ -58,28 +58,23 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
   } = props;
 
   const scope = useStyles();
-  const propsRef = useLatestRef(props);
   const cachedOpenKeysRef = useRef<string[]>(defaultOpenKeys);
 
   const drawerStyles = useMemo(() => {
     return { body: { padding: 0, overflow: 'hidden' } };
   }, []);
 
-  const onClose = useCallback(() => {
-    const { onCollapse } = propsRef.current;
-
+  const onClose = useStableCallback((): void => {
     onCollapse?.(true, 'clickTrigger');
-  }, []);
+  });
 
-  const onOpenChangeHander = useCallback<OnOpenChange>((openKeys, cachedOpenKeys) => {
-    const { collapsed, onOpenChange } = propsRef.current;
-
+  const onOpenChangeHander = useStableCallback<OnOpenChange>((openKeys, cachedOpenKeys) => {
     if (!collapsed) {
       cachedOpenKeysRef.current = cachedOpenKeys;
     }
 
     onOpenChange?.(openKeys, cachedOpenKeys);
-  }, []);
+  });
 
   const rootClassName = clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
     [`${prefixCls}-mobile`]: isMobile

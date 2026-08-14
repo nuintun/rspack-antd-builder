@@ -9,10 +9,10 @@ import { MenuItem } from '/js/utils/menus';
 import useStyles, { prefixCls } from './style';
 import { useMatches } from 'react-nest-router';
 import useItems, { RenderItem } from './useItems';
-import useLatestRef from '/js/hooks/useLatestRef';
 import { SiderContext } from 'antd/es/layout/Sider';
+import useStableCallback from '/js/hooks/useStableCallback';
 import { flattenItems, getExpandKeys, mergeKeys } from './utils';
-import React, { memo, use, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, use, useEffect, useMemo, useRef, useState } from 'react';
 
 type OmitProps =
   'items' | 'multiple' | 'openKeys' | 'onDeselect' | 'selectable' | 'onOpenChange' | 'selectedKeys' | 'defaultSelectedKeys';
@@ -31,7 +31,6 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
   const scope = useStyles();
   const matches = useMatches() as IRoute[];
   const { siderCollapsed } = use(SiderContext);
-  const propsRef = useLatestRef<RouteMenuProps>(props);
   const flatItems = useMemo(() => flattenItems(items), [items]);
   const cachedOpenKeysRef = useRef<string[]>(defaultOpenKeys ?? []);
   const [selectedKeys, setSelectedKeys] = useState<string[]>(() => []);
@@ -39,23 +38,21 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
   const collapsed = useMemo(() => siderCollapsed ?? inlineCollapsed, [inlineCollapsed, siderCollapsed]);
   const [openKeys, setOpenKeys] = useState<string[]>(() => (collapsed ? [] : cachedOpenKeysRef.current));
 
-  const onOpenChangeHander = useCallback(
-    (openKeys: string[]): void => {
-      const { onOpenChange } = propsRef.current;
+  const onOpenChange = useStableCallback((openKeys: string[], cachedOpenKeys: string[]): void => {
+    props.onOpenChange?.(openKeys, cachedOpenKeys);
+  });
 
-      setOpenKeys(openKeys);
+  const onOpenChangeHander = useStableCallback((openKeys: string[]): void => {
+    setOpenKeys(openKeys);
 
-      if (!collapsed) {
-        cachedOpenKeysRef.current = openKeys;
-      }
+    if (!collapsed) {
+      cachedOpenKeysRef.current = openKeys;
+    }
 
-      onOpenChange?.(openKeys, cachedOpenKeysRef.current);
-    },
-    [collapsed]
-  );
+    onOpenChange(openKeys, cachedOpenKeysRef.current);
+  });
 
   useEffect(() => {
-    const { onOpenChange } = propsRef.current;
     const { openKeys, selectedKeys } = expandKeys;
     const cachedOpenKeys = cachedOpenKeysRef.current;
 
@@ -66,13 +63,13 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
 
       cachedOpenKeysRef.current = nextOpenKeys;
 
-      onOpenChange?.(nextOpenKeys, nextOpenKeys);
+      onOpenChange(nextOpenKeys, nextOpenKeys);
     } else if (openKeys.length > 0) {
       const nextOpenKeys: string[] = [];
 
       setOpenKeys(nextOpenKeys);
 
-      onOpenChange?.(nextOpenKeys, cachedOpenKeys);
+      onOpenChange(nextOpenKeys, cachedOpenKeys);
     }
 
     setSelectedKeys(selectedKeys);

@@ -5,7 +5,7 @@
 import { GetProp } from 'antd';
 import React, { memo, useMemo } from 'react';
 import { isFunction } from '/js/utils/typeof';
-import useLatestCallback from '/js/hooks/useLatestCallback';
+import useStableCallback from '/js/hooks/useStableCallback';
 import { To, useNavigate, useResolve } from 'react-nest-router';
 
 type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -27,7 +27,7 @@ function Link<S>(props: LinkProps<S>) {
   const navigate = useNavigate();
   const href = useMemo(() => resolve(to), [to]);
 
-  const onLinkClick = useLatestCallback<GetProp<AnchorProps, 'onClick'>>(event => {
+  const onLinkClick = useStableCallback<GetProp<AnchorProps, 'onClick'>>(event => {
     const { target = '_self', onClick } = props;
 
     onClick?.(event);
