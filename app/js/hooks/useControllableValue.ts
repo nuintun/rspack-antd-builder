@@ -6,7 +6,7 @@ import useIsMounted from './useIsMounted';
 import { shallowEqual } from 'fast-equals';
 import { isFunction } from '/js/utils/typeof';
 import React, { useEffect, useState } from 'react';
-import useLatestCallback from './useLatestCallback';
+import useStableCallback from './useStableCallback';
 
 export interface Props {
   [prop: string]: any;
@@ -116,7 +116,7 @@ function useControllableValue<V = undefined>(
     return getDefaultState(props, options);
   });
 
-  const setValue = useLatestCallback((value: React.SetStateAction<V | undefined>, ...args: unknown[]): void => {
+  const setValue = useStableCallback((value: React.SetStateAction<V | undefined>, ...args: unknown[]): void => {
     if (isMounted()) {
       const state = currentState ?? options.defaultValue;
       const nextState = isFunction(value) ? value(state) : value;

@@ -3,7 +3,7 @@
  */
 
 import { App } from 'antd';
-import useLatestCallback from './useLatestCallback';
+import useStableCallback from './useStableCallback';
 import React, { useMemo, useRef, useState } from 'react';
 import useRequest, { Options as InitOptions, RequestOptions as RequestInit } from './useRequest';
 
@@ -110,7 +110,7 @@ function usePagingRequest<I, E = unknown, T = I>(
   const paginationRef = useRef<Pagination | false>(initPagination);
   const [loading, request] = useRequest(options, initialLoadingState);
 
-  const fetch = useLatestCallback<Fetch>((fetchInit = {}) => {
+  const fetch = useStableCallback<Fetch>((fetchInit = {}) => {
     const requestInit = { ...options, ...fetchInit };
     const { current: pagination } = paginationRef;
     const hasPagination = hasQuery(pagination);

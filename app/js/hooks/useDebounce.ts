@@ -3,8 +3,8 @@
  */
 
 import { useMemo } from 'react';
-import useLatestRef from './useLatestRef';
 import { debounce } from 'throttle-debounce';
+import useStableCallback from './useStableCallback';
 
 export interface Options {
   // 是否前置调用
@@ -23,15 +23,13 @@ export interface Callback {
  * @param options 防抖模式配置
  */
 export default function useDebounce<C extends Callback>(callback: C, delay: number, options: Options = {}): debounce<C> {
+  const stable = useStableCallback(callback);
+
   const { atBegin } = options;
 
-  const callbackRef = useLatestRef(callback);
-
   return useMemo(() => {
-    const callback: Callback = function (this, ...args) {
-      return callbackRef.current.apply(this, args);
-    };
-
-    return debounce(delay, callback, { atBegin });
+    return debounce(delay, stable, {
+      atBegin
+    });
   }, [delay, atBegin]);
 }

@@ -4,7 +4,7 @@
 
 import { Fields } from '/js/utils/form';
 import { isObject } from '/js/utils/typeof';
-import useLatestCallback from './useLatestCallback';
+import useStableCallback from './useStableCallback';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { GetProp, Popconfirm, PopconfirmProps } from 'antd';
 import React, { useCallback, useRef, useState } from 'react';
@@ -54,7 +54,7 @@ export default function useAction<F extends Fields | null, R>(
     onSubmit(valuesRef.current!);
   }, []);
 
-  const onAction = useLatestCallback((fields: F) => {
+  const onAction = useStableCallback((fields: F) => {
     if (!options.disabled) {
       if (options.confirm) {
         valuesRef.current = fields;
@@ -72,7 +72,7 @@ export default function useAction<F extends Fields | null, R>(
     setOpen(open);
   }, []);
 
-  const render = useLatestCallback((children: React.ReactElement): React.ReactElement => {
+  const render = (children: React.ReactElement): React.ReactElement => {
     const { confirm } = options;
 
     if (confirm) {
@@ -102,7 +102,7 @@ export default function useAction<F extends Fields | null, R>(
     }
 
     return children;
-  });
+  };
 
   return [loading, onAction, render];
 }

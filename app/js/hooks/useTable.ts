@@ -14,10 +14,10 @@ import usePagingRequest, {
 import { GetProp, TableProps } from 'antd';
 import { useCallback, useMemo } from 'react';
 import useSearchFilters from './useSearchFilters';
-import useLatestCallback from './useLatestCallback';
+import useStableCallback from './useStableCallback';
 import { Query as Filter } from '/js/utils/request';
 import { normalize, SortOrder } from '/js/utils/sorter';
-import usePagingOptions, { Options as PagingOptions } from './usePagingOptions';
+import { Options as PagingOptions, resolvePagingOptions } from '/js/utils/paging';
 
 export interface Fetch {
   (options?: RequestOptions): void;
@@ -86,7 +86,6 @@ function useTable<I, E = unknown, T = I>(
   options: Options<I, E, T> = {},
   initialLoadingState?: boolean | (() => boolean)
 ): [props: DefaultTableProps<I | T>, fetch: Fetch, dispatch: Dispatch<I[] | T[]>, refs: Refs<I, E>] {
-  const getPagingOptions = usePagingOptions(options.pagination);
   const [getFilters, updateFilters] = useSearchFilters<Filters>([false, false]);
 
   const [loading, dataSource, request, dispatch, originRefs] = usePagingRequest(
@@ -95,7 +94,7 @@ function useTable<I, E = unknown, T = I>(
     initialLoadingState
   );
 
-  const fetch = useLatestCallback<Fetch>((fetchInit = {}) => {
+  const fetch = useStableCallback<Fetch>((fetchInit = {}) => {
     updateFilters([fetchInit.filter, fetchInit.sorter]);
 
     const [filter, sorter] = getFilters();
@@ -157,7 +156,7 @@ function useTable<I, E = unknown, T = I>(
       const { page, pageSize } = originRefsPagination;
 
       return {
-        ...getPagingOptions(pageSize),
+        ...resolvePagingOptions(pageSize, options.pagination),
         current: page,
         pageSize,
         total
@@ -165,7 +164,7 @@ function useTable<I, E = unknown, T = I>(
     }
 
     return originRefsPagination;
-  }, [originRefs.pagination, originRefs.response.total]);
+  }, [originRefs.pagination, originRefs.response.total, options.pagination]);
 
   const refs = useMemo<Refs<I, E>>(() => {
     return {

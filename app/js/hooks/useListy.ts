@@ -1,5 +1,5 @@
 /**
- * @module useList
+ * @module useListy
  */
 
 import usePagingRequest, {
@@ -11,19 +11,17 @@ import usePagingRequest, {
   RequestOptions as RequestInit,
   Transform
 } from './usePagingRequest';
-import useLatestRef from './useLatestRef';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import useSearchFilters from './useSearchFilters';
+import useStableCallback from './useStableCallback';
 import { Query as Filter } from '/js/utils/request';
 import { normalize, SortOrder } from '/js/utils/sorter';
-import { GetProp, ListProps, PaginationProps } from 'antd';
-import usePagingOptions, { Options as PagingOptions } from './usePagingOptions';
+import { GetProp, ListyProps, PaginationProps } from 'antd';
+import { Options as PagingOptions, resolvePagingOptions } from '/js/utils/paging';
 
 export interface Fetch {
   (options?: RequestOptions): void;
 }
-
-type ListPropsPicked = 'dataSource' | 'pagination';
 
 export interface RequestOptions extends RequestInit {
   filter?: Filter | false;
@@ -42,52 +40,49 @@ export interface Refs<I, E> extends RequestRefs<I, E> {
 
 type Filters = [filter: Filter | false, sorter: SortOrder[] | false];
 
-type ListPagination = Exclude<GetProp<ListProps<unknown>, 'pagination'>, false>;
+export type Pagination = Omit<PagingOptions & Partial<RequestPagination>, 'current'>;
 
-export interface DefaultListProps<I> extends Required<Pick<ListProps<I>, ListPropsPicked>> {
+export interface DefaultListyProps<I> extends Required<Pick<ListyProps<I>, 'items'>> {
   loading: boolean;
+  pagination: PaginationProps | false;
 }
 
-export type Pagination = Omit<PagingOptions & Partial<RequestPagination> & ListPagination, 'current'>;
-
 /**
- * @function useList
+ * @function useListy
  * @description [hook] 列表操作
  * @param url 请求地址
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function useList<I, E = unknown>(
+function useListy<I, E = unknown>(
   url: string | URL,
   options?: Options<I, E, I>,
   initialLoadingState?: boolean | (() => boolean)
-): [props: DefaultListProps<I>, fetch: Fetch, dispatch: Dispatch<I[]>, refs: Refs<I, E>];
+): [props: DefaultListyProps<I>, fetch: Fetch, dispatch: Dispatch<I[]>, refs: Refs<I, E>];
 /**
- * @function useList
+ * @function useListy
  * @description [hook] 列表操作
  * @param url 请求地址
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function useList<I, E = unknown, T = I>(
+function useListy<I, E = unknown, T = I>(
   url: string | URL,
   options: Options<I, E, T> & { transform: Transform<I, T> },
   initialLoadingState?: boolean | (() => boolean)
-): [props: DefaultListProps<T>, fetch: Fetch, dispatch: Dispatch<T[]>, refs: Refs<I, E>];
+): [props: DefaultListyProps<T>, fetch: Fetch, dispatch: Dispatch<T[]>, refs: Refs<I, E>];
 /**
- * @function useList
+ * @function useListy
  * @description [hook] 列表操作
  * @param url 请求地址
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function useList<I, E = unknown, T = I>(
+function useListy<I, E = unknown, T = I>(
   url: string | URL,
   options: Options<I, E, T> = {},
   initialLoadingState?: boolean | (() => boolean)
-): [props: DefaultListProps<I | T>, fetch: Fetch, dispatch: Dispatch<I[] | T[]>, refs: Refs<I, E>] {
-  const opitonsRef = useLatestRef(options);
-  const getPagingOptions = usePagingOptions(options.pagination);
+): [props: DefaultListyProps<I | T>, fetch: Fetch, dispatch: Dispatch<I[] | T[]>, refs: Refs<I, E>] {
   const [getFilters, updateFilters] = useSearchFilters<Filters>([false, false]);
 
   const [loading, dataSource, request, dispatch, originRefs] = usePagingRequest(
@@ -96,35 +91,34 @@ function useList<I, E = unknown, T = I>(
     initialLoadingState
   );
 
-  const fetch = useCallback<Fetch>((options = {}) => {
-    updateFilters([options.filter, options.sorter]);
+  const fetch = useStableCallback<Fetch>((fetchInit = {}) => {
+    updateFilters([fetchInit.filter, fetchInit.sorter]);
 
-    const { current: initOptions } = opitonsRef;
     const [filter, sorter] = getFilters();
 
     request({
-      ...opitonsRef.current,
       ...options,
+      ...fetchInit,
       query: {
-        ...initOptions.query,
         ...options.query,
+        ...fetchInit.query,
         ...filter,
         ...normalize(sorter)
       }
     });
-  }, []);
+  });
 
-  const onChange = useCallback<OnChange>((page, pageSize) => {
-    const { pagination } = opitonsRef.current;
+  const onChange = useStableCallback<OnChange>((page, pageSize) => {
+    const { pagination } = options;
 
     if (pagination) {
       pagination.onChange?.(page, pageSize);
     }
 
     fetch({ pagination: { page, pageSize } });
-  }, []);
+  });
 
-  const pagination = useMemo(() => {
+  const pagination = useMemo((): PaginationProps | false => {
     const refsPagination = originRefs.pagination;
 
     if (hasQuery(refsPagination)) {
@@ -132,8 +126,9 @@ function useList<I, E = unknown, T = I>(
       const { page, pageSize } = refsPagination;
 
       return {
-        ...getPagingOptions(pageSize),
+        ...resolvePagingOptions(pageSize, options.pagination),
         current: page,
+        align: 'end',
         pageSize,
         onChange,
         total
@@ -141,7 +136,7 @@ function useList<I, E = unknown, T = I>(
     }
 
     return refsPagination;
-  }, [originRefs.pagination, originRefs.response.total]);
+  }, [originRefs.pagination, originRefs.response.total, options.pagination]);
 
   const refs = useMemo<Refs<I, E>>(() => {
     return {
@@ -157,13 +152,13 @@ function useList<I, E = unknown, T = I>(
     };
   }, []);
 
-  const props: DefaultListProps<I | T> = {
+  const props: DefaultListyProps<I | T> = {
     loading,
-    dataSource,
-    pagination
+    pagination,
+    items: dataSource
   };
 
   return [props, fetch, dispatch as Dispatch<I[] | T[]>, refs];
 }
 
-export default useList;
+export default useListy;

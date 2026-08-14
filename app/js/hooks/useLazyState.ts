@@ -2,8 +2,8 @@
  * @module useLazyState
  */
 
-import useLatestRef from './useLatestRef';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import useStableCallback from './useStableCallback';
+import React, { useEffect, useRef, useState } from 'react';
 
 type State<S> = S | (() => S);
 
@@ -49,14 +49,13 @@ function useLazyState<S = undefined>(initialState?: State<S>, delay?: number): U
  * @param delay 延迟时间
  */
 function useLazyState<S = undefined>(initialState?: State<S>, delay: number = 200): UseLazyState<S | undefined> {
-  const delayRef = useLatestRef(delay);
   const timerRef = useRef<Timeout | null>(null);
   const [state, setState] = useState(initialState);
 
-  const setLazyState = useCallback<Dispatch<S | undefined>>((value, delay = delayRef.current) => {
+  const setLazyState = useStableCallback<Dispatch<S | undefined>>((value, timeout = delay) => {
     clearTimerRef(timerRef);
 
-    if (delay <= 0) {
+    if (timeout <= 0) {
       setState(value);
     } else {
       timerRef.current = setTimeout(() => {
@@ -65,9 +64,9 @@ function useLazyState<S = undefined>(initialState?: State<S>, delay: number = 20
 
           timerRef.current = null;
         }
-      }, delay);
+      }, timeout);
     }
-  }, []);
+  });
 
   useEffect(() => {
     return () => {

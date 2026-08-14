@@ -19,5 +19,7 @@ export default function useIsMounted(): () => boolean {
     };
   }, []);
 
-  return useCallback(() => isMountedRef.current, []);
+  return useCallback(() => {
+    return isMountedRef.current;
+  }, []);
 }

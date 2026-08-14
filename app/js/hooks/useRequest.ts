@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import useIsMounted from './useIsMounted';
 import useLazyState from './useLazyState';
 import { isObject } from '/js/utils/typeof';
-import useLatestCallback from './useLatestCallback';
+import useStableCallback from './useStableCallback';
 import { Location, useLocation, useNavigate } from 'react-nest-router';
 import fetch, { Options as RequestInit, RequestError } from '/js/utils/request';
 
@@ -48,7 +48,7 @@ export default function useRequest(
   const isMounted = useIsMounted();
   const [loading, setLoading] = useLazyState(initialLoadingState, options.delay);
 
-  const request = useLatestCallback(<R>(url: string | URL, requestInit: RequestOptions<R> = {}): void => {
+  const request = useStableCallback(<R>(url: string | URL, requestInit: RequestOptions<R> = {}): void => {
     if (isMounted()) {
       requestInit = {
         ...options,

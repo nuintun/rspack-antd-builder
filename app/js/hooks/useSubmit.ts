@@ -5,7 +5,7 @@
 import { App } from 'antd';
 import { Fields } from '/js/utils/form';
 import { RequestError } from '/js/utils/request';
-import useLatestCallback from './useLatestCallback';
+import useStableCallback from './useStableCallback';
 import useRequest, { RequestOptions } from './useRequest';
 
 const { useApp } = App;
@@ -35,7 +35,7 @@ export default function useSubmit<F extends Fields | null, R = unknown>(
   const { message } = useApp();
   const [loading, request] = useRequest(options, initialLoadingState);
 
-  const onSubmit = useLatestCallback((fields: F): void => {
+  const onSubmit = useStableCallback((fields: F): void => {
     const { method = 'POST', normalize } = options;
     const params = normalize ? normalize(fields) : fields;
 

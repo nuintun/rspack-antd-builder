@@ -2,7 +2,8 @@
  * @module useFullscreen
  */
 
-import useLatestCallback from './useLatestCallback';
+import { canUseDOM } from '/js/utils/dom';
+import useStableCallback from './useStableCallback';
 import { getTargetElement, Target } from '/js/utils/dom';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -21,7 +22,7 @@ export default function useFullscreen(
   options?: FullscreenOptions
 ): [fullscreen: boolean, requestFullscreen: () => void, exitFullscreen: () => void] {
   const [fullscreen, setFullscreen] = useState(() => {
-    if (document.fullscreenEnabled) {
+    if (canUseDOM && document.fullscreenEnabled) {
       const element = getTarget(target);
 
       return document.fullscreenElement === element;
@@ -30,7 +31,7 @@ export default function useFullscreen(
     return false;
   });
 
-  const requestFullscreen = useLatestCallback(() => {
+  const requestFullscreen = useStableCallback(() => {
     getTarget(target).requestFullscreen(options);
   });
 

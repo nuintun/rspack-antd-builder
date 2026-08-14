@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import useLatestCallback from './useLatestCallback';
+import useStableCallback from './useStableCallback';
 import { Request, RequestOptions } from './useRequest';
 
 export interface Transform<R, T> {
@@ -59,7 +59,7 @@ function useResponse<R, T>(
 ): [response: R | T | undefined, fetch: Fetch<R>, dispatch: Dispatch<R | T | undefined>] {
   const [response, setResponse] = useState<R | T>();
 
-  const fetch = useLatestCallback<Fetch<R>>(fetchInit => {
+  const fetch = useStableCallback<Fetch<R>>(fetchInit => {
     const requestInit: Options<R, T> = {
       ...options,
       ...fetchInit

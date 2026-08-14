@@ -3,11 +3,23 @@
  */
 
 import useIsMounted from './useIsMounted';
-import useLatestRef from './useLatestRef';
+import useStableCallback from './useStableCallback';
 import { useCallback, useEffect, useRef } from 'react';
 
 const DEFAULT_RECONNECT_LIMIT = 3;
 const DEFAULT_RECONNECT_INTERVAL = 3000;
+
+/**
+ * @function removeWsEvents
+ * @param ws WebSocket 实例
+ * @description 清除 WebSocket 实例上的所有事件监听器
+ */
+function removeWsEvents(ws: WebSocket) {
+  ws.onopen = null;
+  ws.onmessage = null;
+  ws.onerror = null;
+  ws.onclose = null;
+}
 
 // 定义消息类型，与 WebSocket.send 方法参数类型一致
 type Message = Parameters<WebSocket['send']>[0];
@@ -33,20 +45,6 @@ export interface Options<M> {
 }
 
 /**
- * @function removeWsEvents
- * @param ws WebSocket 实例
- * @description 清除 WebSocket 实例上的所有事件监听器
- */
-function removeWsEvents(ws: WebSocket) {
-  if (ws) {
-    ws.onopen = null;
-    ws.onmessage = null;
-    ws.onerror = null;
-    ws.onclose = null;
-  }
-}
-
-/**
  * @function useWebSocket
  * @description [hook] 长连接 WebSocket 操作
  * @param url 链接地址
@@ -56,12 +54,8 @@ function removeWsEvents(ws: WebSocket) {
 export default function useWebSocket<M extends Message>(url: string, options: Options<M> = {}): Socket {
   // 检查组件是否已挂载，避免在组件卸载后执行状态更新
   const isMounted = useIsMounted();
-  // 使用 ref 保存最新的 URL，避免闭包问题
-  const urlRef = useLatestRef(url);
   // 记录重连次数的 ref
   const reconnectTimesRef = useRef(0);
-  // 使用 ref 保存最新的 options 配置
-  const optionsRef = useLatestRef(options);
   // 消息发送队列，用于在连接未建立时缓存消息
   const sendQueueRef = useRef<Message[]>([]);
   // WebSocket 实例的 ref
@@ -83,7 +77,7 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
   /**
    * @description 建立 WebSocket 连接
    */
-  const connect = useCallback(() => {
+  const connect = useStableCallback(() => {
     // 获取当前 WebSocket 状态
     const readyState = websocketRef.current?.readyState;
 
@@ -94,9 +88,8 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
 
       // 创建 WebSocket 连接
       const createWebSocket = () => {
-        const { current: options } = optionsRef;
-        // 创建新的 WebSocket 实例
-        const ws = new WebSocket(urlRef.current, options.protocols);
+        // 创建 WebSocket 实例
+        const ws = new WebSocket(url, options.protocols);
 
         // 连接成功事件处理
         ws.onopen = event => {
@@ -105,7 +98,7 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
             reconnectTimesRef.current = 0;
 
             // 调用用户定义的 onOpen 回调
-            optionsRef.current.onOpen?.(event);
+            options.onOpen?.(event);
 
             // 发送连接前缓存的消息队列
             const messages = sendQueueRef.current;
@@ -122,14 +115,14 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
         ws.onmessage = (message: MessageEvent<M>): void => {
           if (isMounted()) {
             // 调用用户定义的 onMessage 回调
-            optionsRef.current.onMessage?.(message);
+            options.onMessage?.(message);
           }
         };
 
         // 错误事件处理
         ws.onerror = event => {
           if (isMounted()) {
-            const { onError } = optionsRef.current;
+            const { onError } = options;
 
             // 调用用户定义的 onError 回调，如果没有则打印错误到控制台
             if (onError) {
@@ -153,7 +146,7 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
             websocketRef.current = null;
 
             // 调用用户定义的 onClose 回调
-            optionsRef.current.onClose?.(event);
+            options.onClose?.(event);
 
             // 如果不是正常关闭，则尝试重连
             if (!event.wasClean) {
@@ -179,7 +172,7 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
         }
       }
     }
-  }, []);
+  });
 
   /**
    * @description 发送消息
@@ -202,18 +195,18 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
    * @param code 关闭状态码，默认 1000（正常关闭）
    * @param reason 关闭原因
    */
-  const disconnect = useCallback((code: number = 1000, reason?: string): void => {
+  const disconnect = useStableCallback((code: number = 1000, reason?: string): void => {
     // 清除之前的重连定时器
     clearReconnectTimer();
 
-    const { reconnectLimit = DEFAULT_RECONNECT_LIMIT } = optionsRef.current;
+    const { reconnectLimit = DEFAULT_RECONNECT_LIMIT } = options;
 
     // 设置重连次数达到上限，防止断开后自动重连
     reconnectTimesRef.current = reconnectLimit;
 
     // 关闭 WebSocket 连接
     websocketRef.current?.close(code, reason);
-  }, []);
+  });
 
   const { protocols, manual } = options;
 
@@ -233,8 +226,7 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
   /**
    * @description 重连机制
    */
-  const reconnect = useCallback(() => {
-    const { current: options } = optionsRef;
+  const reconnect = useStableCallback(() => {
     const { reconnectLimit = DEFAULT_RECONNECT_LIMIT } = options;
 
     // 如果重连次数未达到上限且当前连接不是 OPEN 状态，则尝试重连
@@ -256,12 +248,16 @@ export default function useWebSocket<M extends Message>(url: string, options: Op
           // 更新重连次数并调用用户定义的 onReconnect 回调
           const reconnectTimes = reconnectTimesRef.current++;
 
-          optionsRef.current.onReconnect?.(reconnectTimes, reconnectLimit);
+          options.onReconnect?.(reconnectTimes, reconnectLimit);
         }, reconnectInterval);
       }
     }
-  }, []);
+  });
 
   // 返回包含操作方法的对象
-  return { send, connect, disconnect };
+  return {
+    send,
+    connect,
+    disconnect
+  };
 }
