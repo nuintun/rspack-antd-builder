@@ -1,4 +1,5 @@
 allowBuilds:
+  '@parcel/watcher': true
   bufferutil: true
   utf-8-validate: true
 minimumReleaseAgeExclude:
@@ -12,6 +13,7 @@ minimumReleaseAgeExclude:
   - '@jsonjoy.com/fs-snapshot@4.68.1'
   - antd@6.6.0
   - memfs@4.68.1
+  - dayjs@1.11.22
 onlyBuiltDependencies:
   - bufferutil
   - utf-8-validate

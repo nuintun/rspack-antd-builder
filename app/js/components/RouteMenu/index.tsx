@@ -15,7 +15,14 @@ import { flattenItems, getExpandKeys, mergeKeys } from './utils';
 import React, { memo, use, useEffect, useMemo, useRef, useState } from 'react';
 
 type OmitProps =
-  'items' | 'multiple' | 'openKeys' | 'onDeselect' | 'selectable' | 'onOpenChange' | 'selectedKeys' | 'defaultSelectedKeys';
+  | 'items'
+  | 'multiple'
+  | 'openKeys'
+  | 'onDeselect'
+  | 'selectable'
+  | 'onOpenChange'
+  | 'selectedKeys'
+  | 'defaultSelectedKeys';
 
 export interface RouteMenuProps extends Omit<MenuProps, OmitProps> {
   items: MenuItem[];
