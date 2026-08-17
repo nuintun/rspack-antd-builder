@@ -2,7 +2,6 @@
  * @module useItems
  */
 
-import { prefixCls } from './style';
 import Link from '/js/components/Link';
 import React, { useMemo } from 'react';
 import { DFSTree } from '/js/utils/Tree';
@@ -51,8 +50,6 @@ function renderLabel(item: MenuItem, selectedKeys: string[], renderItem?: Render
 export default function useItems(items: MenuItem[], selectedKeys: string[], renderItem?: RenderItem): Item[] {
   return useMemo(() => {
     const menuItems: Item[] = [];
-    const className = `${prefixCls}-item`;
-    const popupClassName = `${prefixCls}-popup`;
     const menuItemsMap: Map<string, Item[]> = new Map();
 
     for (const item of items) {
@@ -65,10 +62,8 @@ export default function useItems(items: MenuItem[], selectedKeys: string[], rend
         const item: Item = {
           key,
           children,
-          className,
-          popupClassName,
-          label: renderLabel(current, selectedKeys, renderItem),
-          icon: <FlexIcon icon={icon} className={`${prefixCls}-icon`} />
+          icon: <FlexIcon icon={icon} />,
+          label: renderLabel(current, selectedKeys, renderItem)
         };
 
         if (children) {

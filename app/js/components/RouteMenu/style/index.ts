@@ -29,7 +29,7 @@ export default createStyles(
         },
 
         [`&.${prefixCls}-collapsed`]: {
-          [`.${prefixCls}-icon`]: {
+          [`.${prefixCls}-item-icon`]: {
             '> img': {
               height: collapsedIconSize
             }
@@ -40,9 +40,15 @@ export default createStyles(
       [`.${prefixCls},
         .${prefixCls}-popup`]: {
         [`.${prefixCls}-item`]: {
-          [`.${prefixCls}-icon`]: {
+          [`.${prefixCls}-item-icon`]: {
             '> img': {
               height: iconSize
+            }
+          },
+
+          [`.${prefixCls}-item-content`]: {
+            ':focus-visible': {
+              outline: 'none'
             }
           }
         }
