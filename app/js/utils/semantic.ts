@@ -58,6 +58,15 @@ function getSemantic(target: Semantic, key: string): Semantic {
 }
 
 /**
+ * @function isSemanticSchema
+ * @description 判断值是否为运行时语义化 schema
+ * @param value 需要验证的值
+ */
+function isSemanticSchema(value: unknown): value is RuntimeSemanticSchema {
+  return isPlainObject(value);
+}
+
+/**
  * @function resolveStyles
  * @description 按语义化 slot 浅合并 styles
  * @param base 基础 styles
@@ -90,14 +99,9 @@ function resolveStyles(base: Semantic, custom?: Semantic): Semantic {
 }
 
 /**
- * @function isSemanticSchema
- * @description 判断值是否为运行时语义化 schema
- * @param value 需要验证的值
+ * @type SemanticSlots
+ * @description 语义化 slots 类型
  */
-function isSemanticSchema(value: unknown): value is RuntimeSemanticSchema {
-  return isPlainObject(value);
-}
-
 export type SemanticSlots<C> = C extends AnyFunction ? ReturnType<C> : Exclude<C, AnyFunction>;
 
 /**
@@ -156,9 +160,9 @@ function resolveClassNames(schema: RuntimeSemanticSchema, base: Semantic, custom
       // 普通嵌套对象无需 schema，继续处理子节点。
       if (isPlainObject(value)) {
         stack.push({
-          schema: isSemanticSchema(keySchema) ? keySchema : {},
           source: value,
-          target: getSemantic(target, key)
+          target: getSemantic(target, key),
+          schema: isSemanticSchema(keySchema) ? keySchema : {}
         });
         continue;
       }
