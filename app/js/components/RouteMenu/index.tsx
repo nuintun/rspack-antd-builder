@@ -10,9 +10,9 @@ import { useMatches } from 'react-nest-router';
 import { GetProp, Menu, MenuProps } from 'antd';
 import useItems, { RenderItem } from './useItems';
 import { SiderContext } from 'antd/es/layout/Sider';
-import { combineClassNames } from '/js/utils/semantic';
 import useStableCallback from '/js/hooks/useStableCallback';
 import { flattenItems, getExpandKeys, mergeKeys } from './utils';
+import { combineClassNames, DEFAULT_SLOT } from '/js/utils/semantic';
 import React, { memo, use, useEffect, useMemo, useRef, useState } from 'react';
 
 type OmitProps =
@@ -65,7 +65,7 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
     return combineClassNames<ClassNames>(
       {
         popup: {
-          default: 'root'
+          [DEFAULT_SLOT]: 'root'
         }
       },
       {

@@ -21,6 +21,8 @@ type AnyFunction = (...args: any[]) => any;
 
 type SemanticResolver<C> = Extract<C, AnyFunction>;
 
+export const DEFAULT_SLOT = Symbol('semantic.default');
+
 // oxfmt-ignore
 export type SemanticSchema<T> =
   [ObjectPart<T>] extends [never]
@@ -34,12 +36,12 @@ export type SemanticSchema<T> =
         [StringPart<T>] extends [never]
           ? {}
           : {
-              default?: keyof ObjectPart<T> & string;
+              [DEFAULT_SLOT]?: keyof ObjectPart<T> & string;
             }
       );
 
 interface RuntimeSemanticSchema {
-  default?: string;
+  [DEFAULT_SLOT]?: string;
   [key: string]: RuntimeSemanticSchema | string | undefined;
 }
 
@@ -167,11 +169,11 @@ function resolveClassNames(schema: RuntimeSemanticSchema, base: Semantic, custom
         continue;
       }
 
-      // schema.default 表示 string 形式对应的默认 semantic slot。
-      if (isSemanticSchema(keySchema) && keySchema.default) {
+      // schema[DEFAULT_SLOT] 表示 string 形式对应的默认 semantic slot。
+      if (isSemanticSchema(keySchema) && keySchema[DEFAULT_SLOT]) {
         const targetValue = getSemantic(target, key);
 
-        targetValue[keySchema.default] = clsx(targetValue[keySchema.default] as ClassValue, value as ClassValue);
+        targetValue[keySchema[DEFAULT_SLOT]] = clsx(targetValue[keySchema[DEFAULT_SLOT]] as ClassValue, value as ClassValue);
         continue;
       }
 
