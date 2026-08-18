@@ -90,3 +90,18 @@ export function isNumber(value: unknown): value is number {
 export function isBoolean(value: unknown): value is boolean {
   return Object.prototype.toString.call(value) === '[object Boolean]';
 }
+
+/**
+ * @function isPlainObject
+ * @description 是否为普通对象
+ * @param value 需要验证的值
+ */
+export function isPlainObject(value: unknown): value is Record<PropertyKey, unknown> {
+  if (!isObject(value)) {
+    return false;
+  }
+
+  const prototype = Object.getPrototypeOf(value);
+
+  return prototype === Object.prototype || prototype === null;
+}

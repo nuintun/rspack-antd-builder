@@ -40,15 +40,13 @@ export default createStyles(
       [`.${prefixCls},
         .${prefixCls}-popup`]: {
         [`.${prefixCls}-item`]: {
+          ':focus-visible': {
+            outline: 'none'
+          },
+
           [`.${prefixCls}-item-icon`]: {
             '> img': {
               height: iconSize
-            }
-          },
-
-          [`.${prefixCls}-item-content`]: {
-            ':focus-visible': {
-              outline: 'none'
             }
           }
         }

@@ -10,7 +10,7 @@ import { useMatches } from 'react-nest-router';
 import { GetProp, Menu, MenuProps } from 'antd';
 import useItems, { RenderItem } from './useItems';
 import { SiderContext } from 'antd/es/layout/Sider';
-import { isFunction, isString } from '/js/utils/typeof';
+import { combineClassNames } from '/js/utils/semantic';
 import useStableCallback from '/js/hooks/useStableCallback';
 import { flattenItems, getExpandKeys, mergeKeys } from './utils';
 import React, { memo, use, useEffect, useMemo, useRef, useState } from 'react';
@@ -34,45 +34,15 @@ export interface RouteMenuProps extends Omit<MenuProps, OmitProps> {
   onOpenChange?: (openKeys: string[], cachedOpenKeys: string[]) => void;
 }
 
-function resolveClassNames(scope: string, classNames?: ClassNames, collapsed?: boolean): ClassNames {
-  return (...args) => {
-    const resolved = (isFunction(classNames) ? classNames(...args) : classNames) ?? {};
-    const subMenu = resolved.subMenu ?? {};
-    const popup = resolved.popup ?? {};
-
-    return {
-      ...resolved,
-      root: clsx(scope, prefixCls, resolved.root, {
-        [`${prefixCls}-collapsed`]: collapsed
-      }),
-      item: clsx(`${prefixCls}-item`, resolved.item),
-      itemIcon: clsx(`${prefixCls}-item-icon`, resolved.itemIcon),
-      itemContent: clsx(`${prefixCls}-item-content`, resolved.itemContent),
-      subMenu: {
-        ...subMenu,
-        item: clsx(`${prefixCls}-item`, subMenu.item),
-        itemIcon: clsx(`${prefixCls}-item-icon`, subMenu.itemIcon),
-        itemContent: clsx(`${prefixCls}-item-content`, subMenu.itemContent)
-      },
-      popup: isString(popup)
-        ? clsx(`${prefixCls}-popup`, popup)
-        : {
-            ...popup,
-            root: clsx(`${prefixCls}-popup`, popup.root)
-          }
-    };
-  };
-}
-
 export default memo(function RouteMenu(props: RouteMenuProps) {
-  const { items, classNames, renderItem, defaultOpenKeys, inlineCollapsed } = props;
+  const { items, classNames, inlineCollapsed } = props;
 
   const scope = useStyles();
   const matches = useMatches() as IRoute[];
   const { siderCollapsed } = use(SiderContext);
   const flatItems = useMemo(() => flattenItems(items), [items]);
-  const cachedOpenKeysRef = useRef<string[]>(defaultOpenKeys ?? []);
   const [selectedKeys, setSelectedKeys] = useState<string[]>(() => []);
+  const cachedOpenKeysRef = useRef<string[]>(props.defaultOpenKeys ?? []);
   const expandKeys = useMemo(() => getExpandKeys(matches, flatItems), [matches, flatItems]);
   const collapsed = useMemo(() => siderCollapsed ?? inlineCollapsed, [inlineCollapsed, siderCollapsed]);
   const [openKeys, setOpenKeys] = useState<string[]>(() => (collapsed ? [] : cachedOpenKeysRef.current));
@@ -90,6 +60,29 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
 
     onOpenChange(openKeys, cachedOpenKeysRef.current);
   });
+
+  const resolvedClassNames = useMemo<ClassNames>(() => {
+    return combineClassNames<ClassNames>(
+      {
+        popup: {
+          default: 'root'
+        }
+      },
+      {
+        root: clsx(scope, prefixCls, {
+          [`${prefixCls}-collapsed`]: collapsed
+        }),
+        item: `${prefixCls}-item`,
+        itemIcon: `${prefixCls}-item-icon`,
+        subMenu: {
+          item: `${prefixCls}-item`,
+          itemIcon: `${prefixCls}-item-icon`
+        },
+        popup: `${prefixCls}-popup`
+      },
+      classNames
+    );
+  }, [scope, collapsed, classNames]);
 
   useEffect(() => {
     const { openKeys, selectedKeys } = expandKeys;
@@ -120,9 +113,9 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
       multiple={false}
       openKeys={openKeys}
       selectedKeys={selectedKeys}
+      classNames={resolvedClassNames}
       onOpenChange={onOpenChangeHander}
-      items={useItems(items, selectedKeys, renderItem)}
-      classNames={resolveClassNames(scope, classNames, collapsed)}
+      items={useItems(items, selectedKeys, props.renderItem)}
     />
   );
 });
