@@ -78,22 +78,15 @@ function resolveStyles<C>(base: Partial<SemanticSlots<C>>, custom?: SemanticSlot
     ...base
   };
 
-  if (!isPlainObject(custom)) {
+  if (!custom) {
     return output as SemanticSlots<C>;
   }
 
-  for (const key of Object.keys(custom)) {
-    const baseValue = output[key];
-    const customValue = custom[key];
-
-    if (isPlainObject(baseValue) && isPlainObject(customValue)) {
-      output[key] = {
-        ...baseValue,
-        ...customValue
-      };
-    } else {
-      output[key] = customValue;
-    }
+  for (const [key, value] of Object.entries(custom)) {
+    output[key] = {
+      ...(output[key] as Semantic | undefined),
+      ...(value as Semantic | undefined)
+    };
   }
 
   return output as SemanticSlots<C>;
@@ -131,19 +124,19 @@ function resolveClassNames<C>(
   const stack: ClassNamesFrame[] = [];
 
   // 后进先出，确保 base 先处理，custom 后处理。
-  if (custom && isPlainObject(custom)) {
+  stack.push({
+    source: base,
+    target: output,
+    schema: schema as RuntimeSchema
+  });
+
+  if (custom) {
     stack.push({
-      schema,
       source: custom,
-      target: output
+      target: output,
+      schema: schema as RuntimeSchema
     });
   }
-
-  stack.push({
-    schema,
-    source: base,
-    target: output
-  });
 
   let current: ClassNamesFrame | undefined;
 
