@@ -114,10 +114,8 @@ export type SemanticSlots<C> = C extends Resolver ? ReturnType<C> : Exclude<C, R
  */
 export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
-    const resolver = custom as SemanticResolver<C>;
-
     return ((...args: Parameters<SemanticResolver<C>>) => {
-      return resolveStyles(base as Semantic, resolver(...args) as Semantic | undefined) as C;
+      return resolveStyles(base as Semantic, custom(...args) as Semantic | undefined) as C;
     }) as C;
   }
 
@@ -194,10 +192,8 @@ function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Seman
  */
 export function combineClassNames<C>(schema: SemanticSchema<C>, base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
-    const resolver = custom as SemanticResolver<C>;
-
     return ((...args: Parameters<SemanticResolver<C>>) => {
-      return resolveClassNames(schema as RuntimeSchema, base as Semantic, resolver(...args) as Semantic | undefined) as C;
+      return resolveClassNames(schema as RuntimeSchema, base as Semantic, custom(...args) as Semantic | undefined) as C;
     }) as C;
   }
 
