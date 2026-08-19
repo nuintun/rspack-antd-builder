@@ -5,15 +5,18 @@
 import clsx, { ClassValue } from 'clsx';
 import { isFunction, isPlainObject } from './typeof';
 
-interface ClassNamesFrame {
+interface Frame {
   source: Semantic;
   target: Semantic;
+}
+
+interface SchemaFrame extends Frame {
   schema: RuntimeSchema;
 }
 
 type Semantic = Record<string, unknown>;
 
-type Resolver<T = unknown> = (...args: any[]) => T;
+type Resolver<R = unknown> = (...args: any[]) => R;
 
 interface RuntimeSchema {
   [DEFAULT_SLOT]?: string;
@@ -22,25 +25,25 @@ interface RuntimeSchema {
 
 export const DEFAULT_SLOT = Symbol('semantic.default');
 
-type SemanticSlots<C> = C extends Resolver<infer T> ? T : C;
+type Slots<T> = T extends Resolver<infer R> ? R : T;
 
-type SemanticObject<T> = Extract<SemanticSlots<T>, Semantic>;
+type SemanticSchema<T> = Extract<Slots<T>, Semantic>;
 
 // oxfmt-ignore
-export type SemanticSchema<T> =
-  [SemanticObject<T>] extends [never]
+export type Schema<T> =
+  [SemanticSchema<T>] extends [never]
     ? never
     : {
-        [K in keyof SemanticObject<T> as
-          SemanticSchema<SemanticObject<T>[K]> extends never
+        [K in keyof SemanticSchema<T> as
+          Schema<SemanticSchema<T>[K]> extends never
             ? never
             : K
-        ]?: SemanticSchema<SemanticObject<T>[K]>;
+        ]?: Schema<SemanticSchema<T>[K]>;
       } & (
-        [Extract<SemanticSlots<T>, string>] extends [never]
+        [Extract<Slots<T>, string>] extends [never]
           ? {}
           : {
-              [DEFAULT_SLOT]?: keyof SemanticObject<T> & string;
+              [DEFAULT_SLOT]?: keyof SemanticSchema<T> & string;
             }
       );
 
@@ -60,36 +63,68 @@ function isSchema(value: unknown): value is RuntimeSchema {
  * @param key 对象键
  */
 function getSemantic(target: Semantic, key: string): Semantic {
-  const value = target[key] || {};
+  const value = target[key];
 
-  target[key] = value;
+  if (isPlainObject(value)) {
+    return value;
+  }
 
-  return value as Semantic;
+  const semantic: Semantic = {};
+
+  target[key] = semantic;
+
+  return semantic;
 }
 
 /**
  * @function resolveStyles
- * @description 按语义化 slot 浅合并 styles
+ * @description 按语义化 slot 合并 styles
  * @param base 基础 styles
  * @param custom 自定义 styles
  */
-function resolveStyles<C>(base: Partial<SemanticSlots<C>>, custom?: SemanticSlots<C>): SemanticSlots<C> {
+function resolveStyles<T>(base: Partial<Slots<T>>, custom?: Slots<T>): Slots<T> {
   const output: Semantic = {
     ...base
   };
 
   if (!custom) {
-    return output as SemanticSlots<C>;
+    return output as Slots<T>;
   }
 
-  for (const [key, value] of Object.entries(custom)) {
-    output[key] = {
-      ...(output[key] as Semantic | undefined),
-      ...(value as Semantic | undefined)
-    };
+  const stack: Frame[] = [
+    {
+      source: custom,
+      target: output
+    }
+  ];
+
+  let current: Frame | undefined;
+
+  while ((current = stack.pop())) {
+    const { source, target } = current;
+
+    for (const [key, value] of Object.entries(source)) {
+      const baseValue = target[key];
+
+      if (isPlainObject(value) && isPlainObject(baseValue)) {
+        const next: Semantic = {
+          ...baseValue
+        };
+
+        target[key] = next;
+
+        stack.push({
+          source: value,
+          target: next
+        });
+        continue;
+      }
+
+      target[key] = value;
+    }
   }
 
-  return output as SemanticSlots<C>;
+  return output as Slots<T>;
 }
 
 /**
@@ -98,14 +133,14 @@ function resolveStyles<C>(base: Partial<SemanticSlots<C>>, custom?: SemanticSlot
  * @param base 基础 styles
  * @param custom 自定义 styles
  */
-export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C {
+export function combineStyles<T>(base: Partial<Slots<T>>, custom?: T): T {
   if (isFunction(custom)) {
-    return ((...args: Parameters<Extract<C, Resolver>>) => {
-      return resolveStyles<C>(base, custom(...args));
-    }) as C;
+    return ((...args: Parameters<Extract<T, Resolver>>) => {
+      return resolveStyles<T>(base, custom(...args));
+    }) as T;
   }
 
-  return resolveStyles<C>(base, custom as SemanticSlots<C>) as C;
+  return resolveStyles<T>(base, custom as Slots<T>) as T;
 }
 
 /**
@@ -115,30 +150,25 @@ export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C
  * @param base 基础 classNames
  * @param custom 自定义 classNames
  */
-function resolveClassNames<C>(
-  schema: SemanticSchema<C>,
-  base: Partial<SemanticSlots<C>>,
-  custom?: SemanticSlots<C>
-): SemanticSlots<C> {
+function resolveClassNames<T>(schema: Schema<T>, base: Partial<Slots<T>>, custom?: Slots<T>): Slots<T> {
   const output: Semantic = {};
-  const stack: ClassNamesFrame[] = [];
-
-  // 后进先出，确保 base 先处理，custom 后处理。
-  stack.push({
-    source: base,
-    target: output,
-    schema: schema as RuntimeSchema
-  });
+  const stack: SchemaFrame[] = [
+    {
+      source: base,
+      target: output,
+      schema
+    }
+  ];
 
   if (custom) {
     stack.push({
       source: custom,
       target: output,
-      schema: schema as RuntimeSchema
+      schema
     });
   }
 
-  let current: ClassNamesFrame | undefined;
+  let current: SchemaFrame | undefined;
 
   while ((current = stack.pop())) {
     const { schema, source, target } = current;
@@ -174,7 +204,7 @@ function resolveClassNames<C>(
     }
   }
 
-  return output as SemanticSlots<C>;
+  return output as Slots<T>;
 }
 
 /**
@@ -184,12 +214,12 @@ function resolveClassNames<C>(
  * @param base 基础 classNames
  * @param custom 自定义 classNames
  */
-export function combineClassNames<C>(schema: SemanticSchema<C>, base: Partial<SemanticSlots<C>>, custom?: C): C {
+export function combineClassNames<T>(schema: Schema<T>, base: Partial<Slots<T>>, custom?: T): T {
   if (isFunction(custom)) {
-    return ((...args: Parameters<Extract<C, Resolver>>) => {
-      return resolveClassNames<C>(schema, base, custom(...args));
-    }) as C;
+    return ((...args: Parameters<Extract<T, Resolver>>) => {
+      return resolveClassNames<T>(schema, base, custom(...args));
+    }) as T;
   }
 
-  return resolveClassNames<C>(schema, base, custom as SemanticSlots<C>) as C;
+  return resolveClassNames<T>(schema, base, custom as Slots<T>) as T;
 }
