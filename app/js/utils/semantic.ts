@@ -11,9 +11,9 @@ interface ClassNamesFrame {
   schema: RuntimeSchema;
 }
 
-type Resolver = (...args: any[]) => any;
-
 type Semantic = Record<string, unknown>;
+
+type Resolver<T = unknown> = (...args: any[]) => T;
 
 interface RuntimeSchema {
   [DEFAULT_SLOT]?: string;
@@ -22,9 +22,9 @@ interface RuntimeSchema {
 
 export const DEFAULT_SLOT = Symbol('semantic.default');
 
-type SemanticObject<T> = Extract<SemanticSlots<T>, Semantic>;
+type SemanticSlots<C> = C extends Resolver<infer T> ? T : C;
 
-type SemanticSlots<C> = C extends Resolver ? ReturnType<C> : C;
+type SemanticObject<T> = Extract<SemanticSlots<T>, Semantic>;
 
 // oxfmt-ignore
 export type SemanticSchema<T> =
@@ -73,13 +73,13 @@ function getSemantic(target: Semantic, key: string): Semantic {
  * @param base 基础 styles
  * @param custom 自定义 styles
  */
-function resolveStyles(base: Semantic, custom?: Semantic): Semantic {
+function resolveStyles<C>(base: Partial<SemanticSlots<C>>, custom?: SemanticSlots<C>): SemanticSlots<C> {
   const output: Semantic = {
     ...base
   };
 
-  if (!custom) {
-    return output;
+  if (!isPlainObject(custom)) {
+    return output as SemanticSlots<C>;
   }
 
   for (const key of Object.keys(custom)) {
@@ -96,7 +96,7 @@ function resolveStyles(base: Semantic, custom?: Semantic): Semantic {
     }
   }
 
-  return output;
+  return output as SemanticSlots<C>;
 }
 
 /**
@@ -108,11 +108,11 @@ function resolveStyles(base: Semantic, custom?: Semantic): Semantic {
 export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
     return ((...args: Parameters<Extract<C, Resolver>>) => {
-      return resolveStyles(base, custom(...args) as Semantic | undefined) as C;
+      return resolveStyles<C>(base, custom(...args));
     }) as C;
   }
 
-  return resolveStyles(base, custom as Semantic | undefined) as C;
+  return resolveStyles<C>(base, custom as SemanticSlots<C>) as C;
 }
 
 /**
@@ -122,12 +122,16 @@ export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C
  * @param base 基础 classNames
  * @param custom 自定义 classNames
  */
-function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Semantic): Semantic {
+function resolveClassNames<C>(
+  schema: SemanticSchema<C>,
+  base: Partial<SemanticSlots<C>>,
+  custom?: SemanticSlots<C>
+): SemanticSlots<C> {
   const output: Semantic = {};
   const stack: ClassNamesFrame[] = [];
 
   // 后进先出，确保 base 先处理，custom 后处理。
-  if (custom) {
+  if (custom && isPlainObject(custom)) {
     stack.push({
       schema,
       source: custom,
@@ -161,11 +165,15 @@ function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Seman
       }
 
       // DEFAULT_SLOT 表示 string 形式对应的默认 semantic slot。
-      if (isSchema(keySchema) && keySchema[DEFAULT_SLOT]) {
-        const slot = getSemantic(target, key);
+      if (isSchema(keySchema)) {
+        const slotKey = keySchema[DEFAULT_SLOT];
 
-        slot[keySchema[DEFAULT_SLOT]] = clsx(slot[keySchema[DEFAULT_SLOT]] as ClassValue, value as ClassValue);
-        continue;
+        if (slotKey) {
+          const slot = getSemantic(target, key);
+
+          slot[slotKey] = clsx(slot[slotKey] as ClassValue, value as ClassValue);
+          continue;
+        }
       }
 
       // 普通叶子 className 直接追加。
@@ -173,7 +181,7 @@ function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Seman
     }
   }
 
-  return output;
+  return output as SemanticSlots<C>;
 }
 
 /**
@@ -186,9 +194,9 @@ function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Seman
 export function combineClassNames<C>(schema: SemanticSchema<C>, base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
     return ((...args: Parameters<Extract<C, Resolver>>) => {
-      return resolveClassNames(schema, base, custom(...args) as Semantic | undefined) as C;
+      return resolveClassNames<C>(schema, base, custom(...args));
     }) as C;
   }
 
-  return resolveClassNames(schema, base, custom as Semantic | undefined) as C;
+  return resolveClassNames<C>(schema, base, custom as SemanticSlots<C>) as C;
 }
