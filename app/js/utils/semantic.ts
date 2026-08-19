@@ -171,9 +171,9 @@ function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Seman
 
       // DEFAULT_SLOT 表示 string 形式对应的默认 semantic slot。
       if (isSchema(keySchema) && keySchema[DEFAULT_SLOT]) {
-        const targetValue = getSemantic(target, key);
+        const slot = getSemantic(target, key);
 
-        targetValue[keySchema[DEFAULT_SLOT]] = clsx(targetValue[keySchema[DEFAULT_SLOT]] as ClassValue, value as ClassValue);
+        slot[keySchema[DEFAULT_SLOT]] = clsx(slot[keySchema[DEFAULT_SLOT]] as ClassValue, value as ClassValue);
         continue;
       }
 
