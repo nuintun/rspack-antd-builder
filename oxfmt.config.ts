@@ -23,5 +23,5 @@ export default defineConfig({
       }
     }
   ],
-  ignorePatterns: ['*.min.*', '/wwwroot', 'pnpm-*.yaml']
+  ignorePatterns: ['*.min.*', '/wwwroot', 'pnpm-lock.yaml']
 });
