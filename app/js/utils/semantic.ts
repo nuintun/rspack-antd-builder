@@ -176,19 +176,20 @@ function resolveClassNames<T>(schema: Schema<T>, base: Partial<Slots<T>>, custom
     for (const key of Object.keys(source)) {
       const value = source[key];
       const keySchema = schema[key];
+      const hasSchema = isSchema(keySchema);
 
       // 普通嵌套对象无需 schema，继续处理子节点。
       if (isPlainObject(value)) {
         stack.push({
           source: value,
           target: getSemantic(target, key),
-          schema: isSchema(keySchema) ? keySchema : {}
+          schema: hasSchema ? keySchema : {}
         });
         continue;
       }
 
       // DEFAULT_SLOT 表示 string 形式对应的默认 semantic slot。
-      if (isSchema(keySchema)) {
+      if (hasSchema) {
         const slotKey = keySchema[DEFAULT_SLOT];
 
         if (slotKey) {
