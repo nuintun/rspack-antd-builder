@@ -8,8 +8,10 @@ import { isFunction, isPlainObject } from './typeof';
 interface ClassNamesFrame {
   source: Semantic;
   target: Semantic;
-  schema: RuntimeSemanticSchema;
+  schema: RuntimeSchema;
 }
+
+type Resolver = (...args: any[]) => any;
 
 type Semantic = Record<string, unknown>;
 
@@ -17,32 +19,22 @@ type StringPart<T> = Extract<T, string>;
 
 type ObjectPart<T> = Extract<T, Semantic>;
 
-type AnyFunction = (...args: any[]) => any;
+type SemanticResolver<C> = Extract<C, Resolver>;
 
-type SemanticResolver<C> = Extract<C, AnyFunction>;
+interface RuntimeSchema {
+  [DEFAULT_SLOT]?: string;
+  [key: string]: RuntimeSchema | string | undefined;
+}
 
 export const DEFAULT_SLOT = Symbol('semantic.default');
 
-// oxfmt-ignore
-export type SemanticSchema<T> =
-  [ObjectPart<T>] extends [never]
-    ? never
-    : {
-        [K in keyof ObjectPart<T> as
-          SemanticSchema<ObjectPart<T>[K]> extends never
-            ? never
-            : K]?: SemanticSchema<ObjectPart<T>[K]>;
-      } & (
-        [StringPart<T>] extends [never]
-          ? {}
-          : {
-              [DEFAULT_SLOT]?: keyof ObjectPart<T> & string;
-            }
-      );
-
-interface RuntimeSemanticSchema {
-  [DEFAULT_SLOT]?: string;
-  [key: string]: RuntimeSemanticSchema | string | undefined;
+/**
+ * @function isSchema
+ * @description 判断值是否为运行时语义化 schema
+ * @param value 需要验证的值
+ */
+function isSchema(value: unknown): value is RuntimeSchema {
+  return isPlainObject(value);
 }
 
 /**
@@ -57,15 +49,6 @@ function getSemantic(target: Semantic, key: string): Semantic {
   target[key] = value;
 
   return value as Semantic;
-}
-
-/**
- * @function isSemanticSchema
- * @description 判断值是否为运行时语义化 schema
- * @param value 需要验证的值
- */
-function isSemanticSchema(value: unknown): value is RuntimeSemanticSchema {
-  return isPlainObject(value);
 }
 
 /**
@@ -100,11 +83,28 @@ function resolveStyles(base: Semantic, custom?: Semantic): Semantic {
   return output;
 }
 
+// oxfmt-ignore
+export type SemanticSchema<T> =
+  [ObjectPart<SemanticSlots<T>>] extends [never]
+    ? never
+    : {
+        [K in keyof ObjectPart<SemanticSlots<T>> as
+          SemanticSchema<ObjectPart<SemanticSlots<T>>[K]> extends never
+            ? never
+            : K]?: SemanticSchema<ObjectPart<SemanticSlots<T>>[K]>;
+      } & (
+        [StringPart<SemanticSlots<T>>] extends [never]
+          ? {}
+          : {
+              [DEFAULT_SLOT]?: keyof ObjectPart<SemanticSlots<T>> & string;
+            }
+      );
+
 /**
  * @type SemanticSlots
  * @description 语义化 slots 类型
  */
-export type SemanticSlots<C> = C extends AnyFunction ? ReturnType<C> : Exclude<C, AnyFunction>;
+export type SemanticSlots<C> = C extends Resolver ? ReturnType<C> : Exclude<C, Resolver>;
 
 /**
  * @function combineStyles
@@ -131,7 +131,7 @@ export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C
  * @param base 基础 classNames
  * @param custom 自定义 classNames
  */
-function resolveClassNames(schema: RuntimeSemanticSchema, base: Semantic, custom?: Semantic): Semantic {
+function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Semantic): Semantic {
   const output: Semantic = {};
   const stack: ClassNamesFrame[] = [];
 
@@ -164,13 +164,13 @@ function resolveClassNames(schema: RuntimeSemanticSchema, base: Semantic, custom
         stack.push({
           source: value,
           target: getSemantic(target, key),
-          schema: isSemanticSchema(keySchema) ? keySchema : {}
+          schema: isSchema(keySchema) ? keySchema : {}
         });
         continue;
       }
 
-      // schema[DEFAULT_SLOT] 表示 string 形式对应的默认 semantic slot。
-      if (isSemanticSchema(keySchema) && keySchema[DEFAULT_SLOT]) {
+      // DEFAULT_SLOT 表示 string 形式对应的默认 semantic slot。
+      if (isSchema(keySchema) && keySchema[DEFAULT_SLOT]) {
         const targetValue = getSemantic(target, key);
 
         targetValue[keySchema[DEFAULT_SLOT]] = clsx(targetValue[keySchema[DEFAULT_SLOT]] as ClassValue, value as ClassValue);
@@ -192,18 +192,14 @@ function resolveClassNames(schema: RuntimeSemanticSchema, base: Semantic, custom
  * @param base 基础 classNames
  * @param custom 自定义 classNames
  */
-export function combineClassNames<C>(schema: SemanticSchema<SemanticSlots<C>>, base: Partial<SemanticSlots<C>>, custom?: C): C {
+export function combineClassNames<C>(schema: SemanticSchema<C>, base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
     const resolver = custom as SemanticResolver<C>;
 
     return ((...args: Parameters<SemanticResolver<C>>) => {
-      return resolveClassNames(
-        schema as RuntimeSemanticSchema,
-        base as Semantic,
-        resolver(...args) as Semantic | undefined
-      ) as C;
+      return resolveClassNames(schema as RuntimeSchema, base as Semantic, resolver(...args) as Semantic | undefined) as C;
     }) as C;
   }
 
-  return resolveClassNames(schema as RuntimeSemanticSchema, base as Semantic, custom as Semantic | undefined) as C;
+  return resolveClassNames(schema as RuntimeSchema, base as Semantic, custom as Semantic | undefined) as C;
 }
