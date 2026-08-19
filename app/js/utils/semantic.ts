@@ -19,8 +19,6 @@ type StringPart<T> = Extract<T, string>;
 
 type ObjectPart<T> = Extract<T, Semantic>;
 
-type SemanticResolver<C> = Extract<C, Resolver>;
-
 interface RuntimeSchema {
   [DEFAULT_SLOT]?: string;
   [key: string]: RuntimeSchema | string | undefined;
@@ -114,7 +112,7 @@ export type SemanticSlots<C> = C extends Resolver ? ReturnType<C> : Exclude<C, R
  */
 export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
-    return ((...args: Parameters<SemanticResolver<C>>) => {
+    return ((...args: Parameters<Extract<C, Resolver>>) => {
       return resolveStyles(base as Semantic, custom(...args) as Semantic | undefined) as C;
     }) as C;
   }
@@ -192,7 +190,7 @@ function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Seman
  */
 export function combineClassNames<C>(schema: SemanticSchema<C>, base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
-    return ((...args: Parameters<SemanticResolver<C>>) => {
+    return ((...args: Parameters<Extract<C, Resolver>>) => {
       return resolveClassNames(schema as RuntimeSchema, base as Semantic, custom(...args) as Semantic | undefined) as C;
     }) as C;
   }
