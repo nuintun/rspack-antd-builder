@@ -14,36 +14,36 @@ interface SchemaFrame extends Frame {
   schema: RuntimeSchema;
 }
 
-type Semantic = Record<string, unknown>;
+type Semantic = Record<PropertyKey, unknown>;
 
 type Resolver<R = unknown> = (...args: any[]) => R;
 
-interface RuntimeSchema {
-  [DEFAULT_SLOT]?: string;
-  [key: string]: RuntimeSchema | string | undefined;
-}
+type Slots<T> = T extends Resolver<infer R> ? R : T;
+
+type SemanticSlots<T> = Extract<Slots<T>, Semantic>;
 
 export const DEFAULT_SLOT = Symbol('semantic.default');
 
-type Slots<T> = T extends Resolver<infer R> ? R : T;
-
-type SemanticSchema<T> = Extract<Slots<T>, Semantic>;
+interface RuntimeSchema {
+  [DEFAULT_SLOT]?: string;
+  [key: PropertyKey]: RuntimeSchema | string | undefined;
+}
 
 // oxfmt-ignore
 export type Schema<T> =
-  [SemanticSchema<T>] extends [never]
+  SemanticSlots<T> extends never
     ? never
     : {
-        [K in keyof SemanticSchema<T> as
-          Schema<SemanticSchema<T>[K]> extends never
+        [K in keyof SemanticSlots<T> as
+          Schema<SemanticSlots<T>[K]> extends never
             ? never
             : K
-        ]?: Schema<SemanticSchema<T>[K]>;
+        ]?: Schema<SemanticSlots<T>[K]>;
       } & (
-        [Extract<Slots<T>, string>] extends [never]
+        Extract<Slots<T>, string> extends never
           ? {}
           : {
-              [DEFAULT_SLOT]?: keyof SemanticSchema<T> & string;
+              [DEFAULT_SLOT]?: keyof SemanticSlots<T> & string;
             }
       );
 
@@ -62,7 +62,7 @@ function isSchema(value: unknown): value is RuntimeSchema {
  * @param target 目标语义化对象
  * @param key 对象键
  */
-function getSemantic(target: Semantic, key: string): Semantic {
+function getSemantic(target: Semantic, key: PropertyKey): Semantic {
   const value = target[key];
 
   if (isPlainObject(value)) {
