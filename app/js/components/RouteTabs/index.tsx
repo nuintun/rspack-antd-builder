@@ -13,32 +13,16 @@ import { ConfigProvider, Tabs, TabsProps } from 'antd';
 import LoadingFallback from '/js/components/Fallback/Loading';
 import { Outlet, useMatch, useMatches, useMatchIndex } from 'react-nest-router';
 
-type TabsPicked =
-  | 'size'
-  | 'style'
-  | 'animated'
-  | 'centered'
-  | 'moreIcon'
-  | 'className'
-  | 'tabBarStyle'
-  | 'tabPlacement'
-  | 'renderTabBar'
-  | 'tabBarGutter'
-  | 'popupClassName'
-  | 'tabBarExtraContent';
+type OmitProps = 'items' | 'activeKey' | 'destroyOnHidden';
 
-export interface RouteTabsProps extends Pick<TabsProps, TabsPicked> {
+export interface RouteTabsProps extends Omit<TabsProps, OmitProps> {
   icon?: boolean;
   type?: 'line' | 'card';
 }
 
-export default memo(function RouteTabs({
-  className,
-  tabPlacement,
-  tabBarGutter = 16,
-  icon: showIcon = true,
-  ...restProps
-}: RouteTabsProps) {
+export default memo(function RouteTabs(props: RouteTabsProps) {
+  const { className, tabPlacement, tabBarGutter = 16, icon: showIcon = true } = props;
+
   const scope = useStyles();
   const index = useMatchIndex();
   const match = useMatch() as IRoute<Meta>;
@@ -84,7 +68,7 @@ export default memo(function RouteTabs({
       }}
     >
       <Tabs
-        {...restProps}
+        {...props}
         items={items}
         destroyOnHidden
         activeKey={activeKey}

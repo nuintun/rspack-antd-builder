@@ -13,9 +13,7 @@ import { Breadcrumb, BreadcrumbProps, GetProp } from 'antd';
 
 type BreadcrumbItems = GetProp<BreadcrumbProps, 'items'>;
 
-type BreadcrumbPicked = 'style' | 'className' | 'separator';
-
-export interface RouteBreadcrumbProps extends Pick<BreadcrumbProps, BreadcrumbPicked> {
+export interface RouteBreadcrumbProps extends BreadcrumbProps {
   icon?: boolean;
 }
 
@@ -59,10 +57,12 @@ function getBreadcrumbItems(matches: IRoute[], showIcon: boolean): BreadcrumbIte
   return items;
 }
 
-export default memo(function RouteBreadcrumb({ style, className, icon: showIcon = true }: RouteBreadcrumbProps) {
+export default memo(function RouteBreadcrumb(props: RouteBreadcrumbProps) {
+  const { className, icon: showIcon = true } = props;
+
   const scope = useStyles();
   const matches = useMatches() as IRoute[];
   const items = useMemo(() => getBreadcrumbItems(matches, showIcon), [matches, showIcon]);
 
-  return <Breadcrumb items={items} style={style} className={clsx(scope, prefixCls, className)} />;
+  return <Breadcrumb {...props} items={items} className={clsx(scope, prefixCls, className)} />;
 });
