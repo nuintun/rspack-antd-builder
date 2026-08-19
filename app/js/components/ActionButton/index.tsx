@@ -7,7 +7,7 @@ import { Button, ButtonProps, GetProp } from 'antd';
 import { RequestOptions } from '/js/hooks/useRequest';
 import useAction, { Options as ActionProps } from '/js/hooks/useAction';
 
-type ButtonPicked =
+type ButtonPropKeys =
   | 'id'
   | 'icon'
   | 'size'
@@ -19,16 +19,20 @@ type ButtonPicked =
   | 'style'
   | 'title'
   | 'danger'
+  | 'styles'
   | 'variant'
   | 'children'
   | 'tabIndex'
   | 'autoFocus'
   | 'className'
+  | 'classNames'
   | 'iconPlacement'
   | 'autoInsertSpace';
 
+type RequestPropKeys = 'query' | 'method' | 'notify';
+
 export interface ActionButtonProps<R>
-  extends ActionProps<null, R>, Pick<ButtonProps, ButtonPicked>, Pick<RequestOptions<R>, 'query' | 'method' | 'notify'> {
+  extends ActionProps<null, R>, Pick<ButtonProps, ButtonPropKeys>, Pick<RequestOptions<R>, RequestPropKeys> {
   action: string;
   bubbles?: boolean;
 }
@@ -46,12 +50,14 @@ function ActionButton<R>({
   title,
   action,
   danger,
+  styles,
   bubbles,
   variant,
   children,
   tabIndex,
   autoFocus,
   className,
+  classNames,
   iconPlacement,
   autoInsertSpace,
   ...restProps
@@ -82,12 +88,14 @@ function ActionButton<R>({
       style={style}
       title={title}
       danger={danger}
+      styles={styles}
       loading={loading}
       onClick={onClick}
       variant={variant}
       tabIndex={tabIndex}
       autoFocus={autoFocus}
       className={className}
+      classNames={classNames}
       disabled={restProps.disabled}
       iconPlacement={iconPlacement}
       autoInsertSpace={autoInsertSpace}

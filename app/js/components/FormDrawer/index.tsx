@@ -10,7 +10,7 @@ import React, { cloneElement, memo, useCallback, useEffect, useId, useMemo, useS
 
 const { useForm } = Form;
 
-type DrawerPicked =
+type DrawerPropKeys =
   | 'size'
   | 'mask'
   | 'title'
@@ -21,8 +21,8 @@ type DrawerPicked =
   | 'forceRender'
   | 'destroyOnHidden'
   | 'afterOpenChange';
-type FormOmitted = 'size' | 'title' | 'onError' | 'children';
-type SubmitPicked = 'query' | 'method' | 'notify' | 'normalize' | 'onError' | 'onSuccess' | 'onComplete';
+type FormPropKeys = 'size' | 'title' | 'onError' | 'children';
+type SubmitPropKeys = 'query' | 'method' | 'notify' | 'normalize' | 'onError' | 'onSuccess' | 'onComplete';
 
 function createFormName(id: string): string {
   return `form_${id.replace(/[^a-z_\d]/gi, '')}`;
@@ -34,14 +34,14 @@ export type Trigger = React.ReactElement<{
 }>;
 
 export interface FormDrawerProps<F extends Fields, R = unknown>
-  extends Omit<FormProps<F>, FormOmitted>, Pick<Options<F, R>, SubmitPicked>, Pick<FlexDrawerProps, DrawerPicked> {
+  extends Omit<FormProps<F>, FormPropKeys>, Pick<Options<F, R>, SubmitPropKeys>, Pick<FlexDrawerProps, DrawerPropKeys> {
   action: string;
   trigger: Trigger;
   onOpen?: () => void;
   onClose?: () => void;
   form?: FormInstance<F>;
   formSize?: GetProp<FormProps, 'size'>;
-  requestInit?: Omit<Options<F, R>, SubmitPicked>;
+  requestInit?: Omit<Options<F, R>, SubmitPropKeys>;
   extra?: (submitting: boolean, form: FormInstance<F>, onClose: () => void) => React.ReactNode;
   footer?: (submitting: boolean, form: FormInstance<F>, onClose: () => void) => React.ReactNode;
 }

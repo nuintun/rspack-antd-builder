@@ -13,9 +13,9 @@ import { ConfigProvider, Tabs, TabsProps } from 'antd';
 import LoadingFallback from '/js/components/Fallback/Loading';
 import { Outlet, useMatch, useMatches, useMatchIndex } from 'react-nest-router';
 
-type OmitProps = 'items' | 'activeKey' | 'destroyOnHidden';
+type TabsPropKeys = 'items' | 'activeKey' | 'destroyOnHidden';
 
-export interface RouteTabsProps extends Omit<TabsProps, OmitProps> {
+export interface RouteTabsProps extends Omit<TabsProps, TabsPropKeys> {
   icon?: boolean;
   type?: 'line' | 'card';
 }

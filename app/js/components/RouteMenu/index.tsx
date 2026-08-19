@@ -15,7 +15,7 @@ import { flattenItems, getExpandKeys, mergeKeys } from './utils';
 import { combineClassNames, DEFAULT_SLOT } from '/js/utils/semantic';
 import React, { memo, use, useEffect, useMemo, useRef, useState } from 'react';
 
-type OmitProps =
+type MenuPropKeys =
   | 'items'
   | 'multiple'
   | 'openKeys'
@@ -27,7 +27,7 @@ type OmitProps =
 
 type ClassNames = GetProp<MenuProps, 'classNames'>;
 
-export interface RouteMenuProps extends Omit<MenuProps, OmitProps> {
+export interface RouteMenuProps extends Omit<MenuProps, MenuPropKeys> {
   items: MenuItem[];
   renderItem?: RenderItem;
   icon?: string | React.ReactElement;

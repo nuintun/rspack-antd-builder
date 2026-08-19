@@ -3,11 +3,11 @@
  */
 
 import clsx from 'clsx';
+import React, { memo, useRef } from 'react';
 import useStyles, { prefixCls } from './style';
-import React, { memo, useMemo, useRef } from 'react';
 import useStableCallback from '/js/hooks/useStableCallback';
 import RouteMenu, { RouteMenuProps } from '/js/components/RouteMenu';
-import { Drawer, GetProp, Layout, MenuTheme, SiderProps } from 'antd';
+import { Drawer, DrawerProps, GetProp, Layout, MenuTheme, SiderProps } from 'antd';
 
 const { Sider } = Layout;
 
@@ -19,40 +19,54 @@ export interface RenderHeaderProps {
   readonly collapsedWidth: number;
 }
 
+type SiderPropKeys = 'trigger' | 'onCollapse';
+
 export interface RenderHeader {
   (props: RenderHeaderProps): React.ReactNode;
 }
 
+const DRAWER_STYLES: GetProp<DrawerProps, 'styles'> = {
+  body: {
+    padding: 0,
+    overflow: 'hidden'
+  }
+};
+
 export type OnOpenChange = GetProp<FlexMenuProps, 'onOpenChange'>;
 
-export interface FlexMenuProps
-  extends
-    Pick<SiderProps, 'trigger' | 'onCollapse'>,
-    Omit<RouteMenuProps, 'mode' | 'styles' | 'classNames' | 'inlineCollapsed' | 'rootClassName'> {
+type RouteMenuPropKeys = 'mode' | 'styles' | 'classNames' | 'inlineCollapsed';
+
+export interface FlexMenuProps extends Pick<SiderProps, SiderPropKeys>, Omit<RouteMenuProps, RouteMenuPropKeys> {
   width?: number;
   isMobile?: boolean;
   collapsed?: boolean;
   collapsedWidth?: number;
   renderHeader?: RenderHeader;
-  routeMenuStyles?: GetProp<RouteMenuProps, 'styles'>;
-  routeMenuClassNames?: GetProp<RouteMenuProps, 'classNames'>;
+  styles?: {
+    root?: React.CSSProperties;
+    menu?: GetProp<RouteMenuProps, 'styles'>;
+  };
+  classNames?: {
+    root?: string;
+    menu?: GetProp<RouteMenuProps, 'classNames'>;
+  };
 }
 
 export default memo(function FlexMenu(props: FlexMenuProps) {
   const {
     style,
+    styles,
     className,
+    classNames,
     onCollapse,
     width = 256,
-    onOpenChange,
     renderHeader,
+    rootClassName,
     trigger = null,
-    routeMenuStyles,
     theme = 'light',
     isMobile = false,
     collapsed = false,
     collapsedWidth = 64,
-    routeMenuClassNames,
     defaultOpenKeys = [],
     ...restProps
   } = props;
@@ -60,27 +74,43 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
   const scope = useStyles();
   const cachedOpenKeysRef = useRef<string[]>(defaultOpenKeys);
 
-  const drawerStyles = useMemo(() => {
-    return { body: { padding: 0, overflow: 'hidden' } };
-  }, []);
-
   const onClose = useStableCallback((): void => {
     onCollapse?.(true, 'clickTrigger');
   });
 
-  const onOpenChangeHander = useStableCallback<OnOpenChange>((openKeys, cachedOpenKeys) => {
+  const onOpenChange = useStableCallback<OnOpenChange>((openKeys, cachedOpenKeys) => {
     if (!collapsed) {
       cachedOpenKeysRef.current = cachedOpenKeys;
     }
 
-    onOpenChange?.(openKeys, cachedOpenKeys);
+    restProps.onOpenChange?.(openKeys, cachedOpenKeys);
   });
 
-  const rootClassName = clsx(scope, prefixCls, className, `${prefixCls}-${theme}`, {
-    [`${prefixCls}-mobile`]: isMobile
-  });
+  const resolvedStyle = {
+    ...style,
+    ...styles?.root
+  };
 
-  const header = renderHeader?.({ theme, width, isMobile, collapsed, collapsedWidth });
+  const resolvedClassName = clsx(
+    // classNames
+    scope,
+    className,
+    prefixCls,
+    rootClassName,
+    classNames?.root,
+    `${prefixCls}-${theme}`,
+    {
+      [`${prefixCls}-mobile`]: isMobile
+    }
+  );
+
+  const header = renderHeader?.({
+    theme,
+    width,
+    isMobile,
+    collapsed,
+    collapsedWidth
+  });
 
   const menu = (
     <>
@@ -88,10 +118,10 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
       <RouteMenu
         {...restProps}
         mode="inline"
-        styles={routeMenuStyles}
+        styles={styles?.menu}
+        onOpenChange={onOpenChange}
+        classNames={classNames?.menu}
         className={`${prefixCls}-body`}
-        classNames={routeMenuClassNames}
-        onOpenChange={onOpenChangeHander}
         defaultOpenKeys={cachedOpenKeysRef.current}
       />
     </>
@@ -100,26 +130,26 @@ export default memo(function FlexMenu(props: FlexMenuProps) {
   return isMobile ? (
     <Drawer
       size={width}
-      style={style}
       closable={false}
       placement="left"
       onClose={onClose}
       open={!collapsed}
-      styles={drawerStyles}
-      className={rootClassName}
+      style={resolvedStyle}
+      styles={DRAWER_STYLES}
+      className={resolvedClassName}
     >
       {menu}
     </Drawer>
   ) : (
     <Sider
       collapsible
-      style={style}
       theme={theme}
       width={width}
       trigger={trigger}
       collapsed={collapsed}
+      style={resolvedStyle}
       onCollapse={onCollapse}
-      className={rootClassName}
+      className={resolvedClassName}
       collapsedWidth={collapsedWidth}
     >
       {menu}

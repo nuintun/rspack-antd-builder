@@ -34,7 +34,13 @@ export default memo(function ErrorFallback({ error, resetErrorBoundary }: ErrorF
           </Button>
         }
         subTitle={
-          <div style={{ display: 'flex', margin: '24px 0 0', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              margin: '24px 0 0',
+              justifyContent: 'center'
+            }}
+          >
             <pre
               style={{
                 margin: 0,

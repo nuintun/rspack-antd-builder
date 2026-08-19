@@ -7,21 +7,23 @@ import { GetProp, Switch, SwitchProps } from 'antd';
 import { RequestOptions } from '/js/hooks/useRequest';
 import useAction, { Options as ActionProps } from '/js/hooks/useAction';
 
-type SwitchPicked =
+type SwitchPropKeys =
   | 'id'
   | 'size'
   | 'style'
+  | 'styles'
   | 'checked'
   | 'onChange'
   | 'tabIndex'
   | 'autoFocus'
   | 'className'
+  | 'classNames'
   | 'checkedChildren'
   | 'unCheckedChildren';
 
 export interface ActionSwitchProps<R>
   extends
-    Pick<SwitchProps, SwitchPicked>,
+    Pick<SwitchProps, SwitchPropKeys>,
     ActionProps<Record<string, boolean> | null, R>,
     Pick<RequestOptions<R>, 'query' | 'method' | 'notify'> {
   name?: string;
@@ -35,12 +37,14 @@ function ActionSwitch<R>({
   size,
   style,
   action,
+  styles,
   bubbles,
   checked,
   onChange,
   tabIndex,
   autoFocus,
   className,
+  classNames,
   checkedChildren,
   unCheckedChildren,
   ...restProps
@@ -74,11 +78,13 @@ function ActionSwitch<R>({
       id={id}
       size={size}
       style={style}
+      styles={styles}
       checked={checked}
       onClick={onClick}
       tabIndex={tabIndex}
       autoFocus={autoFocus}
       className={className}
+      classNames={classNames}
       onChange={onSwitchChange}
       disabled={restProps.disabled}
       checkedChildren={checkedChildren}

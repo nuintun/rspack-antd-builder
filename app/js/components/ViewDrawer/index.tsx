@@ -11,9 +11,9 @@ export type Trigger = React.ReactElement<{
   onClick?: (...args: unknown[]) => void;
 }>;
 
-type OmitProps = 'open' | 'extra' | 'footer';
+type FlexDrawerPropKeys = 'open' | 'extra' | 'footer';
 
-export interface ViewDrawerProps extends Omit<FlexDrawerProps, OmitProps> {
+export interface ViewDrawerProps extends Omit<FlexDrawerProps, FlexDrawerPropKeys> {
   trigger: Trigger;
   onOpen?: () => void;
   onClose?: () => void;

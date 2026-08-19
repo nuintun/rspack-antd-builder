@@ -2,26 +2,27 @@
  * @module index
  */
 
-import { isFunction } from '/js/utils/typeof';
-import { memo, useCallback, useRef } from 'react';
+import { combineStyles } from '/js/utils/semantic';
+import { memo, useCallback, useMemo, useRef } from 'react';
 import { ConfigProvider, Drawer, DrawerProps, GetProp } from 'antd';
 
-const drawerStyles: GetProp<DrawerProps, 'styles'> = {
+const DEFAULT_STYLES: GetProp<DrawerProps, 'styles'> = {
   wrapper: {
     maxWidth: '100vw',
     maxHeight: '100vh'
+  },
+  body: {
+    outline: 'none',
+    position: 'relative',
+    minWidth: 'fit-content'
   }
 };
 
 export interface FlexDrawerProps extends DrawerProps {}
 
-export default memo(function FlexDrawer({
-  children,
-  size = 720,
-  closeIcon = false,
-  styles = drawerStyles,
-  ...restProps
-}: FlexDrawerProps) {
+export default memo(function FlexDrawer(props: FlexDrawerProps) {
+  const { children, size = 720, closeIcon = false, styles } = props;
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   const getPopupContainer = useCallback((triggerNode?: HTMLElement) => {
@@ -31,27 +32,16 @@ export default memo(function FlexDrawer({
     return triggerNode === body || current === null ? body : current;
   }, []);
 
-  const getTargetContainer = useCallback(() => containerRef.current || document.body, []);
+  const getTargetContainer = useCallback(() => {
+    return containerRef.current || document.body;
+  }, []);
+
+  const resolvedStyles = useMemo(() => {
+    return combineStyles(DEFAULT_STYLES, styles);
+  }, [styles]);
 
   return (
-    <Drawer
-      {...restProps}
-      size={size}
-      closeIcon={closeIcon}
-      styles={(...args) => {
-        const resolved = isFunction(styles) ? styles(...args) : styles;
-
-        return {
-          ...resolved,
-          body: {
-            ...resolved?.body,
-            outline: 'none',
-            position: 'relative',
-            minWidth: 'fit-content'
-          }
-        };
-      }}
-    >
+    <Drawer {...props} size={size} closeIcon={closeIcon} styles={resolvedStyles}>
       <div ref={containerRef}>
         <ConfigProvider getPopupContainer={getPopupContainer} getTargetContainer={getTargetContainer}>
           {children}
