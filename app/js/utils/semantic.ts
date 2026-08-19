@@ -15,16 +15,34 @@ type Resolver = (...args: any[]) => any;
 
 type Semantic = Record<string, unknown>;
 
-type StringPart<T> = Extract<T, string>;
-
-type ObjectPart<T> = Extract<T, Semantic>;
-
 interface RuntimeSchema {
   [DEFAULT_SLOT]?: string;
   [key: string]: RuntimeSchema | string | undefined;
 }
 
 export const DEFAULT_SLOT = Symbol('semantic.default');
+
+type SemanticObject<T> = Extract<SemanticSlots<T>, Semantic>;
+
+type SemanticSlots<C> = C extends Resolver ? ReturnType<C> : C;
+
+// oxfmt-ignore
+export type SemanticSchema<T> =
+  [SemanticObject<T>] extends [never]
+    ? never
+    : {
+        [K in keyof SemanticObject<T> as
+          SemanticSchema<SemanticObject<T>[K]> extends never
+            ? never
+            : K
+        ]?: SemanticSchema<SemanticObject<T>[K]>;
+      } & (
+        [Extract<SemanticSlots<T>, string>] extends [never]
+          ? {}
+          : {
+              [DEFAULT_SLOT]?: keyof SemanticObject<T> & string;
+            }
+      );
 
 /**
  * @function isSchema
@@ -81,29 +99,6 @@ function resolveStyles(base: Semantic, custom?: Semantic): Semantic {
   return output;
 }
 
-// oxfmt-ignore
-export type SemanticSchema<T> =
-  [ObjectPart<SemanticSlots<T>>] extends [never]
-    ? never
-    : {
-        [K in keyof ObjectPart<SemanticSlots<T>> as
-          SemanticSchema<ObjectPart<SemanticSlots<T>>[K]> extends never
-            ? never
-            : K]?: SemanticSchema<ObjectPart<SemanticSlots<T>>[K]>;
-      } & (
-        [StringPart<SemanticSlots<T>>] extends [never]
-          ? {}
-          : {
-              [DEFAULT_SLOT]?: keyof ObjectPart<SemanticSlots<T>> & string;
-            }
-      );
-
-/**
- * @type SemanticSlots
- * @description 语义化 slots 类型
- */
-export type SemanticSlots<C> = C extends Resolver ? ReturnType<C> : Exclude<C, Resolver>;
-
 /**
  * @function combineStyles
  * @description 组合基础 styles 与自定义 styles
@@ -113,11 +108,11 @@ export type SemanticSlots<C> = C extends Resolver ? ReturnType<C> : Exclude<C, R
 export function combineStyles<C>(base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
     return ((...args: Parameters<Extract<C, Resolver>>) => {
-      return resolveStyles(base as Semantic, custom(...args) as Semantic | undefined) as C;
+      return resolveStyles(base, custom(...args) as Semantic | undefined) as C;
     }) as C;
   }
 
-  return resolveStyles(base as Semantic, custom as Semantic | undefined) as C;
+  return resolveStyles(base, custom as Semantic | undefined) as C;
 }
 
 /**
@@ -191,9 +186,9 @@ function resolveClassNames(schema: RuntimeSchema, base: Semantic, custom?: Seman
 export function combineClassNames<C>(schema: SemanticSchema<C>, base: Partial<SemanticSlots<C>>, custom?: C): C {
   if (isFunction(custom)) {
     return ((...args: Parameters<Extract<C, Resolver>>) => {
-      return resolveClassNames(schema as RuntimeSchema, base as Semantic, custom(...args) as Semantic | undefined) as C;
+      return resolveClassNames(schema, base, custom(...args) as Semantic | undefined) as C;
     }) as C;
   }
 
-  return resolveClassNames(schema as RuntimeSchema, base as Semantic, custom as Semantic | undefined) as C;
+  return resolveClassNames(schema, base, custom as Semantic | undefined) as C;
 }
