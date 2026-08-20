@@ -4,19 +4,19 @@
 }
 
 @mixin flex-row($inline: false) {
-  @if $inline {
-    display: inline-flex;
-  } @else {
+  @if not $inline {
     display: flex;
+  } @else {
+    display: inline-flex;
   }
   flex-direction: row;
 }
 
 @mixin flex-column($inline: false) {
-  @if $inline {
-    display: inline-flex;
-  } @else {
+  @if not $inline {
     display: flex;
+  } @else {
+    display: inline-flex;
   }
   flex-direction: column;
 }
@@ -29,15 +29,15 @@
 }
 
 @mixin flex-center-row($inline: false) {
+  @include flex-row($inline);
   align-items: center;
   justify-content: center;
-  @include flex-row($inline);
 }
 
 @mixin flex-center-column($inline: false) {
+  @include flex-column($inline);
   align-items: center;
   justify-content: center;
-  @include flex-column($inline);
 }
 
 @mixin glass {
