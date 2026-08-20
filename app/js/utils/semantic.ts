@@ -5,13 +5,10 @@
 import clsx, { ClassValue } from 'clsx';
 import { isFunction, isPlainObject } from './typeof';
 
-interface Frame {
+interface StackFrame {
   source: Semantic;
   target: Semantic;
-}
-
-interface SchemaFrame extends Frame {
-  schema: RuntimeSchema;
+  schema?: RuntimeSchema;
 }
 
 type Semantic = Record<PropertyKey, unknown>;
@@ -77,12 +74,12 @@ function getSemantic(target: Semantic, key: PropertyKey): Semantic {
 }
 
 /**
- * @function resolveStyles
+ * @function mergeStyles
  * @description 按语义化 slot 合并 styles
  * @param base 基础 styles
  * @param custom 自定义 styles
  */
-function resolveStyles<T>(base: Partial<Slots<T>>, custom?: Slots<T>): Slots<T> {
+function mergeStyles<T>(base: Partial<Slots<T>>, custom?: Slots<T>): Slots<T> {
   const output: Semantic = {
     ...base
   };
@@ -91,14 +88,14 @@ function resolveStyles<T>(base: Partial<Slots<T>>, custom?: Slots<T>): Slots<T> 
     return output as Slots<T>;
   }
 
-  const stack: Frame[] = [
+  const stack: StackFrame[] = [
     {
       source: custom,
       target: output
     }
   ];
 
-  let current: Frame | undefined;
+  let current: StackFrame | undefined;
 
   while ((current = stack.pop())) {
     const { source, target } = current;
@@ -128,31 +125,32 @@ function resolveStyles<T>(base: Partial<Slots<T>>, custom?: Slots<T>): Slots<T> 
 }
 
 /**
- * @function combineStyles
- * @description 组合基础 styles 与自定义 styles
+ * @function resolveStyles
+ * @description 解析并组合基础 styles 与自定义 styles
  * @param base 基础 styles
- * @param custom 自定义 styles
+ * @param custom 自定义 styles 或 styles resolver
  */
-export function combineStyles<T>(base: Partial<Slots<T>>, custom?: T): T {
+export function resolveStyles<T>(base: Partial<Slots<T>>, custom?: T): T {
   if (isFunction(custom)) {
     return ((...args: Parameters<Extract<T, Resolver>>) => {
-      return resolveStyles<T>(base, custom(...args));
+      return mergeStyles<T>(base, custom(...args));
     }) as T;
   }
 
-  return resolveStyles<T>(base, custom as Slots<T>) as T;
+  return mergeStyles<T>(base, custom as Slots<T>) as T;
 }
 
 /**
- * @function resolveClassNames
+ * @function mergeClassNames
  * @description 按语义化 schema 合并 classNames
- * @param schema 语义化 classNames schema
  * @param base 基础 classNames
  * @param custom 自定义 classNames
+ * @param schema 可选的语义化 classNames schema
  */
-function resolveClassNames<T>(schema: Schema<T>, base: Partial<Slots<T>>, custom?: Slots<T>): Slots<T> {
+function mergeClassNames<T>(base: Partial<Slots<T>>, custom?: Slots<T>, schema?: Schema<T>): Slots<T> {
   const output: Semantic = {};
-  const stack: SchemaFrame[] = [
+
+  const stack: StackFrame[] = [
     {
       source: base,
       target: output,
@@ -168,23 +166,28 @@ function resolveClassNames<T>(schema: Schema<T>, base: Partial<Slots<T>>, custom
     });
   }
 
-  let current: SchemaFrame | undefined;
+  let current: StackFrame | undefined;
 
   while ((current = stack.pop())) {
-    const { schema, source, target } = current;
+    const { source, target, schema } = current;
 
     for (const key of Object.keys(source)) {
       const value = source[key];
-      const keySchema = schema[key];
+      const keySchema = schema?.[key];
       const hasSchema = isSchema(keySchema);
 
-      // 普通嵌套对象无需 schema，继续处理子节点。
+      // 普通嵌套对象继续处理子节点。
       if (isPlainObject(value)) {
-        stack.push({
+        const frame: StackFrame = {
           source: value,
-          target: getSemantic(target, key),
-          schema: hasSchema ? keySchema : {}
-        });
+          target: getSemantic(target, key)
+        };
+
+        if (hasSchema) {
+          frame.schema = keySchema;
+        }
+
+        stack.push(frame);
         continue;
       }
 
@@ -209,18 +212,18 @@ function resolveClassNames<T>(schema: Schema<T>, base: Partial<Slots<T>>, custom
 }
 
 /**
- * @function combineClassNames
- * @description 组合基础 classNames 与自定义 classNames
- * @param schema 语义化 classNames schema
+ * @function resolveClassNames
+ * @description 解析并组合基础 classNames 与自定义 classNames
  * @param base 基础 classNames
- * @param custom 自定义 classNames
+ * @param custom 自定义 classNames 或 classNames resolver
+ * @param schema 可选的语义化 classNames schema
  */
-export function combineClassNames<T>(schema: Schema<T>, base: Partial<Slots<T>>, custom?: T): T {
+export function resolveClassNames<T>(base: Partial<Slots<T>>, custom?: T, schema?: Schema<T>): T {
   if (isFunction(custom)) {
     return ((...args: Parameters<Extract<T, Resolver>>) => {
-      return resolveClassNames<T>(schema, base, custom(...args));
+      return mergeClassNames<T>(base, custom(...args), schema);
     }) as T;
   }
 
-  return resolveClassNames<T>(schema, base, custom as Slots<T>) as T;
+  return mergeClassNames<T>(base, custom as Slots<T>, schema) as T;
 }

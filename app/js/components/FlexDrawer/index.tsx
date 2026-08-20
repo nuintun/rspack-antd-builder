@@ -2,7 +2,7 @@
  * @module index
  */
 
-import { combineStyles } from '/js/utils/semantic';
+import { resolveStyles } from '/js/utils/semantic';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import { ConfigProvider, Drawer, DrawerProps, GetProp } from 'antd';
 
@@ -37,7 +37,7 @@ export default memo(function FlexDrawer(props: FlexDrawerProps) {
   }, []);
 
   const resolvedStyles = useMemo(() => {
-    return combineStyles(DEFAULT_STYLES, styles);
+    return resolveStyles(DEFAULT_STYLES, styles);
   }, [styles]);
 
   return (

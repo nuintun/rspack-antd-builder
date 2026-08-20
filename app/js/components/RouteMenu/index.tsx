@@ -12,7 +12,7 @@ import useItems, { RenderItem } from './useItems';
 import { SiderContext } from 'antd/es/layout/Sider';
 import useStableCallback from '/js/hooks/useStableCallback';
 import { flattenItems, getExpandKeys, mergeKeys } from './utils';
-import { combineClassNames, DEFAULT_SLOT } from '/js/utils/semantic';
+import { resolveClassNames, DEFAULT_SLOT } from '/js/utils/semantic';
 import React, { memo, use, useEffect, useMemo, useRef, useState } from 'react';
 
 type MenuPropKeys =
@@ -62,12 +62,7 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
   });
 
   const resolvedClassNames = useMemo<ClassNames>(() => {
-    return combineClassNames<ClassNames>(
-      {
-        popup: {
-          [DEFAULT_SLOT]: 'root'
-        }
-      },
+    return resolveClassNames<ClassNames>(
       {
         root: clsx(scope, prefixCls, {
           [`${prefixCls}-collapsed`]: collapsed
@@ -80,7 +75,12 @@ export default memo(function RouteMenu(props: RouteMenuProps) {
         },
         popup: `${prefixCls}-popup`
       },
-      classNames
+      classNames,
+      {
+        popup: {
+          [DEFAULT_SLOT]: 'root'
+        }
+      }
     );
   }, [scope, collapsed, classNames]);
 
