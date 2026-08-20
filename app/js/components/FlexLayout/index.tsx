@@ -15,9 +15,9 @@ import FlexMenu, { FlexMenuProps, RenderHeader } from '/js/components/FlexMenu';
 
 const { Header, Content } = Layout;
 
-type LayoutPropKeys = 'theme' | 'collapsedWidth';
+type FlexMenuPropKeys = 'theme' | 'collapsedWidth';
 
-export interface FlexLayoutProps extends Pick<FlexMenuProps, LayoutPropKeys> {
+export interface FlexLayoutProps extends Pick<FlexMenuProps, FlexMenuPropKeys> {
   breakQuery?: string;
   siderWidth?: number;
   mobileQuery?: string;
