@@ -19,30 +19,44 @@ type Slots<T> = T extends Resolver<infer R> ? R : T;
 
 type SemanticSlots<T> = Extract<Slots<T>, Semantic>;
 
+type IfNever<T, U, V> = [T] extends [never] ? U : V;
+
+// oxfmt-ignore
+type SchemaFields<T> = {
+  [K in keyof SemanticSlots<T> as
+    IfNever<Schema<SemanticSlots<T>[K]>, never, K>
+  ]?: Schema<SemanticSlots<T>[K]>;
+};
+
+// oxfmt-ignore
+type SchemaDefault<T> = IfNever<
+  Extract<Slots<T>, string>,
+  never,
+  {
+    [DEFAULT_SLOT]?: keyof SemanticSlots<T> & string;
+  }
+>;
+
+// oxfmt-ignore
+export type Schema<T> =
+  SemanticSlots<T> extends never
+    ? never
+    : IfNever<
+        keyof SchemaFields<T>,
+        SchemaDefault<T>,
+        IfNever<
+          SchemaDefault<T>,
+          SchemaFields<T>,
+          SchemaFields<T> & SchemaDefault<T>
+        >
+      >;
+
 export const DEFAULT_SLOT = Symbol('semantic.default');
 
 interface RuntimeSchema {
   [DEFAULT_SLOT]?: string;
   [key: PropertyKey]: RuntimeSchema | string | undefined;
 }
-
-// oxfmt-ignore
-export type Schema<T> =
-  SemanticSlots<T> extends never
-    ? never
-    : {
-        [K in keyof SemanticSlots<T> as
-          Schema<SemanticSlots<T>[K]> extends never
-            ? never
-            : K
-        ]?: Schema<SemanticSlots<T>[K]>;
-      } & (
-        Extract<Slots<T>, string> extends never
-          ? {}
-          : {
-              [DEFAULT_SLOT]?: keyof SemanticSlots<T> & string;
-            }
-      );
 
 /**
  * @function isSchema
