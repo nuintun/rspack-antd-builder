@@ -58,6 +58,10 @@ export default function useRequest(
       const { body, notify } = requestInit;
       const headers = new Headers(requestInit.headers);
 
+      const onMessage = (content: string) => {
+        notify && message.success(content);
+      };
+
       const onUnauthorized = () => {
         const { onUnauthorized } = requestInit;
 
@@ -67,10 +71,6 @@ export default function useRequest(
           navigate('/login', { state: location });
         }
       };
-
-      if (retainRef.current++ <= 0) {
-        setLoading(true);
-      }
 
       if (!headers.has('Accept')) {
         headers.set('Accept', 'application/vnd.msgpack');
@@ -82,9 +82,11 @@ export default function useRequest(
         }
       }
 
-      const onMessage = (content: string) => {
-        notify && message.success(content);
-      };
+      if (retainRef.current <= 0) {
+        setLoading(true);
+      }
+
+      retainRef.current++;
 
       fetch<R>(url, { ...requestInit, headers, onMessage, onUnauthorized })
         .then(
@@ -107,7 +109,9 @@ export default function useRequest(
         )
         .finally(() => {
           if (isMounted()) {
-            if (--retainRef.current <= 0) {
+            retainRef.current--;
+
+            if (retainRef.current <= 0) {
               setLoading(false, 0);
             }
 
