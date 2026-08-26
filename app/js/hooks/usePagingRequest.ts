@@ -65,7 +65,7 @@ export const DEFAULT_PAGINATION: Pagination = { page: 1, pageSize: 20 };
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function usePagingRequest<I, E = unknown>(
+export default function usePagingRequest<I, E = unknown>(
   url: string | URL,
   options?: Options<I, E, I>,
   initialLoadingState?: boolean | (() => boolean)
@@ -77,7 +77,7 @@ function usePagingRequest<I, E = unknown>(
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function usePagingRequest<I, E = unknown, T = I>(
+export default function usePagingRequest<I, E = unknown, T = I>(
   url: string | URL,
   options: Options<I, E, T> & { transform: Transform<I, T> },
   initialLoadingState?: boolean | (() => boolean)
@@ -89,7 +89,7 @@ function usePagingRequest<I, E = unknown, T = I>(
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function usePagingRequest<I, E = unknown, T = I>(
+export default function usePagingRequest<I, E = unknown, T = I>(
   url: string | URL,
   options: Options<I, E, T> = {},
   initialLoadingState?: boolean | (() => boolean)
@@ -192,5 +192,3 @@ function usePagingRequest<I, E = unknown, T = I>(
 
   return [loading, dataSource, fetch, setDataSource, refs];
 }
-
-export default usePagingRequest;

@@ -184,7 +184,7 @@ function getReducer<C, S extends string, E extends string>(options: Options<C, S
  * @param options 状态机配置
  * @param context 状态机初始上下文
  */
-function useStateMachine<C, S extends string = string, E extends string = string>(
+export default function useStateMachine<C, S extends string = string, E extends string = string>(
   options: Options<C, S, E>,
   context: C
 ): UseStateMachine<C, S, E>;
@@ -193,7 +193,7 @@ function useStateMachine<C, S extends string = string, E extends string = string
  * @description [hook] 状态机
  * @param options 状态机配置
  */
-function useStateMachine<C = undefined, S extends string = string, E extends string = string>(
+export default function useStateMachine<C = undefined, S extends string = string, E extends string = string>(
   options: Options<C | undefined, S, E>
 ): UseStateMachine<C | undefined, S, E>;
 /**
@@ -202,7 +202,7 @@ function useStateMachine<C = undefined, S extends string = string, E extends str
  * @param options 状态机配置
  * @param context 状态机初始上下文
  */
-function useStateMachine<C = undefined, S extends string = string, E extends string = string>(
+export default function useStateMachine<C = undefined, S extends string = string, E extends string = string>(
   options: Options<C | undefined, S, E>,
   context?: C
 ): UseStateMachine<C | undefined, S, E> {
@@ -241,5 +241,3 @@ function useStateMachine<C = undefined, S extends string = string, E extends str
 
   return [state, send, update];
 }
-
-export default useStateMachine;

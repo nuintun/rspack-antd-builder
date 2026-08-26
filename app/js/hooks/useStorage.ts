@@ -22,7 +22,7 @@ export interface DefaultValueOptions<V> extends Options<V> {
  * @param key 缓存名称
  * @param options 缓存配置
  */
-function useStorage<V>(
+export default function useStorage<V>(
   key: string,
   options: DefaultValueOptions<V>
 ): [set: (value: V) => void, get: () => V, remove: () => void];
@@ -32,7 +32,7 @@ function useStorage<V>(
  * @param key 缓存名称
  * @param options 缓存配置
  */
-function useStorage<V = null>(
+export default function useStorage<V = null>(
   key: string,
   options?: Options<V>
 ): [set: (value: V) => void, get: () => V | null, remove: () => void];
@@ -42,7 +42,7 @@ function useStorage<V = null>(
  * @param key 缓存名称
  * @param options 缓存配置
  */
-function useStorage<V = null>(
+export default function useStorage<V = null>(
   key: string,
   options: Options<V> | DefaultValueOptions<V> = {}
 ): [set: (value: V) => void, get: () => V | null, remove: () => void] {
@@ -76,5 +76,3 @@ function useStorage<V = null>(
 
   return [set, get, remove];
 }
-
-export default useStorage;

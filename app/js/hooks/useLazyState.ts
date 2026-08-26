@@ -34,21 +34,21 @@ function clearTimerRef(timerRef: React.RefObject<Timeout | null>): void {
  * @param initialState 默认状态
  * @param delay 延迟时间
  */
-function useLazyState<S>(initialState: State<S>, delay?: number): UseLazyState<S>;
+export default function useLazyState<S>(initialState: State<S>, delay?: number): UseLazyState<S>;
 /**
  * @function useLazyState
  * @description [hook] 使用延时状态，在延迟时间后更新状态
  * @param initialState 默认状态
  * @param delay 延迟时间
  */
-function useLazyState<S = undefined>(initialState?: State<S>, delay?: number): UseLazyState<S | undefined>;
+export default function useLazyState<S = undefined>(initialState?: State<S>, delay?: number): UseLazyState<S | undefined>;
 /**
  * @function useLazyState
  * @description [hook] 使用延时状态，在延迟时间后更新状态
  * @param initialState 默认状态
  * @param delay 延迟时间
  */
-function useLazyState<S = undefined>(initialState?: State<S>, delay: number = 200): UseLazyState<S | undefined> {
+export default function useLazyState<S = undefined>(initialState?: State<S>, delay: number = 200): UseLazyState<S | undefined> {
   const timerRef = useRef<Timeout | null>(null);
   const [state, setState] = useState(initialState);
 
@@ -76,5 +76,3 @@ function useLazyState<S = undefined>(initialState?: State<S>, delay: number = 20
 
   return [state, setLazyState];
 }
-
-export default useLazyState;

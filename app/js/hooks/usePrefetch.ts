@@ -18,7 +18,7 @@ export interface Options<R, T> extends Omit<InitOptions<R, T>, 'prefetch'> {
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function usePrefetch<R>(
+export default function usePrefetch<R>(
   url: string,
   options?: Options<R, R>,
   initialLoadingState?: boolean | (() => boolean)
@@ -30,7 +30,7 @@ function usePrefetch<R>(
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function usePrefetch<R, T>(
+export default function usePrefetch<R, T>(
   url: string,
   options: Options<R, T> & { transform: Transform<R, T> },
   initialLoadingState?: boolean | (() => boolean)
@@ -42,7 +42,7 @@ function usePrefetch<R, T>(
  * @param options 请求配置
  * @param initialLoadingState 初始加载状态
  */
-function usePrefetch<R, T>(
+export default function usePrefetch<R, T>(
   url: string,
   options: Options<R, T> = {},
   initialLoadingState: boolean | (() => boolean) = false
@@ -52,5 +52,3 @@ function usePrefetch<R, T>(
 
   return [loading, response, refetch, dispatch as Dispatch<R | T | undefined>];
 }
-
-export default usePrefetch;
