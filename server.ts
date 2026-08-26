@@ -87,6 +87,7 @@ if (cluster.isPrimary) {
   app.use(
     server('wwwroot', {
       headers: {
+        'X-Content-Type-Options': 'nosniff',
         'Cache-Control': 'public, max-age=31536000, immutable'
       }
     })
