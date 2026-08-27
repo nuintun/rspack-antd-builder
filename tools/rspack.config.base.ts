@@ -98,6 +98,7 @@ export default async function (mode: Mode): Promise<[AppConfig, Configuration]> 
       externals: appConfig.externals,
       externalsType: appConfig.externalsType,
       cache: {
+        portable: true,
         type: 'persistent',
         buildDependencies: [
           resolve('.swcrc.ts'),
